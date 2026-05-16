@@ -33,6 +33,10 @@ This project uses synthetic CMP-style equipment data only. It does not include p
 
 The model accuracy and dashboard outputs should be understood as a portfolio demonstration of predictive maintenance workflow design, not as a production fab model.
 
+## Usage Rights
+
+This project is shared for portfolio and educational review. All rights are reserved. See `LICENSE` for details.
+
 ## Current Results
 
 Latest tool priority:
@@ -234,6 +238,7 @@ CMP-Predictive-Maintenance/
     train_maintenance_risk_model.py
   run_project.ps1
   .gitignore
+  LICENSE
   PROJECT_PLAN.md
   README.md
   requirements.txt
