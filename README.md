@@ -95,6 +95,7 @@ http://localhost:8502
 
 - `reports/cmp_predictive_maintenance_case_study.md`: job-ready case study
 - `reports/demo_script.md`: interview and dashboard presentation script
+- `reports/social_launch_kit.md`: LinkedIn post, GitHub topics, and demo video script
 - `reports/maintenance_alert_report.md`: technician-focused alert report
 - `reports/model_metrics.md`: model performance and interpretation
 - `reports/model_feature_importance.csv`: feature importance values
@@ -226,6 +227,7 @@ CMP-Predictive-Maintenance/
     cmp_glossary.md
     cmp_predictive_maintenance_case_study.md
     demo_script.md
+    social_launch_kit.md
     maintenance_alert_report.md
     model_feature_importance.csv
     model_metrics.md
