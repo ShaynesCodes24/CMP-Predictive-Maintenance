@@ -78,6 +78,21 @@ The Streamlit dashboard shows:
 - Model metrics
 - Downloadable CSV exports for technician handoff
 
+### Live Dashboard
+
+This app is ready to deploy on Streamlit Community Cloud. Use this repository,
+the `main` branch, and `app.py` as the main file path.
+
+Recommended public app URL:
+
+```text
+https://cmp-predictive-maintenance.streamlit.app
+```
+
+After deployment, share that Streamlit link with recruiters, hiring managers,
+or portfolio viewers so they can interact with the filters, charts, tables, and
+downloads directly in the browser.
+
 Launch it with:
 
 ```powershell
@@ -90,6 +105,17 @@ Then open:
 ```text
 http://localhost:8502
 ```
+
+Deploy it publicly:
+
+1. Push this repository to GitHub.
+2. Open Streamlit Community Cloud and create a new app.
+3. Select `ShaynesCodes24/CMP-Predictive-Maintenance`.
+4. Select the `main` branch.
+5. Set the main file path to `app.py`.
+6. Choose `cmp-predictive-maintenance` as the app URL if it is available.
+7. Deploy the app, then replace any placeholder dashboard links with the final
+   `streamlit.app` URL.
 
 ## Project Outputs
 

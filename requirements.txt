@@ -3,4 +3,5 @@ numpy
 scikit-learn
 matplotlib
 streamlit
-
+altair
+joblib
