@@ -1,0 +1,811 @@
+timestamp,tool_id,maintenance_state,rule_risk_level,rule_risk_points,recommended_action,wafer_removal_rate,process_drift_nm,maintenance_event,predicted_maintenance_state,prob_maintenance_needed,prob_normal,prob_warning,model_confidence,review_priority
+2026-02-08 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.72,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 10:00:00,CMP-03,normal,low,1,Verify downforce pressure control and sensor calibration,104.29,0.71,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.3,2.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.14,1.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.06,0.06,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.44,4.79,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.34,0.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.46,1.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.64,8.8,0,normal,0.0,0.99,0.01,0.99,normal_monitoring
+2026-02-09 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.52,0.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 01:00:00,CMP-03,normal,low,1,Review recent alarms and tool event log,98.19,9.38,0,normal,0.004,0.972,0.024,0.972,normal_monitoring
+2026-01-14 03:00:00,CMP-03,normal,low,1,"Inspect slurry delivery flow, filters, and lines",98.59,8.42,0,normal,0.002,0.996,0.002,0.996,normal_monitoring
+2026-02-11 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.91,0.91,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.08,6.88,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.59,0.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.18,1.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 19:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",94.52,14.82,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-13 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.45,6.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.84,1.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.22,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.43,0.43,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.07,1.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.38,0.99,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.57,0.43,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,100.47,6.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.56,0.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.83,1.86,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 08:00:00,CMP-02,normal,normal,0,Continue normal monitoring,99.82,7.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.15,0.85,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.61,0.39,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.03,8.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.98,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.38,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 14:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.78,0.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.71,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.36,0.64,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.02,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.12,1.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 15:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.55,15.67,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-01 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.33,8.92,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.06,0.06,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.78,0.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.04,0.96,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.74,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.08,1.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.46,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.96,0.96,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.12,0.88,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.16,1.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.89,1.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.72,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.61,0.39,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.19,8.15,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.52,0.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,99.38,7.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.3,0.7,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.38,2.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.08,1.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 06:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.57,15.43,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-23 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.26,2.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.18,1.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.02,1.98,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.37,1.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.48,0.52,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.76,0.24,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.38,2.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.63,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.09,6.04,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.08,0.92,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.26,1.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.31,0.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 16:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.19,13.44,0,maintenance_needed,0.968,0.0,0.032,0.968,urgent_review
+2026-02-11 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.38,0.62,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.84,0.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.56,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.51,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.8,0.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.09,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.62,2.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.63,1.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.12,5.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 04:00:00,CMP-02,warning,medium,2,"Check platen drive, carrier load, vibration source; Check removal-rate drift, endpoint data, and process recipe inputs",97.59,10.39,0,warning,0.07,0.12,0.81,0.81,trend_watch
+2026-01-03 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.97,2.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 02:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.62,1.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.43,0.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.3,0.7,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.23,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.01,1.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 21:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.14,14.66,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-02-07 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.14,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.5,1.5,1,normal,0.018,0.974,0.008,0.974,normal_monitoring
+2026-01-18 05:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.16,15.23,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-10 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.45,0.45,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.14,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.04,1.95,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 02:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.53,13.12,0,maintenance_needed,0.976,0.002,0.022,0.976,urgent_review
+2026-01-05 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.74,1.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.38,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.26,0.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 08:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.54,15.89,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-22 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.74,0.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.95,0.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.8,0.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.2,0.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.13,3.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.3,0.7,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.42,0.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 03:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.73,13.53,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-19 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.68,0.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.08,1.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.44,2.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.23,0.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 23:00:00,CMP-01,maintenance_needed,high,5,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.51,13.67,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-16 06:00:00,CMP-02,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.91,11.3,0,warning,0.04,0.006,0.954,0.954,trend_watch
+2026-01-26 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.77,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.12,5.71,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.82,0.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.35,6.24,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 06:00:00,CMP-03,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",94.72,13.45,0,maintenance_needed,0.78,0.036,0.184,0.78,urgent_review
+2026-02-13 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.09,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 22:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.39,13.48,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-12 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.3,0.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.49,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.69,6.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 12:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.18,16.54,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-13 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.56,0.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.33,1.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 14:00:00,CMP-02,normal,low,1,Verify downforce pressure control and sensor calibration,105.29,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.78,1.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.04,0.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.95,1.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.98,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.71,4.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.8,1.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.33,1.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 19:00:00,CMP-03,normal,low,1,Review recent alarms and tool event log,102.53,4.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,99.24,7.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.09,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.83,0.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 10:00:00,CMP-02,maintenance_needed,high,3,"Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",97.55,10.74,0,maintenance_needed,0.798,0.05,0.152,0.798,urgent_review
+2026-01-29 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.04,2.71,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.7,0.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 14:00:00,CMP-01,normal,low,1,Verify downforce pressure control and sensor calibration,104.17,0.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.6,0.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 17:00:00,CMP-01,normal,low,1,Verify downforce pressure control and sensor calibration,104.22,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.55,2.45,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 15:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",97.33,10.8,0,warning,0.046,0.014,0.94,0.94,trend_watch
+2026-01-22 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.77,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.64,1.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 06:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.91,16.84,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-08 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.37,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.68,0.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.08,1.92,1,normal,0.02,0.972,0.008,0.972,normal_monitoring
+2026-01-02 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.02,1.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.62,0.62,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.33,0.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.67,0.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 22:00:00,CMP-02,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",95.86,12.13,0,warning,0.178,0.038,0.784,0.784,trend_watch
+2026-02-03 08:00:00,CMP-01,maintenance_needed,medium,2,"Inspect slurry delivery flow, filters, and lines; Check removal-rate drift, endpoint data, and process recipe inputs",94.45,14.19,0,maintenance_needed,0.95,0.0,0.05,0.95,urgent_review
+2026-02-06 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.53,1.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.27,8.58,0,normal,0.008,0.932,0.06,0.932,normal_monitoring
+2026-01-31 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,97.4,9.73,0,normal,0.0,0.98,0.02,0.98,normal_monitoring
+2026-02-05 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.39,1.39,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 14:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.75,12.93,0,maintenance_needed,0.974,0.0,0.026,0.974,urgent_review
+2026-02-01 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.77,8.72,0,normal,0.0,0.996,0.004,0.996,normal_monitoring
+2026-02-03 06:00:00,CMP-01,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.91,12.61,0,warning,0.44,0.002,0.558,0.558,trend_watch
+2026-01-03 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.24,2.76,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 02:00:00,CMP-01,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.71,11.4,0,warning,0.022,0.016,0.962,0.962,trend_watch
+2026-01-26 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.98,2.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 19:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.58,17.85,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-10 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.69,1.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.19,0.81,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.79,0.79,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.88,0.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.42,0.58,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.17,0.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.71,2.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.64,9.11,0,normal,0.04,0.906,0.054,0.906,normal_monitoring
+2026-01-26 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.61,2.39,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.62,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 05:00:00,CMP-01,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.95,10.03,0,normal,0.014,0.802,0.184,0.802,normal_monitoring
+2026-02-11 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.66,1.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 03:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.23,18.31,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-02 08:00:00,CMP-03,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.2,10.78,0,warning,0.056,0.216,0.728,0.728,trend_watch
+2026-01-01 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.54,2.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.46,1.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 04:00:00,CMP-01,maintenance_needed,high,3,"Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",94.58,13.99,0,maintenance_needed,0.978,0.0,0.022,0.978,urgent_review
+2026-02-14 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.17,1.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.41,0.41,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 12:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.1,13.54,0,maintenance_needed,0.942,0.002,0.056,0.942,urgent_review
+2026-01-27 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.62,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.76,2.24,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 18:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.25,16.19,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-06 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.84,0.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 02:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.88,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.97,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.25,1.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.95,1.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.69,0.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.07,0.93,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.7,1.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.36,1.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.38,1.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.22,0.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.11,0.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.66,0.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.83,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.54,0.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.26,0.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 02:00:00,CMP-01,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.48,15.57,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-14 16:00:00,CMP-03,normal,low,1,Review recent alarms and tool event log,97.93,9.36,0,normal,0.002,0.996,0.002,0.996,normal_monitoring
+2026-01-19 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.52,1.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 11:00:00,CMP-02,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.02,12.05,0,warning,0.082,0.044,0.874,0.874,trend_watch
+2026-01-26 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.89,0.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.45,0.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.83,0.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.76,0.24,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 00:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.78,12.46,0,maintenance_needed,0.954,0.008,0.038,0.954,urgent_review
+2026-01-31 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.56,5.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 15:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.47,15.49,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-17 14:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.9,15.04,0,maintenance_needed,0.96,0.0,0.04,0.96,urgent_review
+2026-02-14 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.58,0.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.47,2.53,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.17,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.7,2.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.73,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 08:00:00,CMP-02,normal,low,1,Review recent alarms and tool event log,98.36,8.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.33,1.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.38,0.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.79,1.79,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.19,1.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 08:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.37,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,100.37,7.3,0,normal,0.0,0.996,0.004,0.996,normal_monitoring
+2026-01-20 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.02,2.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.09,2.69,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.9,0.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 19:00:00,CMP-01,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.77,15.13,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-24 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.87,1.13,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.47,1.53,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.63,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.65,2.65,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.48,0.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.67,1.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.93,0.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.65,0.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.33,1.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.72,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.4,1.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 13:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.68,13.27,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-20 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.6,2.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,97.61,9.46,0,normal,0.0,0.984,0.016,0.984,normal_monitoring
+2026-01-18 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.93,0.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 19:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.98,13.56,0,maintenance_needed,0.974,0.0,0.026,0.974,urgent_review
+2026-02-07 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.91,1.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.43,3.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.59,0.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.4,4.69,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.06,0.06,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 07:00:00,CMP-01,normal,low,1,Review recent alarms and tool event log,98.33,9.16,0,normal,0.006,0.978,0.016,0.978,normal_monitoring
+2026-01-17 01:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.72,11.95,0,warning,0.418,0.002,0.58,0.58,trend_watch
+2026-01-17 10:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.69,14.16,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-29 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.63,1.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.35,1.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.4,9.0,0,normal,0.0,0.994,0.006,0.994,normal_monitoring
+2026-01-15 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.08,7.56,0,normal,0.006,0.986,0.008,0.986,normal_monitoring
+2026-02-11 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.9,0.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.33,0.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.67,1.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.26,0.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.74,2.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 01:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.33,13.3,0,maintenance_needed,0.996,0.0,0.004,0.996,urgent_review
+2026-01-22 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.64,0.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.1,0.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.16,4.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.75,1.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.54,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 00:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Verify downforce pressure control and sensor calibration; Check removal-rate drift, endpoint data, and process recipe inputs",95.09,13.5,0,maintenance_needed,0.958,0.0,0.042,0.958,urgent_review
+2026-01-16 20:00:00,CMP-01,maintenance_needed,high,4,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.88,12.6,0,maintenance_needed,0.964,0.004,0.032,0.964,urgent_review
+2026-01-13 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.38,6.52,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 11:00:00,CMP-03,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.54,14.91,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-18 09:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.06,16.33,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-31 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.05,6.88,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 14:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.43,3.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,100.33,6.79,0,normal,0.002,0.998,0.0,0.998,normal_monitoring
+2026-01-01 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.73,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 11:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.34,18.33,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-22 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.16,0.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.54,4.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.09,1.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.27,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 07:00:00,CMP-03,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.13,11.11,0,warning,0.108,0.266,0.626,0.626,trend_watch
+2026-02-07 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.86,0.86,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.08,0.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.14,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.54,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.61,0.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.47,0.53,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.54,0.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 22:00:00,CMP-01,normal,low,1,Verify downforce pressure control and sensor calibration,106.43,1.43,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.53,6.65,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,99.22,8.15,0,normal,0.002,0.992,0.006,0.992,normal_monitoring
+2026-01-04 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.32,0.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.82,3.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.14,0.86,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.4,1.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.47,6.88,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.51,0.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.56,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.33,0.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 03:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.55,12.93,0,maintenance_needed,0.96,0.0,0.04,0.96,urgent_review
+2026-01-29 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.28,3.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.58,4.5,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.81,0.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.48,1.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.37,1.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.39,0.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.51,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.33,8.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.29,2.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.62,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.67,3.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.08,0.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.26,0.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.24,0.76,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.17,1.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,99.97,6.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 02:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.42,13.0,0,maintenance_needed,0.97,0.004,0.026,0.97,urgent_review
+2026-01-16 12:00:00,CMP-02,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",98.2,10.15,0,warning,0.126,0.01,0.864,0.864,trend_watch
+2026-01-24 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.71,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.56,0.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 18:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.14,12.05,0,warning,0.038,0.046,0.916,0.916,trend_watch
+2026-01-04 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.58,1.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.79,3.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 14:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.35,13.14,0,maintenance_needed,0.974,0.0,0.026,0.974,urgent_review
+2026-01-08 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.13,1.13,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 09:00:00,CMP-01,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.26,11.45,0,normal,0.01,0.906,0.084,0.906,normal_monitoring
+2026-01-09 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.63,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 02:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.94,3.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 04:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.88,17.44,0,maintenance_needed,0.984,0.004,0.012,0.984,urgent_review
+2026-02-09 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.99,0.99,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.68,0.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.27,1.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.98,1.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.9,1.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.79,0.21,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.9,2.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 10:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.18,12.41,0,warning,0.39,0.004,0.606,0.606,trend_watch
+2026-01-29 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.28,3.5,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.65,0.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 09:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.2,15.59,0,maintenance_needed,0.992,0.0,0.008,0.992,urgent_review
+2026-01-15 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,99.33,8.37,0,normal,0.002,0.974,0.024,0.974,normal_monitoring
+2026-01-01 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.05,0.95,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.22,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 13:00:00,CMP-01,maintenance_needed,high,4,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",94.46,14.35,0,maintenance_needed,0.986,0.0,0.014,0.986,urgent_review
+2026-01-29 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.21,2.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.34,0.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.57,9.09,0,normal,0.004,0.976,0.02,0.976,normal_monitoring
+2026-02-09 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.63,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.88,1.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.51,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 14:00:00,CMP-03,normal,low,1,Verify downforce pressure control and sensor calibration,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,100.26,6.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.1,1.1,0,normal,0.014,0.976,0.01,0.976,normal_monitoring
+2026-01-11 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.76,1.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.37,1.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.13,0.13,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.61,2.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.73,3.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.03,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.9,0.9,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.2,0.8,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 13:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.08,13.23,0,maintenance_needed,0.978,0.0,0.022,0.978,urgent_review
+2026-01-04 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.0,1.0,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.22,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.44,2.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 05:00:00,CMP-01,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.28,11.82,0,maintenance_needed,0.734,0.006,0.26,0.734,urgent_review
+2026-01-13 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.49,5.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 21:00:00,CMP-02,normal,low,1,Verify downforce pressure control and sensor calibration,102.22,4.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.81,0.81,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.44,1.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.67,1.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 05:00:00,CMP-03,maintenance_needed,high,3,"Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.56,12.59,0,maintenance_needed,0.75,0.018,0.232,0.75,urgent_review
+2026-01-09 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.11,0.89,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.06,1.94,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.31,2.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.15,6.94,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.18,7.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.41,0.41,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.69,1.69,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.12,2.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.19,0.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.83,0.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 06:00:00,CMP-02,maintenance_needed,high,4,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.23,13.53,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-12 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.72,4.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.75,0.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.17,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.56,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.99,2.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 05:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.08,15.21,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-23 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.03,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.16,0.16,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-11 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.39,2.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.3,2.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.52,1.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.69,8.88,0,normal,0.004,0.934,0.062,0.934,normal_monitoring
+2026-02-08 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.58,0.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 10:00:00,CMP-03,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.56,10.2,0,normal,0.0,0.954,0.046,0.954,normal_monitoring
+2026-01-08 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.32,2.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 09:00:00,CMP-02,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.18,16.48,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-11 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.98,1.7,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.83,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.63,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.07,0.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.37,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.64,0.64,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 09:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.91,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.51,1.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.72,1.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.14,2.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.63,2.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.53,2.52,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.25,0.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.25,0.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.03,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.44,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.56,0.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 21:00:00,CMP-01,maintenance_needed,high,5,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",91.29,19.33,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-04 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.15,0.15,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.58,1.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.48,1.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.98,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.11,1.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 04:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.83,15.69,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-13 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.72,1.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.47,2.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.31,1.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.59,0.41,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.75,0.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.08,0.92,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 00:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.89,13.47,0,maintenance_needed,0.952,0.006,0.042,0.952,urgent_review
+2026-01-16 15:00:00,CMP-02,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",98.02,10.46,0,warning,0.224,0.022,0.754,0.754,trend_watch
+2026-02-04 11:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.27,13.95,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-11 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.07,0.93,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.77,0.86,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.16,0.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.63,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.27,1.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.22,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.23,1.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.27,2.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.53,1.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 12:00:00,CMP-02,warning,medium,2,"Inspect slurry delivery flow, filters, and lines; Check removal-rate drift, endpoint data, and process recipe inputs",96.98,10.76,0,warning,0.042,0.158,0.8,0.8,trend_watch
+2026-01-16 22:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",97.85,10.67,0,maintenance_needed,0.886,0.002,0.112,0.886,urgent_review
+2026-01-13 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.34,6.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.2,0.8,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-11 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.66,0.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.73,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.2,0.8,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.87,0.13,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 04:00:00,CMP-02,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",95.28,12.94,0,warning,0.208,0.064,0.728,0.728,trend_watch
+2026-01-06 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.94,0.94,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.41,1.41,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.18,2.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.8,2.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.01,0.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.18,1.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.85,0.85,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 00:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.46,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 03:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.64,13.07,0,maintenance_needed,0.992,0.0,0.008,0.992,urgent_review
+2026-01-25 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.02,0.98,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.11,1.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,99.79,7.15,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.95,0.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.46,0.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 11:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.43,13.23,0,warning,0.32,0.004,0.676,0.676,trend_watch
+2026-01-07 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.29,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.69,1.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 07:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.7,13.07,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-14 11:00:00,CMP-03,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.05,10.21,0,normal,0.0,0.994,0.006,0.994,normal_monitoring
+2026-01-10 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.48,1.52,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.28,1.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.91,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.52,2.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.24,0.76,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.08,0.92,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.94,0.94,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 15:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.42,3.21,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 23:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.97,13.89,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-03 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.83,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.71,8.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.62,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.98,0.98,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 11:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",89.99,20.46,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-10 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.89,1.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.74,1.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.66,8.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 18:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.94,15.09,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-27 04:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.68,0.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.46,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 16:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.77,15.07,0,maintenance_needed,0.994,0.0,0.006,0.994,urgent_review
+2026-01-14 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.63,7.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.02,2.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.34,1.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.2,5.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 10:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.05,2.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.25,0.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.16,6.69,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 11:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.71,16.35,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-09 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.54,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.67,0.33,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.81,0.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.98,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.54,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 12:00:00,CMP-01,maintenance_needed,high,5,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",94.14,15.69,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-11 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.69,2.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.86,0.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.83,2.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 14:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.59,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.95,0.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 12:00:00,CMP-01,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",97.94,10.37,0,warning,0.08,0.13,0.79,0.79,trend_watch
+2026-01-04 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.51,0.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.85,8.53,0,normal,0.0,0.998,0.002,0.998,normal_monitoring
+2026-02-14 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.38,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 17:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.21,18.3,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-01 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.58,1.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.02,2.98,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.36,0.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 20:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.63,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.91,1.91,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,100.01,6.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.25,1.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 22:00:00,CMP-01,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.73,11.12,0,normal,0.0,0.894,0.106,0.894,normal_monitoring
+2026-02-12 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.11,0.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.38,8.71,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.65,0.65,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 04:00:00,CMP-01,maintenance_needed,high,5,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",90.89,19.34,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-04 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.41,0.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.29,1.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 03:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",93.81,15.71,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-22 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.01,1.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.56,1.56,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 02:00:00,CMP-01,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.98,10.43,0,normal,0.0,0.976,0.024,0.976,normal_monitoring
+2026-02-07 06:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.98,2.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,100.19,7.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 10:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.96,12.61,0,maintenance_needed,0.958,0.0,0.042,0.958,urgent_review
+2026-01-22 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.93,1.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 01:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.28,0.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 23:00:00,CMP-01,normal,low,1,Review recent alarms and tool event log,97.96,9.57,0,normal,0.002,0.994,0.004,0.994,normal_monitoring
+2026-01-01 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.37,1.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.51,0.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 16:00:00,CMP-03,normal,low,1,Review recent alarms and tool event log,98.88,8.73,0,normal,0.004,0.978,0.018,0.978,normal_monitoring
+2026-01-12 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.16,1.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.29,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.92,1.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.49,8.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.07,0.93,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-11 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.14,2.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.67,2.67,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-29 13:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.36,3.5,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.81,4.41,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.44,0.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.43,1.43,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.75,0.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-11 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.82,0.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.61,1.73,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.23,0.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.08,1.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.26,0.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 06:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.91,16.49,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-27 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.55,0.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.35,0.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.05,1.34,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 20:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.74,11.5,0,maintenance_needed,0.79,0.002,0.208,0.79,urgent_review
+2026-02-03 07:00:00,CMP-01,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.99,12.67,0,maintenance_needed,0.978,0.002,0.02,0.978,urgent_review
+2026-01-27 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.77,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.47,2.47,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.65,4.87,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.16,0.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.79,1.21,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.41,1.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.42,0.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.6,2.6,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.75,0.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 13:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",91.7,18.26,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-18 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.05,2.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.33,7.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,99.8,7.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.02,1.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 23:00:00,CMP-01,maintenance_needed,high,5,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.9,12.53,0,maintenance_needed,0.96,0.002,0.038,0.96,urgent_review
+2026-01-24 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.99,0.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 17:00:00,CMP-03,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.33,10.61,0,warning,0.016,0.26,0.724,0.724,trend_watch
+2026-01-02 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.9,1.1,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-10 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.92,0.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 11:00:00,CMP-01,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.87,16.52,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-27 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.48,0.97,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.68,1.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 05:00:00,CMP-03,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.11,10.78,0,normal,0.038,0.774,0.188,0.774,normal_monitoring
+2026-01-12 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.05,5.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 16:00:00,CMP-01,maintenance_needed,high,4,"Inspect pad life, conditioner performance, retaining ring; Verify downforce pressure control and sensor calibration; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",97.34,10.84,0,maintenance_needed,0.696,0.022,0.282,0.696,technician_review
+2026-01-05 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.38,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.49,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 16:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",97.54,10.62,0,warning,0.028,0.012,0.96,0.96,trend_watch
+2026-02-12 15:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.32,1.32,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.34,0.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 07:00:00,CMP-01,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.27,11.99,0,warning,0.168,0.018,0.814,0.814,trend_watch
+2026-02-13 18:00:00,CMP-02,normal,low,1,Verify downforce pressure control and sensor calibration,104.77,0.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.97,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 08:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.78,3.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.51,2.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 11:00:00,CMP-01,normal,low,1,Review recent alarms and tool event log,99.94,6.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.06,2.06,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 20:00:00,CMP-01,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",95.73,12.11,0,warning,0.046,0.1,0.854,0.854,trend_watch
+2026-01-02 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.17,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.0,0.0,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.26,0.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 06:00:00,CMP-01,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.45,10.01,0,normal,0.0,0.98,0.02,0.98,normal_monitoring
+2026-01-16 23:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.93,12.68,0,maintenance_needed,0.994,0.0,0.006,0.994,urgent_review
+2026-01-24 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.86,0.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.03,2.97,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.7,0.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.9,0.9,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 11:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.81,0.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.68,0.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.36,0.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.55,0.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 05:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.86,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.41,9.61,0,normal,0.004,0.81,0.186,0.81,normal_monitoring
+2026-01-31 13:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.94,8.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 04:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.23,4.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.07,1.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.29,0.29,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.5,2.5,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 16:00:00,CMP-02,normal,low,1,Review recent alarms and tool event log,105.78,0.78,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.17,0.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.68,2.01,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-17 09:00:00,CMP-01,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.41,14.45,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-28 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.83,0.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.45,0.45,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.92,1.08,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.37,1.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.63,2.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 02:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.91,0.91,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.23,1.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-11 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.53,0.53,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.63,0.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,99.62,7.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-07 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.37,1.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.4,1.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.65,9.08,0,normal,0.002,0.978,0.02,0.978,normal_monitoring
+2026-02-06 13:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.7,18.8,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-13 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.11,0.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.51,8.94,0,normal,0.0,0.992,0.008,0.992,normal_monitoring
+2026-01-06 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.6,0.6,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.87,0.13,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 11:00:00,CMP-02,normal,low,1,Verify downforce pressure control and sensor calibration,104.6,0.4,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.22,1.22,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 19:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.91,0.91,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-22 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.66,0.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.39,0.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 10:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.82,0.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.73,0.73,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.32,4.88,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 19:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.29,5.17,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.27,1.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-11 01:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.24,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-06 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.63,0.63,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 22:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.48,0.52,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.54,0.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.62,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.75,0.75,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.16,2.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 01:00:00,CMP-02,normal,low,1,Review recent alarms and tool event log,99.48,7.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.22,1.26,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 17:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.91,14.89,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-11 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.02,2.69,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.82,0.18,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 06:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Review recent alarms and tool event log; Check removal-rate drift, endpoint data, and process recipe inputs",95.59,13.36,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-10 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.46,1.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-14 23:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.1,0.9,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.72,0.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.94,0.94,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.14,1.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.28,1.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 04:00:00,CMP-01,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.78,11.39,0,warning,0.016,0.098,0.886,0.886,trend_watch
+2026-01-30 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,100.82,5.76,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.68,0.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 17:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.0,17.33,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-28 03:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.97,1.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.85,0.15,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.7,1.7,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.35,0.65,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 22:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.05,2.05,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 06:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.44,2.48,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.09,4.37,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.55,0.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 02:00:00,CMP-02,normal,normal,0,Continue normal monitoring,97.78,9.51,0,normal,0.0,0.998,0.002,0.998,normal_monitoring
+2026-01-09 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.97,2.97,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.94,8.39,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 14:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.81,0.19,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.45,4.36,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 21:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.46,0.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 11:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.69,0.83,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,107.0,2.0,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.97,2.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.36,6.1,0,normal,0.002,0.994,0.004,0.994,normal_monitoring
+2026-01-11 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.06,2.25,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.2,0.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.95,0.95,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 23:00:00,CMP-01,normal,normal,0,Continue normal monitoring,108.07,3.07,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 02:00:00,CMP-02,normal,normal,0,Continue normal monitoring,101.48,5.21,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.86,0.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-05 15:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.38,18.42,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-26 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.55,1.55,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.26,2.74,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 05:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.12,0.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-01 10:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.57,8.92,0,normal,0.0,0.968,0.032,0.968,normal_monitoring
+2026-01-06 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.27,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-30 22:00:00,CMP-01,normal,normal,0,Continue normal monitoring,99.43,7.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 19:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.26,0.9,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 12:00:00,CMP-02,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.4,15.83,0,maintenance_needed,0.998,0.0,0.002,0.998,urgent_review
+2026-01-03 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.99,0.99,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 04:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.44,16.87,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-15 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,98.73,9.08,0,normal,0.002,0.908,0.09,0.908,normal_monitoring
+2026-02-04 20:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",91.27,18.17,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-28 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,102.15,3.14,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-09 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,103.51,1.49,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,107.44,2.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 17:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.91,11.27,0,warning,0.106,0.068,0.826,0.826,trend_watch
+2026-02-02 13:00:00,CMP-02,warning,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",96.89,11.19,0,warning,0.054,0.03,0.916,0.916,trend_watch
+2026-02-04 23:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.72,13.81,0,maintenance_needed,0.968,0.0,0.032,0.968,urgent_review
+2026-01-16 12:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.53,11.84,0,warning,0.15,0.01,0.84,0.84,trend_watch
+2026-02-05 09:00:00,CMP-01,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",92.03,17.79,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-13 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.96,0.04,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-26 00:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.91,0.91,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 23:00:00,CMP-01,normal,low,1,Verify downforce pressure control and sensor calibration,105.09,0.09,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-15 06:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.07,9.58,0,normal,0.004,0.864,0.132,0.864,normal_monitoring
+2026-01-31 17:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.26,8.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.34,4.95,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.67,0.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 08:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.27,0.73,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 07:00:00,CMP-02,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",94.22,15.21,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-10 08:00:00,CMP-01,normal,low,1,Review recent alarms and tool event log,103.27,1.73,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-20 16:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.02,0.02,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 12:00:00,CMP-01,normal,normal,0,Continue normal monitoring,105.61,0.61,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 20:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.72,0.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-03 20:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.23,1.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 18:00:00,CMP-03,normal,normal,0,Continue normal monitoring,98.75,8.63,0,normal,0.002,0.992,0.006,0.992,normal_monitoring
+2026-01-07 09:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.36,0.64,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-19 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.89,0.11,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-21 23:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.66,0.66,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.88,1.12,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-09 09:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.28,1.72,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.27,0.27,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-02 20:00:00,CMP-02,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",97.4,10.81,0,maintenance_needed,0.784,0.002,0.214,0.784,urgent_review
+2026-02-06 18:00:00,CMP-01,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",88.91,21.67,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-01-15 08:00:00,CMP-02,warning,normal,0,Continue normal monitoring,99.9,7.88,0,normal,0.034,0.704,0.262,0.704,normal_monitoring
+2026-01-15 10:00:00,CMP-02,normal,low,1,"Inspect slurry delivery flow, filters, and lines",98.95,8.74,0,normal,0.018,0.95,0.032,0.95,normal_monitoring
+2026-01-13 16:00:00,CMP-02,normal,low,1,Verify downforce pressure control and sensor calibration,102.5,4.24,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 14:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.32,8.9,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-02 02:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.35,1.35,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 09:00:00,CMP-01,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.4,13.29,0,maintenance_needed,0.99,0.0,0.01,0.99,urgent_review
+2026-01-19 18:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.47,0.53,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-12 12:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.3,1.3,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-04 07:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.04,1.96,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-24 11:00:00,CMP-02,normal,normal,0,Continue normal monitoring,106.28,1.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.51,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 14:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.23,0.77,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-18 02:00:00,CMP-03,maintenance_needed,high,3,"Check platen drive, carrier load, vibration source; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.72,15.42,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-02 03:00:00,CMP-03,normal,low,1,"Check removal-rate drift, endpoint data, and process recipe inputs",97.14,10.72,0,normal,0.01,0.902,0.088,0.902,normal_monitoring
+2026-01-04 18:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.58,0.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-25 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,104.43,0.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 05:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.15,0.85,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 01:00:00,CMP-03,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.43,11.85,0,warning,0.056,0.014,0.93,0.93,trend_watch
+2026-01-10 07:00:00,CMP-02,normal,normal,0,Continue normal monitoring,102.41,2.59,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-06 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,104.21,0.79,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 18:00:00,CMP-03,maintenance_needed,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",95.38,13.08,0,maintenance_needed,0.958,0.0,0.042,0.958,urgent_review
+2026-01-29 21:00:00,CMP-03,normal,normal,0,Continue normal monitoring,101.44,4.54,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-07 08:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.44,1.44,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-13 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,104.07,0.93,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-28 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.14,2.23,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 14:00:00,CMP-03,normal,normal,0,Continue normal monitoring,102.14,4.0,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 16:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.57,0.57,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 16:00:00,CMP-01,normal,normal,0,Continue normal monitoring,103.57,1.5,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-23 07:00:00,CMP-03,normal,normal,0,Continue normal monitoring,105.84,0.84,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-31 17:00:00,CMP-01,normal,normal,0,Continue normal monitoring,97.57,9.58,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 21:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.6,1.6,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-05 17:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.54,1.46,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-14 08:00:00,CMP-01,normal,normal,0,Continue normal monitoring,98.21,8.93,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-08 04:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.97,1.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-13 22:00:00,CMP-03,normal,low,1,Verify downforce pressure control and sensor calibration,101.48,5.42,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-03 17:00:00,CMP-03,maintenance_needed,high,4,"Check platen drive, carrier load, vibration source; Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.05,12.68,0,maintenance_needed,0.984,0.0,0.016,0.984,urgent_review
+2026-02-07 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.69,1.31,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-16 17:00:00,CMP-01,warning,medium,2,"Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",96.1,12.31,0,warning,0.17,0.008,0.822,0.822,trend_watch
+2026-01-02 03:00:00,CMP-01,normal,normal,0,Continue normal monitoring,106.28,1.28,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-27 13:00:00,CMP-02,normal,normal,0,Continue normal monitoring,103.38,1.62,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-10 03:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.38,0.38,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-02-04 22:00:00,CMP-01,maintenance_needed,high,3,"Inspect slurry delivery flow, filters, and lines; Inspect pad life, conditioner performance, retaining ring; Check removal-rate drift, endpoint data, and process recipe inputs",93.29,16.16,0,maintenance_needed,1.0,0.0,0.0,1.0,urgent_review
+2026-02-08 15:00:00,CMP-02,normal,normal,0,Continue normal monitoring,105.51,0.51,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-01 01:00:00,CMP-03,normal,normal,0,Continue normal monitoring,106.68,1.68,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-12 00:00:00,CMP-01,normal,normal,0,Continue normal monitoring,101.79,4.03,0,normal,0.0,1.0,0.0,1.0,normal_monitoring
+2026-01-08 12:00:00,CMP-02,normal,normal,0,Continue normal monitoring,107.2,2.2,0,normal,0.0,1.0,0.0,1.0,normal_monitoring

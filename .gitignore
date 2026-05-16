@@ -1,0 +1,24 @@
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Python cache and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Streamlit local settings
+.streamlit/secrets.toml
+
+# Logs and temporary files
+*.log
+*.tmp

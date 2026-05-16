@@ -1,0 +1,4 @@
+tool_id,timestamp,maintenance_state,rule_risk_level,rule_risk_points,pad_life_pct,retaining_ring_life_pct,platen_motor_current,slurry_flow_rate,vibration,wafer_removal_rate,process_drift_nm,alarm_count,maintenance_event,recommended_action
+CMP-01,2026-02-14 23:00:00,normal,normal,0,46.5025,41.24666666666666,17.28,212.25,0.394,104.9,0.1,0,0,Continue normal monitoring
+CMP-02,2026-02-14 23:00:00,normal,normal,0,54.6175,48.03666666666667,18.63,205.11,0.283,104.1,0.9,0,0,Continue normal monitoring
+CMP-03,2026-02-14 23:00:00,normal,normal,0,58.60999999999999,50.49,19.0,208.28,0.382,106.28,1.38,0,0,Continue normal monitoring
