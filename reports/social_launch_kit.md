@@ -12,10 +12,6 @@ https://github.com/ShaynesCodes24/CMP-Predictive-Maintenance
 https://cmp-predictive-maintenance.streamlit.app
 ```
 
-Use this link after deploying with the `cmp-predictive-maintenance` custom
-subdomain. If Streamlit assigns a different URL, replace this link before
-posting.
-
 ## GitHub Repo Description
 
 ```text
@@ -117,11 +113,10 @@ The model reached 99.877% test accuracy on synthetic data. I do not treat that a
 ## Launch Checklist
 
 1. Make the GitHub repository public.
-2. Deploy the app on Streamlit Community Cloud with `app.py` as the main file path.
-3. Confirm the live dashboard link opens and the filters, charts, tables, and downloads work.
-4. Add the GitHub topics listed above.
-5. Pin the repo on your GitHub profile.
-6. Post the LinkedIn post with the dashboard screenshot and live dashboard link.
-7. Record and post the 45-second walkthrough video.
-8. Add the repo link and live dashboard link to your resume or portfolio.
-9. Be ready to explain the synthetic-data limitation and why the project is still job-relevant.
+2. Confirm the live dashboard link opens and the filters, charts, tables, and downloads work.
+3. Add the GitHub topics listed above.
+4. Pin the repo on your GitHub profile.
+5. Post the LinkedIn post with the dashboard screenshot and live dashboard link.
+6. Record and post the 45-second walkthrough video.
+7. Add the repo link and live dashboard link to your resume or portfolio.
+8. Be ready to explain the synthetic-data limitation and why the project is still job-relevant.

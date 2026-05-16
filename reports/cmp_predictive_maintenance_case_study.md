@@ -133,6 +133,12 @@ For medium-risk tools such as CMP-01:
 
 ## Dashboard
 
+Live dashboard:
+
+```text
+https://cmp-predictive-maintenance.streamlit.app
+```
+
 The Streamlit dashboard shows:
 
 - Current tool priority
@@ -145,7 +151,7 @@ The Streamlit dashboard shows:
 - Feature importance
 - Model metrics
 
-Run it with:
+Run it locally with:
 
 ```powershell
 streamlit run .\src\dashboard.py --server.port 8502

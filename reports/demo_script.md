@@ -10,6 +10,9 @@ The project is built around a fab equipment question:
 
 It includes a full workflow: synthetic CMP data generation, feature engineering, rule-based fault alerts, a maintenance risk model, a Streamlit dashboard, and a case study.
 
+Live dashboard:
+https://cmp-predictive-maintenance.streamlit.app
+
 ## 60-Second Version
 
 This project focuses on Chemical Mechanical Planarization equipment health. I simulated hourly sensor readings for three CMP tools, including platen motor current, carrier current, slurry flow, downforce pressure, vibration, pad hours, retaining ring hours, wafer removal rate, process drift, alarms, and maintenance events.
@@ -17,6 +20,9 @@ This project focuses on Chemical Mechanical Planarization equipment health. I si
 I built rule-based alerts for conditions a technician would recognize, such as high motor current with elevated vibration, low slurry flow, high pad usage, pressure drift, alarm bursts, and removal-rate drift. Then I trained a random forest model to classify each tool state as normal, warning, or maintenance-needed.
 
 The dashboard shows current tool priority, recent alerts, sensor trends, maintenance event resets, model predictions, model confidence, feature importance, and recommended technician checks.
+
+Live dashboard:
+https://cmp-predictive-maintenance.streamlit.app
 
 ## Dashboard Walkthrough
 
@@ -101,7 +107,7 @@ It shows that I can learn equipment behavior, work with data, build a practical 
 - Built a CMP predictive maintenance project using Python to simulate tool sensor data, detect abnormal equipment trends, and recommend technician maintenance checks.
 - Created rule-based alerts for CMP conditions including high motor current, vibration increase, low slurry flow, pad wear, retaining ring wear, alarm bursts, and process drift.
 - Trained a maintenance risk model to classify CMP tool states as normal, warning, or maintenance-needed, with model confidence and feature-importance reporting.
-- Developed a Streamlit dashboard showing tool priority, sensor trends, maintenance events, recent alerts, model predictions, and technician action recommendations.
+- Developed and deployed a Streamlit dashboard showing tool priority, sensor trends, maintenance events, recent alerts, model predictions, and technician action recommendations.
 
 ## Short Closing Statement
 
