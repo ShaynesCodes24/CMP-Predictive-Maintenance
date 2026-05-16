@@ -3,6 +3,7 @@ from pathlib import Path
 import altair as alt
 import pandas as pd
 import streamlit as st
+import streamlit_shadcn_ui as ui
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,24 +38,29 @@ st.markdown(
     """
     <style>
     :root {
-        --cmp-bg: #0f141b;
-        --cmp-panel: #171d26;
-        --cmp-panel-soft: #1f2732;
-        --cmp-border: #2b3542;
-        --cmp-text: #eef2f6;
-        --cmp-muted: #aab4c0;
-        --cmp-accent: #39a7a5;
-        --cmp-accent-soft: rgba(57, 167, 165, 0.14);
+        --cmp-bg: #f6f8fb;
+        --cmp-panel: #ffffff;
+        --cmp-panel-soft: #eef4f8;
+        --cmp-border: #d9e2ea;
+        --cmp-text: #101828;
+        --cmp-muted: #667085;
+        --cmp-accent: #087f8c;
+        --cmp-accent-strong: #0f4c5c;
+        --cmp-accent-soft: rgba(8, 127, 140, 0.10);
+        --cmp-shadow: 0 18px 42px rgba(16, 24, 40, 0.08);
     }
 
     .stApp {
-        background: radial-gradient(circle at top left, #18222e 0, #0f141b 34%, #0b0f14 100%);
+        background:
+            radial-gradient(circle at 7% 4%, rgba(8, 127, 140, 0.12), transparent 28rem),
+            linear-gradient(180deg, #fbfcfe 0%, var(--cmp-bg) 48%, #eef3f7 100%);
         color: var(--cmp-text);
     }
 
     section[data-testid="stSidebar"] {
-        background: #171b23;
+        background: rgba(255, 255, 255, 0.96);
         border-right: 1px solid var(--cmp-border);
+        box-shadow: 10px 0 30px rgba(16, 24, 40, 0.04);
     }
 
     section[data-testid="stSidebar"] label,
@@ -62,12 +68,18 @@ st.markdown(
         color: var(--cmp-text);
     }
 
+    section[data-testid="stSidebar"] [data-testid="stExpander"] {
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        background: var(--cmp-panel);
+    }
+
     div[data-testid="stMetric"] {
-        background: linear-gradient(180deg, rgba(31, 39, 50, 0.96), rgba(22, 28, 37, 0.96));
+        background: var(--cmp-panel);
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1rem 1.05rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        box-shadow: var(--cmp-shadow);
     }
 
     div[data-testid="stMetricLabel"] {
@@ -83,15 +95,16 @@ st.markdown(
     .cmp-hero {
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
-        padding: 1.35rem 1.45rem;
+        padding: 1.45rem 1.55rem;
         background:
-            linear-gradient(90deg, rgba(57, 167, 165, 0.16), rgba(45, 57, 73, 0.38)),
-            linear-gradient(180deg, rgba(25, 32, 43, 0.94), rgba(18, 24, 32, 0.94));
-        margin-bottom: 1.05rem;
+            linear-gradient(120deg, rgba(8, 127, 140, 0.14), rgba(15, 76, 92, 0.04)),
+            var(--cmp-panel);
+        margin-bottom: 1rem;
+        box-shadow: var(--cmp-shadow);
     }
 
     .cmp-eyebrow {
-        color: #70d6d3;
+        color: var(--cmp-accent);
         font-size: 0.78rem;
         font-weight: 800;
         letter-spacing: 0;
@@ -101,7 +114,7 @@ st.markdown(
 
     .cmp-title {
         color: var(--cmp-text);
-        font-size: 2.05rem;
+        font-size: 2.15rem;
         font-weight: 850;
         line-height: 1.12;
         margin: 0;
@@ -115,29 +128,31 @@ st.markdown(
     }
 
     .cmp-section-label {
-        color: var(--cmp-muted);
+        color: var(--cmp-accent-strong);
         font-weight: 800;
         text-transform: uppercase;
         font-size: 0.76rem;
-        margin: 1.1rem 0 0.45rem;
+        margin: 1.2rem 0 0.55rem;
     }
 
     .cmp-action {
+        border: 1px solid rgba(8, 127, 140, 0.24);
         border-left: 4px solid var(--cmp-accent);
-        background: var(--cmp-accent-soft);
+        background: linear-gradient(90deg, var(--cmp-accent-soft), rgba(255, 255, 255, 0.92));
         border-radius: 8px;
         padding: 0.9rem 1rem;
         color: var(--cmp-text);
         margin-bottom: 1rem;
+        box-shadow: 0 12px 30px rgba(8, 127, 140, 0.08);
     }
 
     .cmp-tool-card {
-        background: linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(18, 24, 32, 0.98));
+        background: var(--cmp-panel);
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1rem;
         min-height: 13.25rem;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.20);
+        box-shadow: var(--cmp-shadow);
     }
 
     .cmp-tool-id {
@@ -162,7 +177,7 @@ st.markdown(
         color: var(--cmp-muted);
         font-size: 0.86rem;
         padding: 0.18rem 0;
-        border-bottom: 1px solid rgba(170, 180, 192, 0.10);
+        border-bottom: 1px solid rgba(102, 112, 133, 0.14);
     }
 
     .cmp-card-row span:last-child {
@@ -182,6 +197,26 @@ st.markdown(
     .block-container {
         padding-top: 2rem;
         padding-bottom: 3rem;
+        max-width: 1520px;
+    }
+
+    div[data-testid="stDataFrame"] {
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(16, 24, 40, 0.05);
+    }
+
+    div[data-testid="stVegaLiteChart"] {
+        background: var(--cmp-panel);
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        padding: 0.65rem;
+        box-shadow: 0 12px 30px rgba(16, 24, 40, 0.05);
+    }
+
+    iframe[title="streamlit_shadcn_ui.py_components.base.component_func"] {
+        border-radius: 8px;
     }
     </style>
     """,
@@ -218,6 +253,18 @@ def risk_badge(risk_level: str) -> str:
 
 def section_label(text: str) -> None:
     st.markdown(f"<div class='cmp-section-label'>{text}</div>", unsafe_allow_html=True)
+
+
+def metric_cards(cards: list[tuple[str, str, str]], key_prefix: str) -> None:
+    columns = st.columns(len(cards))
+    for index, (title, content, description) in enumerate(cards):
+        with columns[index]:
+            ui.metric_card(
+                title=title,
+                content=content,
+                description=description,
+                key=f"{key_prefix}_{index}",
+            )
 
 
 def tool_card(row: pd.Series) -> str:
@@ -395,21 +442,46 @@ with st.sidebar.expander("Downloads", expanded=True):
     )
 
 section_label("Portfolio Demo Snapshot")
-metric_cols = st.columns(4)
-metric_cols[0].metric("Tools", features["tool_id"].nunique())
-metric_cols[1].metric("Latest Reading", latest_timestamp.strftime("%Y-%m-%d %H:%M"))
-metric_cols[2].metric("Alert Rows", f"{len(alerts):,}")
-metric_cols[3].metric("High Risk Tools", len(high_risk_tools))
+metric_cards(
+    [
+        ("Tools", str(features["tool_id"].nunique()), "Active CMP assets in scope"),
+        (
+            "Latest Reading",
+            latest_timestamp.strftime("%Y-%m-%d %H:%M"),
+            "Most recent sensor timestamp",
+        ),
+        ("Alert Rows", f"{len(alerts):,}", "Rule-triggered review rows"),
+        ("High Risk Tools", str(len(high_risk_tools)), "Current high priority tools"),
+    ],
+    "snapshot_metric",
+)
 
 section_label("Executive Summary")
-summary_cols = st.columns(4)
-summary_cols[0].metric("Current Normal Tools", int(current_state_counts.get("normal", 0)))
-summary_cols[1].metric("Current Warning Tools", int(current_state_counts.get("warning", 0)))
-summary_cols[2].metric(
-    "Current Maintenance Needed",
-    int(current_state_counts.get("maintenance_needed", 0)),
+metric_cards(
+    [
+        (
+            "Normal Tools",
+            str(int(current_state_counts.get("normal", 0))),
+            "Running inside expected bands",
+        ),
+        (
+            "Warning Tools",
+            str(int(current_state_counts.get("warning", 0))),
+            "Needs closer trend review",
+        ),
+        (
+            "Maintenance Needed",
+            str(int(current_state_counts.get("maintenance_needed", 0))),
+            "Requires technician action",
+        ),
+        (
+            "Maintenance Events",
+            str(int(features["maintenance_event"].sum())),
+            "Simulated PM reset history",
+        ),
+    ],
+    "summary_metric",
 )
-summary_cols[3].metric("Maintenance Events", int(features["maintenance_event"].sum()))
 st.markdown(
     f"<div class='cmp-action'><strong>Latest recommended action:</strong> {latest_action}</div>",
     unsafe_allow_html=True,
@@ -522,7 +594,16 @@ with model_tab:
         == prediction_view["predicted_maintenance_state"]
     )
     prediction_accuracy = prediction_view["correct_prediction"].mean()
-    st.metric("Filtered Prediction Accuracy", f"{prediction_accuracy:.1%}")
+    metric_cards(
+        [
+            (
+                "Filtered Prediction Accuracy",
+                f"{prediction_accuracy:.1%}",
+                "Rows matching the selected tool filter",
+            )
+        ],
+        "model_metric",
+    )
     st.dataframe(
         prediction_view[
             [

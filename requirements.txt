@@ -3,5 +3,6 @@ numpy
 scikit-learn
 matplotlib
 streamlit
+streamlit-shadcn-ui==0.1.19
 altair
 joblib
