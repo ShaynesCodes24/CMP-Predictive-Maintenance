@@ -1,4 +1,5 @@
 from pathlib import Path
+from html import escape
 
 import altair as alt
 import pandas as pd
@@ -45,10 +46,17 @@ st.markdown(
         --cmp-muted: #aab4c0;
         --cmp-accent: #39a7a5;
         --cmp-accent-soft: rgba(57, 167, 165, 0.14);
+        --cmp-good: #2a9d8f;
+        --cmp-warn: #e9c46a;
+        --cmp-danger: #d62828;
+        --cmp-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
     }
 
     .stApp {
-        background: radial-gradient(circle at top left, #18222e 0, #0f141b 34%, #0b0f14 100%);
+        background:
+            radial-gradient(circle at 8% 0%, rgba(57, 167, 165, 0.16), transparent 27rem),
+            radial-gradient(circle at 86% 8%, rgba(233, 196, 106, 0.09), transparent 22rem),
+            linear-gradient(180deg, #111821 0%, #0f141b 46%, #0a0e13 100%);
         color: var(--cmp-text);
     }
 
@@ -83,11 +91,12 @@ st.markdown(
     .cmp-hero {
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
-        padding: 1.35rem 1.45rem;
+        padding: 1.45rem 1.55rem;
         background:
-            linear-gradient(90deg, rgba(57, 167, 165, 0.16), rgba(45, 57, 73, 0.38)),
+            linear-gradient(100deg, rgba(57, 167, 165, 0.18), rgba(45, 57, 73, 0.32)),
             linear-gradient(180deg, rgba(25, 32, 43, 0.94), rgba(18, 24, 32, 0.94));
         margin-bottom: 1.05rem;
+        box-shadow: var(--cmp-shadow);
     }
 
     .cmp-eyebrow {
@@ -115,20 +124,26 @@ st.markdown(
     }
 
     .cmp-section-label {
-        color: var(--cmp-muted);
+        color: #b7e7e5;
         font-weight: 800;
         text-transform: uppercase;
         font-size: 0.76rem;
-        margin: 1.1rem 0 0.45rem;
+        margin: 1.25rem 0 0.5rem;
     }
 
     .cmp-action {
         border-left: 4px solid var(--cmp-accent);
-        background: var(--cmp-accent-soft);
+        border-top: 1px solid rgba(57, 167, 165, 0.22);
+        border-right: 1px solid rgba(57, 167, 165, 0.22);
+        border-bottom: 1px solid rgba(57, 167, 165, 0.22);
+        background:
+            linear-gradient(90deg, rgba(57, 167, 165, 0.18), rgba(57, 167, 165, 0.07)),
+            rgba(18, 24, 32, 0.94);
         border-radius: 8px;
         padding: 0.9rem 1rem;
         color: var(--cmp-text);
         margin-bottom: 1rem;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
     }
 
     .cmp-tool-card {
@@ -136,15 +151,22 @@ st.markdown(
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1rem;
-        min-height: 13.25rem;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.20);
+        min-height: 17.3rem;
+        box-shadow: var(--cmp-shadow);
+    }
+
+    .cmp-tool-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.7rem;
     }
 
     .cmp-tool-id {
         color: var(--cmp-text);
         font-size: 1rem;
         font-weight: 800;
-        margin-top: 0.75rem;
     }
 
     .cmp-rule-points {
@@ -152,7 +174,13 @@ st.markdown(
         font-size: 2rem;
         line-height: 1.1;
         font-weight: 850;
-        margin: 0.35rem 0 0.75rem;
+        margin: 0.1rem 0 0.55rem;
+    }
+
+    .cmp-card-note {
+        color: var(--cmp-muted);
+        font-size: 0.78rem;
+        margin-bottom: 0.8rem;
     }
 
     .cmp-card-row {
@@ -179,9 +207,156 @@ st.markdown(
         font-size: 0.78rem;
     }
 
+    .cmp-command-grid,
+    .cmp-kpi-grid {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 1.05rem;
+    }
+
+    .cmp-command-grid {
+        grid-template-columns: minmax(18rem, 1.25fr) repeat(3, minmax(11rem, 0.75fr));
+    }
+
+    .cmp-kpi-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .cmp-command-card,
+    .cmp-kpi-card {
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        background:
+            linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(17, 23, 31, 0.98));
+        box-shadow: var(--cmp-shadow);
+        margin-bottom: 0.85rem;
+    }
+
+    .cmp-command-card {
+        padding: 1rem 1.05rem;
+        min-height: 8.25rem;
+    }
+
+    .cmp-kpi-card {
+        padding: 0.95rem 1rem;
+        min-height: 7rem;
+    }
+
+    .cmp-command-title,
+    .cmp-kpi-label {
+        color: var(--cmp-muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .cmp-command-value {
+        color: var(--cmp-text);
+        font-size: 1.55rem;
+        line-height: 1.15;
+        font-weight: 850;
+        margin-top: 0.5rem;
+    }
+
+    .cmp-command-caption,
+    .cmp-kpi-caption {
+        color: var(--cmp-muted);
+        font-size: 0.82rem;
+        margin-top: 0.45rem;
+    }
+
+    .cmp-kpi-value {
+        color: var(--cmp-text);
+        font-size: 2rem;
+        line-height: 1.05;
+        font-weight: 850;
+        margin-top: 0.45rem;
+        overflow-wrap: anywhere;
+    }
+
+    .cmp-kpi-date {
+        font-size: 1.6rem;
+    }
+
+    .cmp-accent-good {
+        border-top: 3px solid var(--cmp-good);
+    }
+
+    .cmp-accent-warn {
+        border-top: 3px solid var(--cmp-warn);
+    }
+
+    .cmp-accent-danger {
+        border-top: 3px solid var(--cmp-danger);
+    }
+
+    .cmp-accent-teal {
+        border-top: 3px solid var(--cmp-accent);
+    }
+
+    .cmp-progress {
+        margin: 0.65rem 0 0.75rem;
+    }
+
+    .cmp-progress-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        color: var(--cmp-muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .cmp-progress-value {
+        color: var(--cmp-text);
+    }
+
+    .cmp-progress-track {
+        height: 0.45rem;
+        background: rgba(170, 180, 192, 0.14);
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .cmp-progress-fill {
+        height: 100%;
+        border-radius: inherit;
+    }
+
+    div[data-testid="stDataFrame"] {
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    div[data-testid="stVegaLiteChart"] {
+        background: rgba(23, 29, 38, 0.84);
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        padding: 0.55rem;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
     .block-container {
         padding-top: 2rem;
         padding-bottom: 3rem;
+        max-width: 1500px;
+    }
+
+    @media (max-width: 1100px) {
+        .cmp-command-grid,
+        .cmp-kpi-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 760px) {
+        .cmp-command-grid,
+        .cmp-kpi-grid {
+            grid-template-columns: 1fr;
+        }
     }
     </style>
     """,
@@ -220,19 +395,100 @@ def section_label(text: str) -> None:
     st.markdown(f"<div class='cmp-section-label'>{text}</div>", unsafe_allow_html=True)
 
 
-def tool_card(row: pd.Series) -> str:
+def accent_class(level: str) -> str:
+    if level in {"high", "maintenance_needed"}:
+        return "cmp-accent-danger"
+    if level in {"medium", "warning"}:
+        return "cmp-accent-warn"
+    if level in {"normal", "low"}:
+        return "cmp-accent-good"
+    return "cmp-accent-teal"
+
+
+def progress_color(value: float) -> str:
+    if value < 30:
+        return "var(--cmp-danger)"
+    if value < 55:
+        return "var(--cmp-warn)"
+    return "var(--cmp-good)"
+
+
+def life_bar(label: str, value: float) -> str:
+    bounded = max(0, min(float(value), 100))
+    return (
+        '<div class="cmp-progress">'
+        '<div class="cmp-progress-top">'
+        f"<span>{escape(label)}</span>"
+        f'<span class="cmp-progress-value">{bounded:.1f}%</span>'
+        "</div>"
+        '<div class="cmp-progress-track">'
+        f'<div class="cmp-progress-fill" style="width:{bounded:.1f}%; background:{progress_color(bounded)};"></div>'
+        "</div>"
+        "</div>"
+    )
+
+
+def kpi_card(title: str, value: str, caption: str, accent: str = "teal") -> str:
+    size_class = " cmp-kpi-date" if len(value) > 10 else ""
     return f"""
-    <div class="cmp-tool-card">
-        {risk_badge(row["rule_risk_level"])}
-        <div class="cmp-tool-id">{row["tool_id"]}</div>
-        <div class="cmp-rule-points">{int(row["rule_risk_points"])} rule points</div>
-        <div class="cmp-card-row"><span>State</span><span>{row["maintenance_state"]}</span></div>
-        <div class="cmp-card-row"><span>Pad life</span><span>{row["pad_life_pct"]:.1f}%</span></div>
-        <div class="cmp-card-row"><span>Ring life</span><span>{row["retaining_ring_life_pct"]:.1f}%</span></div>
-        <div class="cmp-card-row"><span>Removal rate</span><span>{row["wafer_removal_rate"]:.2f}</span></div>
-        <div class="cmp-card-row"><span>Process drift</span><span>{row["process_drift_nm"]:.2f} nm</span></div>
+    <div class="cmp-kpi-card cmp-accent-{accent}">
+        <div class="cmp-kpi-label">{escape(title)}</div>
+        <div class="cmp-kpi-value{size_class}">{escape(value)}</div>
+        <div class="cmp-kpi-caption">{escape(caption)}</div>
     </div>
     """
+
+
+def command_card(title: str, value: str, caption: str, accent: str = "teal") -> str:
+    return f"""
+    <div class="cmp-command-card cmp-accent-{accent}">
+        <div class="cmp-command-title">{escape(title)}</div>
+        <div class="cmp-command-value">{escape(value)}</div>
+        <div class="cmp-command-caption">{escape(caption)}</div>
+    </div>
+    """
+
+
+def card_grid(cards: list[str], class_name: str) -> None:
+    columns = st.columns(len(cards))
+    for column, card in zip(columns, cards):
+        with column:
+            st.markdown(card, unsafe_allow_html=True)
+
+
+def tool_card(row: pd.Series) -> str:
+    risk_level = str(row["rule_risk_level"])
+    state = str(row["maintenance_state"])
+    return (
+        f'<div class="cmp-tool-card {accent_class(risk_level)}">'
+        '<div class="cmp-tool-card-header">'
+        "<div>"
+        f'<div class="cmp-tool-id">{escape(str(row["tool_id"]))}</div>'
+        f'<div class="cmp-card-note">{escape(state.replace("_", " "))}</div>'
+        "</div>"
+        f"{risk_badge(risk_level)}"
+        "</div>"
+        f'<div class="cmp-rule-points">{int(row["rule_risk_points"])} rule points</div>'
+        f'{life_bar("Pad life", row["pad_life_pct"])}'
+        f'{life_bar("Ring life", row["retaining_ring_life_pct"])}'
+        f'<div class="cmp-card-row"><span>Removal rate</span><span>{row["wafer_removal_rate"]:.2f}</span></div>'
+        f'<div class="cmp-card-row"><span>Process drift</span><span>{row["process_drift_nm"]:.2f} nm</span></div>'
+        "</div>"
+    )
+
+
+def style_chart(chart: alt.Chart) -> alt.Chart:
+    return (
+        chart.configure_view(stroke=None)
+        .configure_axis(
+            gridColor="rgba(170, 180, 192, 0.12)",
+            labelColor="#c8d3df",
+            titleColor="#aab4c0",
+        )
+        .configure_legend(labelColor="#c8d3df", titleColor="#aab4c0")
+        .configure_title(color="#eef2f6")
+        .configure(background="transparent")
+    )
 
 
 def sensor_chart(data: pd.DataFrame, sensor: str) -> alt.Chart:
@@ -264,7 +520,7 @@ def sensor_chart(data: pd.DataFrame, sensor: str) -> alt.Chart:
             ],
         )
     )
-    return trend + maintenance_markers
+    return style_chart(trend + maintenance_markers)
 
 
 def csv_download(data: pd.DataFrame) -> bytes:
@@ -373,6 +629,39 @@ latest_action = (
     if not latest_non_normal.empty
     else "Continue normal monitoring"
 )
+top_priority = summary.sort_values(
+    ["rule_risk_points", "process_drift_nm"],
+    ascending=[False, False],
+).iloc[0]
+priority_label = (
+    "No open priority"
+    if latest_non_normal.empty
+    else str(top_priority["tool_id"])
+)
+priority_caption = (
+    "All tools currently normal"
+    if latest_non_normal.empty
+    else f"{int(top_priority['rule_risk_points'])} rule points, {top_priority['rule_risk_level']} risk"
+)
+priority_accent = (
+    "good"
+    if latest_non_normal.empty
+    else accent_class(str(top_priority["rule_risk_level"])).replace("cmp-accent-", "")
+)
+fleet_status = (
+    "Maintenance attention required"
+    if int(current_state_counts.get("maintenance_needed", 0)) > 0
+    else "Warning review active"
+    if int(current_state_counts.get("warning", 0)) > 0
+    else "Fleet stable"
+)
+fleet_accent = (
+    "danger"
+    if int(current_state_counts.get("maintenance_needed", 0)) > 0
+    else "warn"
+    if int(current_state_counts.get("warning", 0)) > 0
+    else "good"
+)
 
 with st.sidebar.expander("Downloads", expanded=True):
     st.download_button(
@@ -394,22 +683,52 @@ with st.sidebar.expander("Downloads", expanded=True):
         mime="text/csv",
     )
 
-section_label("Portfolio Demo Snapshot")
-metric_cols = st.columns(4)
-metric_cols[0].metric("Tools", features["tool_id"].nunique())
-metric_cols[1].metric("Latest Reading", latest_timestamp.strftime("%Y-%m-%d %H:%M"))
-metric_cols[2].metric("Alert Rows", f"{len(alerts):,}")
-metric_cols[3].metric("High Risk Tools", len(high_risk_tools))
-
-section_label("Executive Summary")
-summary_cols = st.columns(4)
-summary_cols[0].metric("Current Normal Tools", int(current_state_counts.get("normal", 0)))
-summary_cols[1].metric("Current Warning Tools", int(current_state_counts.get("warning", 0)))
-summary_cols[2].metric(
-    "Current Maintenance Needed",
-    int(current_state_counts.get("maintenance_needed", 0)),
+section_label("Operations Command Center")
+card_grid(
+    [
+        command_card(
+            "Fleet status",
+            fleet_status,
+            f"{features['tool_id'].nunique()} tools monitored from synthetic CMP sensor data",
+            fleet_accent,
+        ),
+        command_card(
+            "Priority tool",
+            priority_label,
+            priority_caption,
+            priority_accent,
+        ),
+        command_card(
+            "Last update",
+            latest_timestamp.strftime("%b %d, %Y"),
+            latest_timestamp.strftime("%I:%M %p sensor snapshot"),
+            "teal",
+        ),
+        command_card(
+            "Action queue",
+            str(len(alerts)),
+            "Rows available for technician review",
+            "warn" if len(alerts) else "good",
+        ),
+    ],
+    "cmp-command-grid",
 )
-summary_cols[3].metric("Maintenance Events", int(features["maintenance_event"].sum()))
+
+section_label("Fleet Snapshot")
+card_grid(
+    [
+        kpi_card("Normal tools", str(int(current_state_counts.get("normal", 0))), "Running inside expected bands", "good"),
+        kpi_card("Warning tools", str(int(current_state_counts.get("warning", 0))), "Needs closer trend review", "warn"),
+        kpi_card(
+            "Maintenance needed",
+            str(int(current_state_counts.get("maintenance_needed", 0))),
+            "Requires technician action",
+            "danger",
+        ),
+        kpi_card("PM events", str(int(features["maintenance_event"].sum())), "Simulated reset history", "teal"),
+    ],
+    "cmp-kpi-grid",
+)
 st.markdown(
     f"<div class='cmp-action'><strong>Latest recommended action:</strong> {latest_action}</div>",
     unsafe_allow_html=True,
@@ -472,7 +791,7 @@ with right:
         )
         .properties(height=320)
     )
-    st.altair_chart(risk_chart, width="stretch")
+    st.altair_chart(style_chart(risk_chart), width="stretch")
 
 section_label("Maintenance Event Timeline")
 event_view = maintenance_event_summary(features[features["tool_id"].isin(selected_tools)])
@@ -559,7 +878,7 @@ with importance_tab:
         )
         .properties(height=390)
     )
-    st.altair_chart(importance_chart, width="stretch")
+    st.altair_chart(style_chart(importance_chart), width="stretch")
     st.dataframe(top_importance, width="stretch", hide_index=True)
 
 with metrics_tab:
