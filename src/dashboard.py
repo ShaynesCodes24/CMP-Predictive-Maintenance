@@ -2,6 +2,7 @@ from pathlib import Path
 from html import escape
 import sqlite3
 from datetime import datetime
+import math
 
 import altair as alt
 import pandas as pd
@@ -717,6 +718,24 @@ def init_product_db() -> None:
                 event_type TEXT NOT NULL,
                 details TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS synthetic_live_feed (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT NOT NULL,
+                tool_id TEXT NOT NULL,
+                scenario TEXT NOT NULL,
+                vibration REAL NOT NULL,
+                slurry_flow_rate REAL NOT NULL,
+                pad_life_pct REAL NOT NULL,
+                retaining_ring_life_pct REAL NOT NULL,
+                wafer_removal_rate REAL NOT NULL,
+                process_drift_nm REAL NOT NULL,
+                alarm_count INTEGER NOT NULL,
+                scored_rule_points INTEGER NOT NULL,
+                scored_risk_level TEXT NOT NULL,
+                scored_urgency TEXT NOT NULL,
+                scored_drivers TEXT NOT NULL
+            );
             """
         )
         defaults = [
@@ -886,6 +905,123 @@ def score_uploaded_data(uploaded: pd.DataFrame, thresholds: dict[str, float]) ->
     scored["scored_urgency"] = [item["urgency"] for item in assessments]
     scored["scored_drivers"] = [", ".join(item["reasons"]) for item in assessments]
     return scored
+
+
+def latest_live_feed() -> pd.DataFrame:
+    data = read_db("SELECT * FROM synthetic_live_feed ORDER BY timestamp DESC, id DESC")
+    if data.empty:
+        return data
+    data["timestamp"] = pd.to_datetime(data["timestamp"])
+    return data
+
+
+def clear_live_feed(user: str, role: str) -> None:
+    execute_db("DELETE FROM synthetic_live_feed")
+    audit_event(user, role, "synthetic_feed_cleared", "Cleared simulated live feed rows")
+
+
+def build_synthetic_sample(
+    base_row: pd.Series,
+    tool_id: str,
+    scenario: str,
+    sample_index: int,
+    thresholds: dict[str, float],
+) -> dict[str, object]:
+    wave = math.sin(sample_index / 3)
+    vibration = float(base_row["vibration"]) + 0.012 * wave
+    slurry_flow = float(base_row["slurry_flow_rate"]) + 1.2 * math.cos(sample_index / 4)
+    pad_life = float(base_row["pad_life_pct"]) + sample_index * 0.05
+    ring_life = float(base_row["retaining_ring_life_pct"]) + sample_index * 0.04
+    removal_rate = float(base_row["wafer_removal_rate"]) - 0.05 * wave
+    process_drift = float(base_row["process_drift_nm"]) + 0.08 * sample_index
+    alarm_count = int(base_row["alarm_count"])
+
+    if scenario == "Slurry restriction":
+        slurry_flow -= sample_index * 1.8
+        process_drift += sample_index * 0.18
+        removal_rate -= sample_index * 0.12
+    elif scenario == "Vibration ramp":
+        vibration += sample_index * 0.025
+        alarm_count += 1 if sample_index >= 4 else 0
+    elif scenario == "Pad wear acceleration":
+        pad_life += sample_index * 1.4
+        vibration += sample_index * 0.012
+        removal_rate -= sample_index * 0.08
+    elif scenario == "Maintenance reset":
+        vibration = max(0.25, float(base_row["vibration"]) - 0.04)
+        slurry_flow = max(slurry_flow, 210.0)
+        pad_life = max(5.0, float(base_row["pad_life_pct"]) * 0.12)
+        ring_life = max(5.0, float(base_row["retaining_ring_life_pct"]) * 0.18)
+        removal_rate = max(removal_rate, 104.0)
+        process_drift = min(process_drift, 1.5)
+        alarm_count = 0
+
+    assessment = scenario_risk_assessment(
+        vibration,
+        slurry_flow,
+        pad_life,
+        ring_life,
+        removal_rate,
+        process_drift,
+        alarm_count,
+        thresholds,
+    )
+    return {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "tool_id": tool_id,
+        "scenario": scenario,
+        "vibration": round(vibration, 4),
+        "slurry_flow_rate": round(slurry_flow, 2),
+        "pad_life_pct": round(min(pad_life, 100), 2),
+        "retaining_ring_life_pct": round(min(ring_life, 100), 2),
+        "wafer_removal_rate": round(removal_rate, 2),
+        "process_drift_nm": round(max(process_drift, 0), 2),
+        "alarm_count": alarm_count,
+        "scored_rule_points": int(assessment["points"]),
+        "scored_risk_level": str(assessment["level"]),
+        "scored_urgency": str(assessment["urgency"]),
+        "scored_drivers": ", ".join(assessment["reasons"]),
+    }
+
+
+def append_live_sample(
+    base_data: pd.DataFrame,
+    tool_id: str,
+    scenario: str,
+    thresholds: dict[str, float],
+    user: str,
+    role: str,
+) -> None:
+    live_data = latest_live_feed()
+    sample_index = int(len(live_data[live_data["tool_id"] == tool_id]) + 1) if not live_data.empty else 1
+    base_row = base_data[base_data["tool_id"] == tool_id].sort_values("timestamp").tail(1).iloc[0]
+    sample = build_synthetic_sample(base_row, tool_id, scenario, sample_index, thresholds)
+    execute_db(
+        """
+        INSERT INTO synthetic_live_feed
+            (timestamp, tool_id, scenario, vibration, slurry_flow_rate, pad_life_pct,
+             retaining_ring_life_pct, wafer_removal_rate, process_drift_nm, alarm_count,
+             scored_rule_points, scored_risk_level, scored_urgency, scored_drivers)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            sample["timestamp"],
+            sample["tool_id"],
+            sample["scenario"],
+            sample["vibration"],
+            sample["slurry_flow_rate"],
+            sample["pad_life_pct"],
+            sample["retaining_ring_life_pct"],
+            sample["wafer_removal_rate"],
+            sample["process_drift_nm"],
+            sample["alarm_count"],
+            sample["scored_rule_points"],
+            sample["scored_risk_level"],
+            sample["scored_urgency"],
+            sample["scored_drivers"],
+        ),
+    )
+    audit_event(user, role, "synthetic_live_sample", f"Generated {scenario} sample for {tool_id}")
 
 
 def risk_badge(risk_level: str) -> str:
@@ -1541,6 +1677,18 @@ def live_feed_chart(data: pd.DataFrame) -> alt.Chart:
     )
 
 
+def display_live_feed_rows(live_rows: pd.DataFrame, tool_id: str) -> pd.DataFrame:
+    if live_rows.empty:
+        return pd.DataFrame()
+    display_rows = live_rows[live_rows["tool_id"] == tool_id].copy()
+    if display_rows.empty:
+        return display_rows
+    display_rows["feed_type"] = "Persistent synthetic stream"
+    display_rows["rule_risk_level"] = display_rows["scored_risk_level"]
+    display_rows["rule_risk_points"] = display_rows["scored_rule_points"]
+    return display_rows.sort_values("timestamp")
+
+
 def model_quality_summary(prediction_data: pd.DataFrame) -> pd.DataFrame:
     reviewed = prediction_data.copy()
     reviewed["correct_prediction"] = (
@@ -1862,7 +2010,6 @@ fleet_accent = (
 )
 threshold_values = load_threshold_values()
 runtime_timestamp = datetime.now()
-freshness_label, freshness_state = freshness_status(latest_timestamp, runtime_timestamp)
 data_mode = st.sidebar.selectbox(
     "Data mode",
     [
@@ -1872,12 +2019,63 @@ data_mode = st.sidebar.selectbox(
         "Historian connector placeholder",
     ],
 )
+live_feed_rows = latest_live_feed()
+stream_tool = None
+stream_scenario = "Normal drift"
+if data_mode == "Simulated live feed":
+    st.sidebar.markdown("### Synthetic Stream")
+    stream_tool = st.sidebar.selectbox("Stream tool", tool_options)
+    stream_scenario = st.sidebar.selectbox(
+        "Stream scenario",
+        [
+            "Normal drift",
+            "Slurry restriction",
+            "Vibration ramp",
+            "Pad wear acceleration",
+            "Maintenance reset",
+        ],
+    )
+    stream_active = st.sidebar.toggle("Stream active", value=True)
+    if st.sidebar.button("Generate next sample"):
+        append_live_sample(
+            features,
+            stream_tool,
+            stream_scenario,
+            threshold_values,
+            operator_name,
+            operator_role,
+        )
+        live_feed_rows = latest_live_feed()
+        st.sidebar.success("Synthetic sample generated.")
+    if st.sidebar.button("Clear stream"):
+        clear_live_feed(operator_name, operator_role)
+        live_feed_rows = latest_live_feed()
+        st.sidebar.success("Synthetic feed cleared.")
+    if stream_active:
+        last_auto_sample = st.session_state.get("last_auto_live_sample")
+        now_second = datetime.now().replace(microsecond=0)
+        if last_auto_sample != now_second:
+            append_live_sample(
+                features,
+                stream_tool,
+                stream_scenario,
+                threshold_values,
+                operator_name,
+                operator_role,
+            )
+            st.session_state.last_auto_live_sample = now_second
+            live_feed_rows = latest_live_feed()
+
+source_timestamp = latest_timestamp
+if data_mode == "Simulated live feed" and not live_feed_rows.empty:
+    source_timestamp = live_feed_rows["timestamp"].max()
+freshness_label, freshness_state = freshness_status(source_timestamp, runtime_timestamp)
 
 st.markdown(
     status_grid(
         [
             ("Runtime clock", runtime_timestamp.strftime("%b %d, %Y %I:%M %p"), "good"),
-            ("Source timestamp", latest_timestamp.strftime("%b %d, %Y %I:%M %p"), freshness_state),
+            ("Source timestamp", source_timestamp.strftime("%b %d, %Y %I:%M %p"), freshness_state),
             ("Data freshness", freshness_label, freshness_state),
             ("Feed mode", data_mode, "warn" if "demo" in data_mode.lower() or "placeholder" in data_mode.lower() else "good"),
             ("System status", "Integration ready", "good"),
@@ -1926,7 +2124,7 @@ if product_area == "Deployment readiness":
     section_label("Deployment Readiness")
     readiness_text = deployment_readiness_report(
         threshold_values,
-        latest_timestamp,
+        source_timestamp,
         runtime_timestamp,
     )
     card_grid(
@@ -2157,7 +2355,9 @@ if product_area == "Fab simulations":
             )
     with live_tab:
         live_tool = st.selectbox("Live feed tool", options=tool_options, index=0, key="route_live_tool")
-        live_feed = live_feed_simulation(features, live_tool, threshold_values)
+        live_feed = display_live_feed_rows(live_feed_rows, live_tool)
+        if live_feed.empty:
+            live_feed = live_feed_simulation(features, live_tool, threshold_values)
         st.altair_chart(live_feed_chart(live_feed), width="stretch")
         st.dataframe(live_feed.tail(12), width="stretch", hide_index=True)
     with simulator_tab:
@@ -2503,15 +2703,20 @@ with impact_tab:
 
 with live_tab:
     live_tool = st.selectbox("Live feed tool", options=tool_options, index=0, key="live_feed_tool")
-    live_feed = live_feed_simulation(features, live_tool, threshold_values)
+    live_feed = display_live_feed_rows(live_feed_rows, live_tool)
+    using_persistent_stream = not live_feed.empty
+    if live_feed.empty:
+        live_feed = live_feed_simulation(features, live_tool, threshold_values)
     if live_feed.empty:
         st.info("No live feed simulation rows available.")
     else:
         latest_projection = live_feed.tail(1).iloc[0]
+        live_label = "Persistent synthetic stream" if using_persistent_stream else "Projected demo feed"
+        time_context = "latest generated sample" if using_persistent_stream else "next 6 hours"
         st.markdown(
-            f"<div class='cmp-action'><strong>Simulated live feed:</strong> {escape(live_tool)} projects "
-            f"{escape(str(latest_projection['rule_risk_level']).upper())} risk in the next 6 hours "
-            f"with {int(latest_projection['rule_risk_points'])} rule points if the current drift continues.</div>",
+            f"<div class='cmp-action'><strong>{escape(live_label)}:</strong> {escape(live_tool)} shows "
+            f"{escape(str(latest_projection['rule_risk_level']).upper())} risk for the {time_context} "
+            f"with {int(latest_projection['rule_risk_points'])} rule points.</div>",
             unsafe_allow_html=True,
         )
         st.altair_chart(live_feed_chart(live_feed), width="stretch")
