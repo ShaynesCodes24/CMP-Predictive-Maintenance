@@ -647,6 +647,78 @@ def update_threshold(threshold_key: str, value: float, user: str, role: str) -> 
     audit_event(user, role, "threshold_updated", f"{threshold_key} set to {value}")
 
 
+def load_threshold_values() -> dict[str, float]:
+    thresholds = read_db("SELECT threshold_key, value FROM alert_thresholds")
+    if thresholds.empty:
+        return {}
+    return dict(zip(thresholds["threshold_key"], thresholds["value"]))
+
+
+def has_permission(role: str, action: str) -> bool:
+    permissions = {
+        "Technician": {"create_ticket", "update_ticket", "log_action", "ingest_data"},
+        "Process Engineer": {
+            "create_ticket",
+            "update_ticket",
+            "log_action",
+            "update_threshold",
+            "ingest_data",
+        },
+        "Maintenance Supervisor": {
+            "create_ticket",
+            "update_ticket",
+            "log_action",
+            "ingest_data",
+        },
+        "Admin": {
+            "create_ticket",
+            "update_ticket",
+            "log_action",
+            "update_threshold",
+            "ingest_data",
+        },
+    }
+    return action in permissions.get(role, set())
+
+
+def score_uploaded_data(uploaded: pd.DataFrame, thresholds: dict[str, float]) -> pd.DataFrame:
+    required = {
+        "timestamp",
+        "tool_id",
+        "vibration",
+        "slurry_flow_rate",
+        "pad_life_pct",
+        "retaining_ring_life_pct",
+        "wafer_removal_rate",
+        "process_drift_nm",
+        "alarm_count",
+    }
+    missing = required.difference(uploaded.columns)
+    if missing:
+        raise ValueError(f"Uploaded file is missing required columns: {', '.join(sorted(missing))}")
+
+    scored = uploaded.copy()
+    scored["timestamp"] = pd.to_datetime(scored["timestamp"], errors="coerce")
+    assessments = scored.apply(
+        lambda row: scenario_risk_assessment(
+            float(row["vibration"]),
+            float(row["slurry_flow_rate"]),
+            float(row["pad_life_pct"]),
+            float(row["retaining_ring_life_pct"]),
+            float(row["wafer_removal_rate"]),
+            float(row["process_drift_nm"]),
+            int(row["alarm_count"]),
+            thresholds,
+        ),
+        axis=1,
+    )
+    scored["scored_rule_points"] = [item["points"] for item in assessments]
+    scored["scored_risk_level"] = [item["level"] for item in assessments]
+    scored["scored_urgency"] = [item["urgency"] for item in assessments]
+    scored["scored_drivers"] = [", ".join(item["reasons"]) for item in assessments]
+    return scored
+
+
 def risk_badge(risk_level: str) -> str:
     color = RISK_COLORS.get(risk_level, "#6c757d")
     return (
@@ -986,26 +1058,35 @@ def scenario_risk_assessment(
     removal_rate: float,
     process_drift: float,
     alarm_count: int,
+    thresholds: dict[str, float] | None = None,
 ) -> dict[str, object]:
+    thresholds = thresholds or {}
+    vibration_high = thresholds.get("vibration_high", 0.70)
+    slurry_flow_low = thresholds.get("slurry_flow_low", 190.0)
+    pad_life_high = thresholds.get("pad_life_high", 90.0)
+    ring_life_high = thresholds.get("ring_life_high", 90.0)
+    removal_rate_low = thresholds.get("removal_rate_low", 96.0)
+    process_drift_high = thresholds.get("process_drift_high", 10.0)
+    alarm_burst = int(thresholds.get("alarm_burst", 2.0))
     points = 0
     reasons = []
 
-    if vibration >= 0.70:
+    if vibration >= vibration_high:
         points += 1
         reasons.append("High vibration")
-    if slurry_flow <= 190:
+    if slurry_flow <= slurry_flow_low:
         points += 1
         reasons.append("Low slurry flow")
-    if pad_life >= 90 and vibration >= 0.62:
+    if pad_life >= pad_life_high and vibration >= vibration_high * 0.89:
         points += 1
         reasons.append("Pad life near limit with elevated vibration")
-    if ring_life >= 90:
+    if ring_life >= ring_life_high:
         points += 1
         reasons.append("Retaining ring life near limit")
-    if removal_rate <= 96 or process_drift >= 10:
+    if removal_rate <= removal_rate_low or process_drift >= process_drift_high:
         points += 1
         reasons.append("Removal-rate or process-drift abnormality")
-    if alarm_count >= 2:
+    if alarm_count >= alarm_burst:
         points += 1
         reasons.append("Alarm burst")
 
@@ -1024,12 +1105,12 @@ def scenario_risk_assessment(
 
     pseudo_row = pd.Series(
         {
-            "alert_pad_wear": pad_life >= 90 and vibration >= 0.62,
-            "alert_slurry_flow": slurry_flow <= 190,
-            "alert_motor_vibration": vibration >= 0.70,
+            "alert_pad_wear": pad_life >= pad_life_high and vibration >= vibration_high * 0.89,
+            "alert_slurry_flow": slurry_flow <= slurry_flow_low,
+            "alert_motor_vibration": vibration >= vibration_high,
             "alert_pressure_drift": False,
-            "alert_alarm_burst": alarm_count >= 2,
-            "alert_process_drift": removal_rate <= 96 or process_drift >= 10,
+            "alert_alarm_burst": alarm_count >= alarm_burst,
+            "alert_process_drift": removal_rate <= removal_rate_low or process_drift >= process_drift_high,
             "pad_life_pct": pad_life,
             "retaining_ring_life_pct": ring_life,
             "slurry_flow_rate": slurry_flow,
@@ -1124,7 +1205,12 @@ def incident_replay_chart(data: pd.DataFrame) -> alt.Chart:
     return style_chart((vibration + drift).properties(height=330))
 
 
-def live_feed_simulation(data: pd.DataFrame, tool_id: str, rows: int = 18) -> pd.DataFrame:
+def live_feed_simulation(
+    data: pd.DataFrame,
+    tool_id: str,
+    thresholds: dict[str, float],
+    rows: int = 18,
+) -> pd.DataFrame:
     tool_data = data[data["tool_id"] == tool_id].sort_values("timestamp").tail(rows).copy()
     if tool_data.empty:
         return pd.DataFrame()
@@ -1145,6 +1231,7 @@ def live_feed_simulation(data: pd.DataFrame, tool_id: str, rows: int = 18) -> pd
             removal_rate,
             process_drift,
             int(latest["alarm_count"]),
+            thresholds,
         )
         projected_rows.append(
             {
@@ -1404,6 +1491,16 @@ operator_role = st.sidebar.selectbox(
     "Role",
     options=["Technician", "Process Engineer", "Maintenance Supervisor", "Admin"],
 )
+product_area = st.sidebar.radio(
+    "Product area",
+    [
+        "Full command center",
+        "Industrial ops",
+        "Fab simulations",
+        "Technician workflow",
+        "Model analytics",
+    ],
+)
 selected_tools = st.sidebar.multiselect(
     "Tools",
     options=tool_options,
@@ -1482,6 +1579,7 @@ fleet_accent = (
     if int(current_state_counts.get("warning", 0)) > 0
     else "good"
 )
+threshold_values = load_threshold_values()
 
 with st.sidebar.expander("Downloads", expanded=True):
     st.download_button(
@@ -1553,6 +1651,11 @@ st.markdown(
     f"<div class='cmp-action'><strong>Latest recommended action:</strong> {latest_action}</div>",
     unsafe_allow_html=True,
 )
+st.markdown(
+    f"<div class='cmp-action'><strong>Selected product area:</strong> {escape(product_area)}. "
+    "Use the sections below as role-based product modules: industrial ops, fab simulations, technician workflow, and model analytics.</div>",
+    unsafe_allow_html=True,
+)
 
 st.divider()
 
@@ -1578,8 +1681,14 @@ st.dataframe(action_view, width="stretch", hide_index=True)
 st.divider()
 
 section_label("Industrial Product Console")
-product_tab, ticket_board_tab, threshold_tab, audit_tab = st.tabs(
-    ["Product Overview", "Persistent Ticket Board", "Threshold Settings", "Audit Trail"]
+product_tab, ticket_board_tab, threshold_tab, ingestion_tab, audit_tab = st.tabs(
+    [
+        "Product Overview",
+        "Persistent Ticket Board",
+        "Threshold Settings",
+        "Data Ingestion",
+        "Audit Trail",
+    ]
 )
 
 with product_tab:
@@ -1610,7 +1719,10 @@ with ticket_board_tab:
         ticket_row = features[features["tool_id"] == ticket_tool].sort_values("timestamp").tail(1).iloc[0]
         ticket_causes = root_cause_probabilities(ticket_row)
         assigned_to = st.text_input("Assign to", value=operator_name)
-        if st.button("Create persistent ticket"):
+        can_create_ticket = has_permission(operator_role, "create_ticket")
+        if not can_create_ticket:
+            st.warning("Current role does not have permission to create tickets.")
+        if st.button("Create persistent ticket", disabled=not can_create_ticket):
             create_persistent_ticket(
                 ticket_tool,
                 ticket_row,
@@ -1638,7 +1750,10 @@ with ticket_board_tab:
                 ["New", "Assigned", "In Progress", "Waiting for parts", "Action Taken", "Verified", "Closed"],
             )
             closeout_notes = st.text_area("Closeout notes", value="Awaiting technician update.", height=90)
-            if st.button("Update persistent ticket"):
+            can_update_ticket = has_permission(operator_role, "update_ticket")
+            if not can_update_ticket:
+                st.warning("Current role does not have permission to update tickets.")
+            if st.button("Update persistent ticket", disabled=not can_update_ticket):
                 update_ticket_status(
                     selected_ticket_id,
                     new_status,
@@ -1652,6 +1767,40 @@ with ticket_board_tab:
     if tickets.empty:
         st.info("No persistent maintenance tickets yet.")
     else:
+        st.markdown("#### Ticket Detail")
+        detail_options = [
+            f"{int(row['id'])} - {row['tool_id']} - {row['status']}"
+            for _, row in tickets.iterrows()
+        ]
+        detail_ticket = st.selectbox("Open ticket detail", detail_options)
+        detail_ticket_id = int(detail_ticket.split(" - ")[0])
+        detail_row = tickets[tickets["id"] == detail_ticket_id].iloc[0]
+        ticket_actions = read_db(
+            "SELECT * FROM technician_actions WHERE ticket_id = ? ORDER BY id DESC",
+            (detail_ticket_id,),
+        )
+        ticket_audit = read_db(
+            "SELECT * FROM audit_log WHERE details LIKE ? ORDER BY id DESC",
+            (f"%{detail_ticket_id}%",),
+        )
+        st.markdown(
+            decision_card(
+                f"Ticket {detail_ticket_id}: {detail_row['tool_id']}",
+                [
+                    f"Status: {detail_row['status']}",
+                    f"Priority: {detail_row['priority']}",
+                    f"Assigned to: {detail_row['assigned_to']}",
+                    f"Root cause: {detail_row['root_cause']}",
+                    f"Due: {detail_row['due_at']}",
+                ],
+            ),
+            unsafe_allow_html=True,
+        )
+        if not ticket_actions.empty:
+            st.dataframe(ticket_actions, width="stretch", hide_index=True)
+        if not ticket_audit.empty:
+            st.dataframe(ticket_audit, width="stretch", hide_index=True)
+        st.markdown("#### Ticket Board")
         st.dataframe(tickets, width="stretch", hide_index=True)
         st.download_button(
             "Download ticket board CSV",
@@ -1667,11 +1816,48 @@ with threshold_tab:
         threshold_key = st.selectbox("Threshold", thresholds["threshold_key"].tolist())
         current_value = float(thresholds.loc[thresholds["threshold_key"] == threshold_key, "value"].iloc[0])
         new_value = st.number_input("New value", value=current_value, step=0.1)
-        submitted_threshold = st.form_submit_button("Save threshold")
+        can_update_thresholds = has_permission(operator_role, "update_threshold")
+        if not can_update_thresholds:
+            st.warning("Only Process Engineer and Admin roles can update thresholds.")
+        submitted_threshold = st.form_submit_button("Save threshold", disabled=not can_update_thresholds)
         if submitted_threshold:
             update_threshold(threshold_key, float(new_value), operator_name, operator_role)
             st.success(f"Updated {threshold_key}.")
-    st.caption("These settings are persisted for product realism. The synthetic pipeline still uses its generated alert columns unless thresholds are wired into a future real-time scoring service.")
+    st.caption("These settings now drive the live feed simulator, scenario simulator, and uploaded CSV scoring.")
+
+with ingestion_tab:
+    can_ingest = has_permission(operator_role, "ingest_data")
+    if not can_ingest:
+        st.warning("Current role does not have permission to ingest data.")
+    uploaded_file = st.file_uploader(
+        "Upload CMP sensor CSV",
+        type=["csv"],
+        disabled=not can_ingest,
+    )
+    st.caption(
+        "Required columns: timestamp, tool_id, vibration, slurry_flow_rate, pad_life_pct, "
+        "retaining_ring_life_pct, wafer_removal_rate, process_drift_nm, alarm_count."
+    )
+    if uploaded_file is not None and can_ingest:
+        try:
+            uploaded_data = pd.read_csv(uploaded_file)
+            scored_upload = score_uploaded_data(uploaded_data, threshold_values)
+            audit_event(
+                operator_name,
+                operator_role,
+                "data_ingested",
+                f"Scored uploaded CSV with {len(scored_upload)} rows",
+            )
+            st.success(f"Scored {len(scored_upload):,} uploaded rows.")
+            st.dataframe(scored_upload, width="stretch", hide_index=True)
+            st.download_button(
+                "Download scored upload CSV",
+                data=csv_download(scored_upload),
+                file_name="scored_cmp_upload.csv",
+                mime="text/csv",
+            )
+        except Exception as exc:
+            st.error(str(exc))
 
 with audit_tab:
     audit = read_db("SELECT * FROM audit_log ORDER BY id DESC LIMIT 250")
@@ -1736,7 +1922,7 @@ with impact_tab:
 
 with live_tab:
     live_tool = st.selectbox("Live feed tool", options=tool_options, index=0, key="live_feed_tool")
-    live_feed = live_feed_simulation(features, live_tool)
+    live_feed = live_feed_simulation(features, live_tool, threshold_values)
     if live_feed.empty:
         st.info("No live feed simulation rows available.")
     else:
@@ -1786,6 +1972,7 @@ with simulator_tab:
             sim_removal,
             sim_drift,
             sim_alarms,
+            threshold_values,
         )
         top_causes = [
             f"{row['Possible Root Cause']} ({row['Probability']:.1f}%)"
@@ -2101,32 +2288,35 @@ with action_log_tab:
 
         submitted = st.form_submit_button("Add action log entry")
         if submitted:
-            linked_ticket_id = None if ticket_link == "No ticket link" else int(ticket_link.split(" - ")[0])
-            add_persistent_action(
-                linked_ticket_id,
-                technician_tool,
-                technician_name,
-                action_taken,
-                finding,
-                str(technician_row["rule_risk_level"]),
-                risk_after,
-                next_step,
-                operator_name,
-                operator_role,
-            )
-            st.session_state.technician_action_log.append(
-                {
-                    "timestamp": latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-                    "tool_id": technician_tool,
-                    "technician": technician_name,
-                    "action_taken": action_taken,
-                    "finding": finding,
-                    "risk_before": str(technician_row["rule_risk_level"]),
-                    "risk_after": risk_after,
-                    "next_step": next_step,
-                }
-            )
-            st.success("Action log entry added to the persistent product database.")
+            if not has_permission(operator_role, "log_action"):
+                st.error("Current role does not have permission to log technician actions.")
+            else:
+                linked_ticket_id = None if ticket_link == "No ticket link" else int(ticket_link.split(" - ")[0])
+                add_persistent_action(
+                    linked_ticket_id,
+                    technician_tool,
+                    technician_name,
+                    action_taken,
+                    finding,
+                    str(technician_row["rule_risk_level"]),
+                    risk_after,
+                    next_step,
+                    operator_name,
+                    operator_role,
+                )
+                st.session_state.technician_action_log.append(
+                    {
+                        "timestamp": latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                        "tool_id": technician_tool,
+                        "technician": technician_name,
+                        "action_taken": action_taken,
+                        "finding": finding,
+                        "risk_before": str(technician_row["rule_risk_level"]),
+                        "risk_after": risk_after,
+                        "next_step": next_step,
+                    }
+                )
+                st.success("Action log entry added to the persistent product database.")
 
     action_log = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
     if action_log.empty:

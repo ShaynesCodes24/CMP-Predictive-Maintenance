@@ -71,6 +71,7 @@ The Streamlit dashboard shows:
 
 - Current tool priority
 - Industrial Product Console with role context, persistent tickets, configurable thresholds, and audit trail
+- Product navigation, ticket detail drilldowns, role-based permissions, threshold-driven scoring, and CSV ingestion
 - Fab Command Center with live-feed simulation, downtime, scrap, incident replay, scenario simulation, model quality, reports, and executive summary views
 - Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact
 - Root-cause probability estimates for each selected CMP tool
@@ -301,6 +302,10 @@ Industrial product version:
 Latest product upgrade:
 
 > The platform now includes a simulated live sensor feed, model quality monitor, and downloadable operations report so supervisors can review risk, maintenance planning, model confidence, and technician activity from one product console.
+
+Current product hardening:
+
+> The app now supports role-based actions, ticket detail review, persisted threshold settings that drive scenario/live scoring, uploaded CSV validation and scoring, and product-area navigation for a more enterprise-style workflow.
 
 ## Limitations
 
