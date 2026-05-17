@@ -82,28 +82,33 @@ st.markdown(
     """
     <style>
     :root {
-        --cmp-bg: #f5f7fa;
+        --cmp-bg: #f4f6f9;
         --cmp-panel: #ffffff;
         --cmp-panel-soft: #f8fafc;
-        --cmp-border: #d8dee8;
-        --cmp-text: #17202c;
-        --cmp-muted: #647084;
-        --cmp-accent: #0f766e;
-        --cmp-accent-soft: rgba(15, 118, 110, 0.10);
-        --cmp-good: #15803d;
-        --cmp-warn: #b7791f;
-        --cmp-danger: #b91c1c;
-        --cmp-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+        --cmp-border: #d9e1ec;
+        --cmp-text: #162033;
+        --cmp-muted: #667085;
+        --cmp-accent: #006b68;
+        --cmp-accent-2: #1d4ed8;
+        --cmp-accent-soft: rgba(0, 107, 104, 0.10);
+        --cmp-good: #177245;
+        --cmp-warn: #a16207;
+        --cmp-danger: #b42318;
+        --cmp-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        --cmp-shadow-soft: 0 4px 14px rgba(15, 23, 42, 0.06);
     }
 
     .stApp {
-        background: linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(244, 246, 249, 0.96) 34%),
+            linear-gradient(135deg, #eef5f5 0%, #f6f8fb 54%, #eef2f7 100%);
         color: var(--cmp-text);
     }
 
     section[data-testid="stSidebar"] {
         background: #ffffff;
         border-right: 1px solid var(--cmp-border);
+        box-shadow: 8px 0 24px rgba(15, 23, 42, 0.04);
     }
 
     section[data-testid="stSidebar"] label,
@@ -114,9 +119,9 @@ st.markdown(
     div[data-testid="stMetric"] {
         background: #ffffff;
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 1rem 1.05rem;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
     }
 
     div[data-testid="stMetricLabel"] {
@@ -130,11 +135,12 @@ st.markdown(
     }
 
     .cmp-hero {
-        border: 1px solid var(--cmp-border);
-        border-radius: 8px;
-        padding: 1.45rem 1.55rem;
-        background: linear-gradient(135deg, #ffffff 0%, #edf7f6 100%);
-        margin-bottom: 0.9rem;
+        border: 1px solid rgba(0, 107, 104, 0.16);
+        border-radius: 12px;
+        padding: 1.35rem 1.45rem;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(235,247,246,0.96) 62%, rgba(232,240,255,0.88) 100%);
+        margin-bottom: 0.85rem;
         box-shadow: var(--cmp-shadow);
     }
 
@@ -149,7 +155,7 @@ st.markdown(
 
     .cmp-title {
         color: var(--cmp-text);
-        font-size: 2.05rem;
+        font-size: 1.95rem;
         font-weight: 850;
         line-height: 1.12;
         margin: 0;
@@ -157,9 +163,9 @@ st.markdown(
 
     .cmp-subtitle {
         color: var(--cmp-muted);
-        font-size: 1rem;
+        font-size: 0.96rem;
         margin-top: 0.5rem;
-        max-width: 72rem;
+        max-width: 68rem;
     }
 
     .cmp-section-label {
@@ -176,7 +182,7 @@ st.markdown(
         border-right: 1px solid rgba(15, 118, 110, 0.18);
         border-bottom: 1px solid rgba(15, 118, 110, 0.18);
         background: #eef8f7;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 0.9rem 1rem;
         color: var(--cmp-text);
         margin-bottom: 1rem;
@@ -185,11 +191,11 @@ st.markdown(
 
     .cmp-decision-card {
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         background: #ffffff;
         padding: 1rem 1.05rem;
         min-height: 11.25rem;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
         margin-bottom: 1rem;
     }
 
@@ -221,7 +227,7 @@ st.markdown(
         border-top: 1px solid rgba(233, 196, 106, 0.28);
         border-right: 1px solid rgba(233, 196, 106, 0.28);
         border-bottom: 1px solid rgba(233, 196, 106, 0.28);
-        border-radius: 8px;
+        border-radius: 10px;
         background: #fff8e6;
         color: var(--cmp-text);
         padding: 1rem 1.05rem;
@@ -231,10 +237,10 @@ st.markdown(
     .cmp-tool-card {
         background: #ffffff;
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 1rem;
         min-height: 17.3rem;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
     }
 
     .cmp-tool-card-header {
@@ -307,20 +313,20 @@ st.markdown(
     .cmp-command-card,
     .cmp-kpi-card {
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         background: #ffffff;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
         margin-bottom: 0.85rem;
     }
 
     .cmp-command-card {
-        padding: 1rem 1.05rem;
-        min-height: 8.25rem;
+        padding: 0.95rem 1rem;
+        min-height: 7.4rem;
     }
 
     .cmp-kpi-card {
-        padding: 0.95rem 1rem;
-        min-height: 7rem;
+        padding: 0.9rem 1rem;
+        min-height: 6.5rem;
     }
 
     .cmp-command-title,
@@ -333,7 +339,7 @@ st.markdown(
 
     .cmp-command-value {
         color: var(--cmp-text);
-        font-size: 1.55rem;
+        font-size: 1.42rem;
         line-height: 1.15;
         font-weight: 850;
         margin-top: 0.5rem;
@@ -348,7 +354,7 @@ st.markdown(
 
     .cmp-kpi-value {
         color: var(--cmp-text);
-        font-size: 2rem;
+        font-size: 1.78rem;
         line-height: 1.05;
         font-weight: 850;
         margin-top: 0.45rem;
@@ -407,35 +413,83 @@ st.markdown(
 
     div[data-testid="stDataFrame"] {
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         overflow: hidden;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
     }
 
     div[data-testid="stVegaLiteChart"] {
         background: #ffffff;
         border: 1px solid var(--cmp-border);
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 0.55rem;
-        box-shadow: var(--cmp-shadow);
+        box-shadow: var(--cmp-shadow-soft);
     }
 
     .block-container {
-        padding-top: 2rem;
+        padding-top: 1.45rem;
         padding-bottom: 3rem;
-        max-width: 1500px;
+        max-width: 1380px;
+    }
+
+    div[data-testid="stTabs"] button {
+        border-radius: 8px 8px 0 0;
+        color: var(--cmp-muted);
+    }
+
+    div[data-testid="stTabs"] button[aria-selected="true"] {
+        color: var(--cmp-accent);
+        font-weight: 800;
+    }
+
+    .cmp-workspace-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 0.35rem 0 1rem;
+    }
+
+    .cmp-workspace-card {
+        background: #ffffff;
+        border: 1px solid var(--cmp-border);
+        border-radius: 10px;
+        padding: 0.85rem 0.95rem;
+        box-shadow: var(--cmp-shadow-soft);
+    }
+
+    .cmp-workspace-title {
+        color: var(--cmp-text);
+        font-size: 0.92rem;
+        font-weight: 850;
+        margin-bottom: 0.25rem;
+    }
+
+    .cmp-workspace-body {
+        color: var(--cmp-muted);
+        font-size: 0.82rem;
+        line-height: 1.42;
+    }
+
+    .cmp-report-panel {
+        background: #ffffff;
+        border: 1px solid var(--cmp-border);
+        border-radius: 10px;
+        padding: 1rem 1.15rem;
+        box-shadow: var(--cmp-shadow-soft);
     }
 
     @media (max-width: 1100px) {
         .cmp-command-grid,
-        .cmp-kpi-grid {
+        .cmp-kpi-grid,
+        .cmp-workspace-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
     @media (max-width: 760px) {
         .cmp-command-grid,
-        .cmp-kpi-grid {
+        .cmp-kpi-grid,
+        .cmp-workspace-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -781,6 +835,35 @@ def card_grid(cards: list[str], class_name: str) -> None:
     for column, card in zip(columns, cards):
         with column:
             st.markdown(card, unsafe_allow_html=True)
+
+
+def workspace_cards() -> str:
+    cards = [
+        (
+            "Industrial ops",
+            "Persistent tickets, threshold settings, data ingestion, and audit trail.",
+        ),
+        (
+            "Fab simulations",
+            "Cost exposure, live-feed projections, what-if scenarios, and incident replay.",
+        ),
+        (
+            "Technician workflow",
+            "Troubleshooting guidance, work tickets, action logs, and shift handoffs.",
+        ),
+        (
+            "Model analytics",
+            "Prediction review, feature importance, confidence bands, and model metrics.",
+        ),
+    ]
+    rendered = "".join(
+        "<div class='cmp-workspace-card'>"
+        f"<div class='cmp-workspace-title'>{escape(title)}</div>"
+        f"<div class='cmp-workspace-body'>{escape(body)}</div>"
+        "</div>"
+        for title, body in cards
+    )
+    return f"<div class='cmp-workspace-grid'>{rendered}</div>"
 
 
 def active_alerts(row: pd.Series) -> list[str]:
@@ -1465,11 +1548,12 @@ if "technician_action_log" not in st.session_state:
 st.markdown(
     """
     <div class="cmp-hero">
-        <div class="cmp-eyebrow">CMP predictive maintenance</div>
-        <h1 class="cmp-title">Tool Health Dashboard</h1>
+        <div class="cmp-eyebrow">CMP equipment intelligence platform</div>
+        <h1 class="cmp-title">Maintenance Command Center</h1>
         <div class="cmp-subtitle">
-            Monitor CMP tool risk, maintenance reset behavior, sensor drift, model confidence,
-            and recommended technician checks from one operations-focused view.
+            Monitor CMP fleet health, maintenance risk, technician work orders,
+            root-cause guidance, PM planning, model quality, and operational exposure
+            from one production-focused console.
         </div>
     </div>
     """,
@@ -1681,6 +1765,7 @@ if product_area == "Executive overview":
         else 0
     )
     next_pm = pm_calendar_overview.iloc[0]
+    st.markdown(workspace_cards(), unsafe_allow_html=True)
     card_grid(
         [
             kpi_card("Open work orders", str(open_ticket_count), "Persistent maintenance tickets", "warn" if open_ticket_count else "good"),
