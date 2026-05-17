@@ -143,11 +143,12 @@ st.markdown(
     .cmp-hero {
         border: 1px solid rgba(0, 107, 104, 0.16);
         border-radius: 12px;
-        padding: 1.1rem 1.25rem;
+        padding: 1.45rem 1.25rem 1.15rem;
         background:
             linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(232,250,248,0.96) 58%, rgba(232,240,255,0.88) 100%);
         margin-bottom: 0.85rem;
         box-shadow: var(--cmp-shadow);
+        overflow: visible;
     }
 
     .cmp-brand-row {
@@ -155,6 +156,7 @@ st.markdown(
         align-items: center;
         gap: 0.95rem;
         margin-bottom: 0.85rem;
+        min-height: 3.35rem;
     }
 
     .cmp-logo-mark {
@@ -167,6 +169,7 @@ st.markdown(
             conic-gradient(from 210deg, #00b8a9, #2f80ed, #7c3aed, #00b8a9);
         position: relative;
         box-shadow: 0 12px 22px rgba(0, 107, 104, 0.20);
+        transform: translateY(0.08rem);
     }
 
     .cmp-logo-mark::before {
