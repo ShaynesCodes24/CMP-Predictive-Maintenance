@@ -82,30 +82,27 @@ st.markdown(
     """
     <style>
     :root {
-        --cmp-bg: #0f141b;
-        --cmp-panel: #171d26;
-        --cmp-panel-soft: #1f2732;
-        --cmp-border: #2b3542;
-        --cmp-text: #eef2f6;
-        --cmp-muted: #aab4c0;
-        --cmp-accent: #39a7a5;
-        --cmp-accent-soft: rgba(57, 167, 165, 0.14);
-        --cmp-good: #2a9d8f;
-        --cmp-warn: #e9c46a;
-        --cmp-danger: #d62828;
-        --cmp-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+        --cmp-bg: #f5f7fa;
+        --cmp-panel: #ffffff;
+        --cmp-panel-soft: #f8fafc;
+        --cmp-border: #d8dee8;
+        --cmp-text: #17202c;
+        --cmp-muted: #647084;
+        --cmp-accent: #0f766e;
+        --cmp-accent-soft: rgba(15, 118, 110, 0.10);
+        --cmp-good: #15803d;
+        --cmp-warn: #b7791f;
+        --cmp-danger: #b91c1c;
+        --cmp-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
     }
 
     .stApp {
-        background:
-            radial-gradient(circle at 8% 0%, rgba(57, 167, 165, 0.16), transparent 27rem),
-            radial-gradient(circle at 86% 8%, rgba(233, 196, 106, 0.09), transparent 22rem),
-            linear-gradient(180deg, #111821 0%, #0f141b 46%, #0a0e13 100%);
+        background: linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
         color: var(--cmp-text);
     }
 
     section[data-testid="stSidebar"] {
-        background: #171b23;
+        background: #ffffff;
         border-right: 1px solid var(--cmp-border);
     }
 
@@ -115,11 +112,11 @@ st.markdown(
     }
 
     div[data-testid="stMetric"] {
-        background: linear-gradient(180deg, rgba(31, 39, 50, 0.96), rgba(22, 28, 37, 0.96));
+        background: #ffffff;
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1rem 1.05rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        box-shadow: var(--cmp-shadow);
     }
 
     div[data-testid="stMetricLabel"] {
@@ -136,15 +133,13 @@ st.markdown(
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1.45rem 1.55rem;
-        background:
-            linear-gradient(100deg, rgba(57, 167, 165, 0.18), rgba(45, 57, 73, 0.32)),
-            linear-gradient(180deg, rgba(25, 32, 43, 0.94), rgba(18, 24, 32, 0.94));
-        margin-bottom: 1.05rem;
+        background: linear-gradient(135deg, #ffffff 0%, #edf7f6 100%);
+        margin-bottom: 0.9rem;
         box-shadow: var(--cmp-shadow);
     }
 
     .cmp-eyebrow {
-        color: #70d6d3;
+        color: var(--cmp-accent);
         font-size: 0.78rem;
         font-weight: 800;
         letter-spacing: 0;
@@ -168,7 +163,7 @@ st.markdown(
     }
 
     .cmp-section-label {
-        color: #b7e7e5;
+        color: var(--cmp-accent);
         font-weight: 800;
         text-transform: uppercase;
         font-size: 0.76rem;
@@ -177,24 +172,21 @@ st.markdown(
 
     .cmp-action {
         border-left: 4px solid var(--cmp-accent);
-        border-top: 1px solid rgba(57, 167, 165, 0.22);
-        border-right: 1px solid rgba(57, 167, 165, 0.22);
-        border-bottom: 1px solid rgba(57, 167, 165, 0.22);
-        background:
-            linear-gradient(90deg, rgba(57, 167, 165, 0.18), rgba(57, 167, 165, 0.07)),
-            rgba(18, 24, 32, 0.94);
+        border-top: 1px solid rgba(15, 118, 110, 0.18);
+        border-right: 1px solid rgba(15, 118, 110, 0.18);
+        border-bottom: 1px solid rgba(15, 118, 110, 0.18);
+        background: #eef8f7;
         border-radius: 8px;
         padding: 0.9rem 1rem;
         color: var(--cmp-text);
         margin-bottom: 1rem;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        box-shadow: none;
     }
 
     .cmp-decision-card {
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
-        background:
-            linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(17, 23, 31, 0.98));
+        background: #ffffff;
         padding: 1rem 1.05rem;
         min-height: 11.25rem;
         box-shadow: var(--cmp-shadow);
@@ -230,14 +222,14 @@ st.markdown(
         border-right: 1px solid rgba(233, 196, 106, 0.28);
         border-bottom: 1px solid rgba(233, 196, 106, 0.28);
         border-radius: 8px;
-        background: rgba(233, 196, 106, 0.08);
+        background: #fff8e6;
         color: var(--cmp-text);
         padding: 1rem 1.05rem;
         line-height: 1.55;
     }
 
     .cmp-tool-card {
-        background: linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(18, 24, 32, 0.98));
+        background: #ffffff;
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 1rem;
@@ -316,8 +308,7 @@ st.markdown(
     .cmp-kpi-card {
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
-        background:
-            linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(17, 23, 31, 0.98));
+        background: #ffffff;
         box-shadow: var(--cmp-shadow);
         margin-bottom: 0.85rem;
     }
@@ -404,7 +395,7 @@ st.markdown(
 
     .cmp-progress-track {
         height: 0.45rem;
-        background: rgba(170, 180, 192, 0.14);
+        background: #edf2f7;
         border-radius: 999px;
         overflow: hidden;
     }
@@ -418,15 +409,15 @@ st.markdown(
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+        box-shadow: var(--cmp-shadow);
     }
 
     div[data-testid="stVegaLiteChart"] {
-        background: rgba(23, 29, 38, 0.84);
+        background: #ffffff;
         border: 1px solid var(--cmp-border);
         border-radius: 8px;
         padding: 0.55rem;
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+        box-shadow: var(--cmp-shadow);
     }
 
     .block-container {
@@ -1378,12 +1369,12 @@ def style_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart.configure_view(stroke=None)
         .configure_axis(
-            gridColor="rgba(170, 180, 192, 0.12)",
-            labelColor="#c8d3df",
-            titleColor="#aab4c0",
+            gridColor="rgba(100, 112, 132, 0.18)",
+            labelColor="#425066",
+            titleColor="#647084",
         )
-        .configure_legend(labelColor="#c8d3df", titleColor="#aab4c0")
-        .configure_title(color="#eef2f6")
+        .configure_legend(labelColor="#425066", titleColor="#647084")
+        .configure_title(color="#17202c")
         .configure(background="transparent")
     )
 
@@ -1494,11 +1485,12 @@ operator_role = st.sidebar.selectbox(
 product_area = st.sidebar.radio(
     "Product area",
     [
-        "Full command center",
+        "Executive overview",
         "Industrial ops",
         "Fab simulations",
         "Technician workflow",
         "Model analytics",
+        "Full command center",
     ],
 )
 selected_tools = st.sidebar.multiselect(
@@ -1677,6 +1669,258 @@ action_view = filtered_summary[
     ]
 ].sort_values(["rule_risk_level", "tool_id"], ascending=[True, True])
 st.dataframe(action_view, width="stretch", hide_index=True)
+
+if product_area == "Executive overview":
+    section_label("Executive Review")
+    pm_calendar_overview = estimate_pm_calendar(features)
+    tickets_overview = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+    actions_overview = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
+    open_ticket_count = (
+        int((tickets_overview["status"] != "Closed").sum())
+        if not tickets_overview.empty
+        else 0
+    )
+    next_pm = pm_calendar_overview.iloc[0]
+    card_grid(
+        [
+            kpi_card("Open work orders", str(open_ticket_count), "Persistent maintenance tickets", "warn" if open_ticket_count else "good"),
+            kpi_card("Next PM tool", str(next_pm["Tool"]), str(next_pm["Next PM Item"]), "teal"),
+            kpi_card("Hours to PM", f"{float(next_pm['Hours Until Due']):.1f}", str(next_pm["Priority"]), "warn"),
+            kpi_card("Action history", str(len(actions_overview)), "Technician records saved", "teal"),
+        ],
+        "cmp-kpi-grid",
+    )
+    executive_report = professional_report(
+        summary,
+        tickets_overview,
+        actions_overview,
+        pm_calendar_overview,
+    )
+    st.markdown(executive_report)
+    st.download_button(
+        "Download operations report",
+        data=executive_report.encode("utf-8"),
+        file_name="cmp_operations_report.md",
+        mime="text/markdown",
+    )
+    st.markdown(
+        "<div class='cmp-action'><strong>Navigation:</strong> Choose Industrial ops, Fab simulations, "
+        "Technician workflow, or Model analytics in the sidebar to open the specialist workspaces.</div>",
+        unsafe_allow_html=True,
+    )
+    st.stop()
+
+if product_area == "Model analytics":
+    section_label("Model Analytics")
+    left, right = st.columns([1.35, 1])
+    with left:
+        if filtered.empty:
+            st.info("No rows match the selected filters.")
+        else:
+            st.altair_chart(sensor_chart(filtered, selected_sensor), width="stretch")
+    with right:
+        quality = model_quality_summary(predictions)
+        overall_accuracy = (
+            predictions["maintenance_state"] == predictions["predicted_maintenance_state"]
+        ).mean()
+        card_grid(
+            [
+                kpi_card("Model accuracy", f"{overall_accuracy:.1%}", "Generated validation rows", "good"),
+                kpi_card("Review queue", str(int((predictions["review_priority"] != "normal_monitoring").sum())), "Rows needing model review", "warn"),
+            ],
+            "cmp-kpi-grid",
+        )
+        st.dataframe(quality, width="stretch", hide_index=True)
+
+    model_tab, importance_tab, metrics_tab = st.tabs(
+        ["Model Predictions", "Feature Importance", "Model Metrics"]
+    )
+    with model_tab:
+        prediction_view = filtered_predictions.copy()
+        prediction_view["correct_prediction"] = (
+            prediction_view["maintenance_state"]
+            == prediction_view["predicted_maintenance_state"]
+        )
+        st.dataframe(
+            prediction_view[
+                [
+                    "timestamp",
+                    "tool_id",
+                    "maintenance_state",
+                    "predicted_maintenance_state",
+                    "rule_risk_level",
+                    "prob_maintenance_needed",
+                    "prob_warning",
+                    "prob_normal",
+                    "model_confidence",
+                    "review_priority",
+                ]
+            ].sort_values("timestamp", ascending=False),
+            width="stretch",
+            hide_index=True,
+        )
+    with importance_tab:
+        top_importance = importance.head(12)
+        importance_chart = (
+            alt.Chart(top_importance)
+            .mark_bar()
+            .encode(
+                x=alt.X("importance:Q", title="Importance"),
+                y=alt.Y("feature:N", title="Feature", sort="-x"),
+                tooltip=[
+                    alt.Tooltip("feature:N"),
+                    alt.Tooltip("importance:Q", format=".4f"),
+                ],
+            )
+            .properties(height=390)
+        )
+        st.altair_chart(style_chart(importance_chart), width="stretch")
+    with metrics_tab:
+        st.markdown(metrics_text)
+    st.stop()
+
+if product_area == "Fab simulations":
+    section_label("Fab Simulation Workspace")
+    impact_tab, live_tab, simulator_tab, replay_tab, report_tab = st.tabs(
+        [
+            "Cost Exposure",
+            "Live Feed",
+            "What-If Scenario",
+            "Incident Replay",
+            "Supervisor Report",
+        ]
+    )
+    with impact_tab:
+        impact_tool = st.selectbox("Impact tool", options=tool_options, index=0, key="route_impact_tool")
+        impact_row = summary[summary["tool_id"] == impact_tool].iloc[0]
+        col_a, col_b = st.columns(2)
+        with col_a:
+            lots_at_risk = st.slider("Lots at risk", 1, 40, 6, key="route_lots")
+            wafers_per_lot = st.slider("Wafers per lot", 1, 50, 25, key="route_wafers")
+            scrap_cost = st.number_input("Scrap cost per wafer ($)", min_value=0, value=850, step=50, key="route_scrap")
+        with col_b:
+            downtime_hours = st.slider("Potential downtime hours", 0.0, 48.0, 8.0, 0.5, key="route_down_hours")
+            downtime_cost = st.number_input("Downtime cost per hour ($)", min_value=0, value=2500, step=250, key="route_down_cost")
+            impact = estimate_business_impact(
+                str(impact_row["rule_risk_level"]),
+                lots_at_risk,
+                wafers_per_lot,
+                float(scrap_cost),
+                downtime_hours,
+                float(downtime_cost),
+            )
+            st.markdown(
+                decision_card(
+                    "Estimated exposure",
+                    [
+                        f"Wafers at risk: {impact['wafers_at_risk']:.0f}",
+                        f"Expected scrap cost: ${impact['expected_scrap_cost']:,.0f}",
+                        f"Expected downtime cost: ${impact['expected_downtime_cost']:,.0f}",
+                        f"Total exposure: ${impact['total_exposure']:,.0f}",
+                    ],
+                ),
+                unsafe_allow_html=True,
+            )
+    with live_tab:
+        live_tool = st.selectbox("Live feed tool", options=tool_options, index=0, key="route_live_tool")
+        live_feed = live_feed_simulation(features, live_tool, threshold_values)
+        st.altair_chart(live_feed_chart(live_feed), width="stretch")
+        st.dataframe(live_feed.tail(12), width="stretch", hide_index=True)
+    with simulator_tab:
+        base_tool = st.selectbox("Scenario baseline tool", options=tool_options, index=0, key="route_scenario_tool")
+        base_row = summary[summary["tool_id"] == base_tool].iloc[0]
+        col_a, col_b = st.columns(2)
+        with col_a:
+            sim_vibration = st.slider("Vibration", 0.20, 1.20, float(base_row["vibration"]), 0.01, key="route_vib")
+            sim_slurry = st.slider("Slurry flow", 150.0, 230.0, float(base_row["slurry_flow_rate"]), 0.5, key="route_slurry")
+            sim_pad = st.slider("Pad life used (%)", 0.0, 100.0, float(base_row["pad_life_pct"]), 0.5, key="route_pad")
+        with col_b:
+            sim_ring = st.slider("Ring life used (%)", 0.0, 100.0, float(base_row["retaining_ring_life_pct"]), 0.5, key="route_ring")
+            sim_removal = st.slider("Wafer removal rate", 88.0, 112.0, float(base_row["wafer_removal_rate"]), 0.1, key="route_removal")
+            sim_drift = st.slider("Process drift (nm)", 0.0, 20.0, float(base_row["process_drift_nm"]), 0.1, key="route_drift")
+            sim_alarms = st.slider("Alarm count", 0, 5, int(base_row["alarm_count"]), key="route_alarms")
+        scenario = scenario_risk_assessment(
+            sim_vibration,
+            sim_slurry,
+            sim_pad,
+            sim_ring,
+            sim_removal,
+            sim_drift,
+            sim_alarms,
+            threshold_values,
+        )
+        st.markdown(
+            decision_card(
+                f"Scenario result: {str(scenario['level']).upper()} risk",
+                [
+                    f"Rule points: {scenario['points']}",
+                    f"Urgency: {scenario['urgency']}",
+                    "Drivers: " + ", ".join(scenario["reasons"]),
+                ],
+            ),
+            unsafe_allow_html=True,
+        )
+    with replay_tab:
+        replay_tool = st.selectbox("Replay tool", options=tool_options, index=0, key="route_replay_tool")
+        replay = incident_replay_data(features, replay_tool)
+        st.altair_chart(incident_replay_chart(replay), width="stretch")
+        st.dataframe(replay.tail(20), width="stretch", hide_index=True)
+    with report_tab:
+        report_text = professional_report(
+            summary,
+            read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC"),
+            read_db("SELECT * FROM technician_actions ORDER BY id DESC"),
+            estimate_pm_calendar(features),
+        )
+        st.markdown(report_text)
+        st.download_button(
+            "Download supervisor report",
+            data=report_text.encode("utf-8"),
+            file_name="cmp_operations_report.md",
+            mime="text/markdown",
+        )
+    st.stop()
+
+if product_area == "Technician workflow":
+    section_label("Technician Workflow")
+    technician_tool = st.selectbox(
+        "Tool",
+        options=tool_options,
+        index=tool_options.index(str(top_priority["tool_id"])) if str(top_priority["tool_id"]) in tool_options else 0,
+        key="route_technician_tool",
+    )
+    technician_row = features[features["tool_id"] == technician_tool].sort_values("timestamp").tail(1).iloc[0]
+    cause_table = root_cause_probabilities(technician_row)
+    urgency, business_impact = urgency_text(technician_row)
+    troubleshooting_tab, ticket_tab, action_tab, handoff_tab = st.tabs(
+        ["Troubleshooting", "Ticket", "Action Log", "Shift Handoff"]
+    )
+    with troubleshooting_tab:
+        col_a, col_b, col_c = st.columns([1, 1.1, 0.9])
+        with col_a:
+            st.markdown(decision_card("Likely causes", likely_causes(cause_table)), unsafe_allow_html=True)
+        with col_b:
+            st.markdown(decision_card("Technician checks", recommended_checks(cause_table, technician_row)), unsafe_allow_html=True)
+        with col_c:
+            st.markdown(decision_card("Urgency", [urgency, business_impact]), unsafe_allow_html=True)
+    with ticket_tab:
+        ticket_text = maintenance_ticket(technician_tool, technician_row, cause_table)
+        st.markdown(ticket_text)
+        assigned_to = st.text_input("Assign persistent ticket to", value=operator_name, key="route_assign")
+        can_create_ticket = has_permission(operator_role, "create_ticket")
+        if st.button("Create persistent ticket", disabled=not can_create_ticket, key="route_create_ticket"):
+            create_persistent_ticket(technician_tool, technician_row, cause_table, assigned_to, operator_name, operator_role)
+            st.success(f"Created persistent ticket for {technician_tool}.")
+    with action_tab:
+        action_log = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
+        if action_log.empty:
+            st.info("No technician actions recorded yet.")
+        else:
+            st.dataframe(action_log, width="stretch", hide_index=True)
+    with handoff_tab:
+        handoff_text = shift_handoff(technician_tool, technician_row, cause_table)
+        st.markdown(f"<div class='cmp-handoff'>{escape(handoff_text)}</div>", unsafe_allow_html=True)
+    st.stop()
 
 st.divider()
 
@@ -1871,6 +2115,9 @@ with audit_tab:
             file_name="cmp_audit_trail.csv",
             mime="text/csv",
         )
+
+if product_area == "Industrial ops":
+    st.stop()
 
 st.divider()
 
@@ -2089,6 +2336,9 @@ with report_tab:
         file_name="cmp_operations_report.md",
         mime="text/markdown",
     )
+
+if product_area == "Fab simulations":
+    st.stop()
 
 st.divider()
 
@@ -2379,6 +2629,9 @@ A technician would use this by checking the priority tool, reviewing the likely 
 Next I would connect the workflow to real historian or equipment log exports, validate thresholds with technicians and process engineers, and add false-alarm review so the system stays useful in production.
         """
     )
+
+if product_area == "Technician workflow":
+    st.stop()
 
 st.divider()
 
