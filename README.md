@@ -1,6 +1,6 @@
-# CMP Predictive Maintenance Project
+# PlanarIQ CMP Equipment Intelligence Platform
 
-Portfolio project for demonstrating semiconductor equipment technician skills with a focus on Chemical Mechanical Planarization (CMP) tool health, fault detection, predictive maintenance, and technician-ready communication.
+Industrial-style CMP equipment intelligence platform for semiconductor tool health, fault detection, predictive maintenance, technician execution, PM planning, and operations reporting.
 
 ![CMP Tool Health Dashboard](reports/images/dashboard_preview.png)
 
@@ -9,7 +9,7 @@ https://cmp-predictive-maintenance.streamlit.app
 
 ## Project Story
 
-I built a CMP predictive maintenance workflow that simulates tool sensor data, identifies abnormal equipment trends, predicts maintenance risk, and recommends practical maintenance checks before failures cause downtime.
+I built PlanarIQ, a CMP predictive maintenance workflow that simulates tool sensor data, identifies abnormal equipment trends, predicts maintenance risk, and recommends practical maintenance checks before failures cause downtime.
 
 The project answers:
 

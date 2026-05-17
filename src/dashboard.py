@@ -111,6 +111,11 @@ st.markdown(
         box-shadow: 8px 0 24px rgba(15, 23, 42, 0.04);
     }
 
+    header[data-testid="stHeader"] {
+        background: rgba(244, 247, 251, 0.86);
+        backdrop-filter: blur(10px);
+    }
+
     section[data-testid="stSidebar"] label,
     section[data-testid="stSidebar"] .stMarkdown {
         color: var(--cmp-text);
@@ -137,11 +142,63 @@ st.markdown(
     .cmp-hero {
         border: 1px solid rgba(0, 107, 104, 0.16);
         border-radius: 12px;
-        padding: 1.35rem 1.45rem;
+        padding: 1.1rem 1.25rem;
         background:
-            linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(235,247,246,0.96) 62%, rgba(232,240,255,0.88) 100%);
+            linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(232,250,248,0.96) 58%, rgba(232,240,255,0.88) 100%);
         margin-bottom: 0.85rem;
         box-shadow: var(--cmp-shadow);
+    }
+
+    .cmp-brand-row {
+        display: flex;
+        align-items: center;
+        gap: 0.95rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .cmp-logo-mark {
+        width: 3.2rem;
+        height: 3.2rem;
+        flex: 0 0 auto;
+        border-radius: 14px;
+        background:
+            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0 20%, transparent 21%),
+            conic-gradient(from 210deg, #00b8a9, #2f80ed, #7c3aed, #00b8a9);
+        position: relative;
+        box-shadow: 0 12px 22px rgba(0, 107, 104, 0.20);
+    }
+
+    .cmp-logo-mark::before {
+        content: "";
+        position: absolute;
+        inset: 0.45rem;
+        border: 2px solid rgba(255,255,255,0.78);
+        border-radius: 50%;
+    }
+
+    .cmp-logo-mark::after {
+        content: "";
+        position: absolute;
+        width: 1.75rem;
+        height: 0.2rem;
+        background: rgba(255,255,255,0.95);
+        border-radius: 999px;
+        transform: rotate(-28deg);
+        left: 0.72rem;
+        top: 1.5rem;
+    }
+
+    .cmp-brand-name {
+        color: var(--cmp-text);
+        font-size: 1.4rem;
+        line-height: 1;
+        font-weight: 900;
+    }
+
+    .cmp-brand-tagline {
+        color: var(--cmp-muted);
+        font-size: 0.86rem;
+        margin-top: 0.16rem;
     }
 
     .cmp-eyebrow {
@@ -155,7 +212,7 @@ st.markdown(
 
     .cmp-title {
         color: var(--cmp-text);
-        font-size: 1.95rem;
+        font-size: 1.7rem;
         font-weight: 850;
         line-height: 1.12;
         margin: 0;
@@ -166,6 +223,34 @@ st.markdown(
         font-size: 0.96rem;
         margin-top: 0.5rem;
         max-width: 68rem;
+    }
+
+    .cmp-top-nav {
+        margin: 0.25rem 0 1rem;
+        padding: 0.55rem;
+        background: rgba(255,255,255,0.76);
+        border: 1px solid var(--cmp-border);
+        border-radius: 12px;
+        box-shadow: var(--cmp-shadow-soft);
+    }
+
+    div[role="radiogroup"] {
+        gap: 0.45rem;
+    }
+
+    div[role="radiogroup"] label {
+        background: #ffffff;
+        border: 1px solid var(--cmp-border);
+        border-radius: 9px;
+        padding: 0.48rem 0.74rem;
+        box-shadow: none;
+    }
+
+    div[role="radiogroup"] label:has(input:checked) {
+        border-color: rgba(0, 143, 134, 0.45);
+        background: #e9fbf8;
+        color: var(--cmp-accent);
+        box-shadow: inset 0 0 0 1px rgba(0, 143, 134, 0.18);
     }
 
     .cmp-section-label {
@@ -1548,26 +1633,26 @@ if "technician_action_log" not in st.session_state:
 st.markdown(
     """
     <div class="cmp-hero">
-        <div class="cmp-eyebrow">CMP equipment intelligence platform</div>
-        <h1 class="cmp-title">Maintenance Command Center</h1>
+        <div class="cmp-brand-row">
+            <div class="cmp-logo-mark"></div>
+            <div>
+                <div class="cmp-brand-name">PlanarIQ</div>
+                <div class="cmp-brand-tagline">CMP equipment intelligence for high-uptime fabs</div>
+            </div>
+        </div>
+        <div class="cmp-eyebrow">Process-aware predictive maintenance</div>
+        <h1 class="cmp-title">Fleet Health, PM Planning, And Technician Execution</h1>
         <div class="cmp-subtitle">
-            Monitor CMP fleet health, maintenance risk, technician work orders,
-            root-cause guidance, PM planning, model quality, and operational exposure
-            from one production-focused console.
+            A semiconductor maintenance command center for CMP tool risk, technician work orders,
+            root-cause guidance, PM planning, model quality, and operational exposure.
         </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-tool_options = sorted(features["tool_id"].unique())
-operator_name = st.sidebar.text_input("User", value="Demo User")
-operator_role = st.sidebar.selectbox(
-    "Role",
-    options=["Technician", "Process Engineer", "Maintenance Supervisor", "Admin"],
-)
-product_area = st.sidebar.radio(
-    "Product area",
+product_area = st.radio(
+    "Workspace",
     [
         "Executive overview",
         "Industrial ops",
@@ -1576,6 +1661,14 @@ product_area = st.sidebar.radio(
         "Model analytics",
         "Full command center",
     ],
+    horizontal=True,
+)
+
+tool_options = sorted(features["tool_id"].unique())
+operator_name = st.sidebar.text_input("User", value="Demo User")
+operator_role = st.sidebar.selectbox(
+    "Role",
+    options=["Technician", "Process Engineer", "Maintenance Supervisor", "Admin"],
 )
 selected_tools = st.sidebar.multiselect(
     "Tools",
@@ -1656,6 +1749,42 @@ fleet_accent = (
     else "good"
 )
 threshold_values = load_threshold_values()
+
+if product_area == "Executive overview":
+    section_label("Executive Overview")
+    pm_calendar_overview = estimate_pm_calendar(features)
+    tickets_overview = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+    actions_overview = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
+    open_ticket_count = (
+        int((tickets_overview["status"] != "Closed").sum())
+        if not tickets_overview.empty
+        else 0
+    )
+    next_pm = pm_calendar_overview.iloc[0]
+    st.markdown(workspace_cards(), unsafe_allow_html=True)
+    card_grid(
+        [
+            command_card("Fleet status", fleet_status, f"{features['tool_id'].nunique()} tools monitored", fleet_accent),
+            command_card("Priority tool", priority_label, priority_caption, priority_accent),
+            command_card("Open work orders", str(open_ticket_count), "Persistent maintenance tickets", "warn" if open_ticket_count else "good"),
+            command_card("Next PM", str(next_pm["Tool"]), f"{next_pm['Next PM Item']} in {float(next_pm['Hours Until Due']):.1f}h", "teal"),
+        ],
+        "cmp-command-grid",
+    )
+    executive_report = professional_report(
+        summary,
+        tickets_overview,
+        actions_overview,
+        pm_calendar_overview,
+    )
+    st.markdown(executive_report)
+    st.download_button(
+        "Download operations report",
+        data=executive_report.encode("utf-8"),
+        file_name="cmp_operations_report.md",
+        mime="text/markdown",
+    )
+    st.stop()
 
 with st.sidebar.expander("Downloads", expanded=True):
     st.download_button(
