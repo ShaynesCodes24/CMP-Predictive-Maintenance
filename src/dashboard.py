@@ -27,6 +27,48 @@ STATE_COLORS = {
     "maintenance_needed": "#d62828",
 }
 
+ALERT_LABELS = {
+    "alert_motor_vibration": "High vibration with elevated platen current",
+    "alert_slurry_flow": "Low slurry flow",
+    "alert_pad_wear": "Pad wear with elevated vibration",
+    "alert_pressure_drift": "Downforce pressure outside normal range",
+    "alert_alarm_burst": "Multiple alarms in the same hour",
+    "alert_process_drift": "Removal-rate or process-drift abnormality",
+}
+
+ROOT_CAUSE_CHECKS = {
+    "Pad wear": [
+        "Inspect pad condition and remaining life",
+        "Review conditioner performance",
+        "Compare removal-rate trend against baseline",
+    ],
+    "Slurry delivery issue": [
+        "Verify slurry flow rate against the expected range",
+        "Inspect delivery lines, filters, and flow sensors",
+        "Check for recent slurry alarms or flow instability",
+    ],
+    "Retaining ring wear": [
+        "Check retaining ring remaining life",
+        "Inspect carrier stability and contact pattern",
+        "Review edge-removal behavior if available",
+    ],
+    "Vibration or bearing issue": [
+        "Check vibration sensor reading against previous runs",
+        "Inspect platen drive and bearing condition",
+        "Review motor current trend and tool event history",
+    ],
+    "Pressure or carrier control issue": [
+        "Verify downforce pressure control",
+        "Check pressure sensor calibration",
+        "Review carrier load and recipe setpoints",
+    ],
+    "Unknown or process drift": [
+        "Review recent alarm history",
+        "Compare current run data with the last stable run",
+        "Escalate to engineering if drift continues after basic checks",
+    ],
+}
+
 
 st.set_page_config(
     page_title="CMP Tool Health Dashboard",
@@ -144,6 +186,52 @@ st.markdown(
         color: var(--cmp-text);
         margin-bottom: 1rem;
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .cmp-decision-card {
+        border: 1px solid var(--cmp-border);
+        border-radius: 8px;
+        background:
+            linear-gradient(180deg, rgba(31, 39, 50, 0.98), rgba(17, 23, 31, 0.98));
+        padding: 1rem 1.05rem;
+        min-height: 11.25rem;
+        box-shadow: var(--cmp-shadow);
+        margin-bottom: 1rem;
+    }
+
+    .cmp-decision-title {
+        color: var(--cmp-text);
+        font-weight: 850;
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .cmp-decision-body {
+        color: var(--cmp-muted);
+        font-size: 0.92rem;
+        line-height: 1.48;
+    }
+
+    .cmp-list {
+        margin: 0.35rem 0 0;
+        padding-left: 1.15rem;
+        color: var(--cmp-muted);
+    }
+
+    .cmp-list li {
+        margin-bottom: 0.28rem;
+    }
+
+    .cmp-handoff {
+        border-left: 4px solid var(--cmp-warn);
+        border-top: 1px solid rgba(233, 196, 106, 0.28);
+        border-right: 1px solid rgba(233, 196, 106, 0.28);
+        border-bottom: 1px solid rgba(233, 196, 106, 0.28);
+        border-radius: 8px;
+        background: rgba(233, 196, 106, 0.08);
+        color: var(--cmp-text);
+        padding: 1rem 1.05rem;
+        line-height: 1.55;
     }
 
     .cmp-tool-card {
@@ -456,6 +544,278 @@ def card_grid(cards: list[str], class_name: str) -> None:
             st.markdown(card, unsafe_allow_html=True)
 
 
+def active_alerts(row: pd.Series) -> list[str]:
+    return [label for column, label in ALERT_LABELS.items() if bool(row.get(column, False))]
+
+
+def format_action_list(action_text: str) -> list[str]:
+    return [action.strip() for action in str(action_text).split(";") if action.strip()]
+
+
+def decision_card(title: str, items: list[str]) -> str:
+    list_items = "".join(f"<li>{escape(item)}</li>" for item in items)
+    return f"""
+    <div class="cmp-decision-card">
+        <div class="cmp-decision-title">{escape(title)}</div>
+        <div class="cmp-decision-body"><ul class="cmp-list">{list_items}</ul></div>
+    </div>
+    """
+
+
+def urgency_text(row: pd.Series) -> tuple[str, str]:
+    risk_level = str(row["rule_risk_level"])
+    state = str(row["maintenance_state"])
+    if risk_level == "high" or state == "maintenance_needed":
+        return (
+            "High risk - inspect before next production run",
+            "Possible wafer defects, removal-rate drift, tool downtime, scrap risk, and lower yield.",
+        )
+    if risk_level == "medium" or state == "warning":
+        return (
+            "Medium risk - review during this shift",
+            "Trend is abnormal enough to justify technician review before the condition becomes a hard fault.",
+        )
+    if risk_level == "low":
+        return (
+            "Low risk - monitor next runs",
+            "Early symptom is present, but current evidence does not require immediate downtime.",
+        )
+    return (
+        "Normal - continue monitoring",
+        "Tool is inside expected synthetic operating bands on the latest snapshot.",
+    )
+
+
+def root_cause_probabilities(row: pd.Series) -> pd.DataFrame:
+    scores = {
+        "Pad wear": 0.6,
+        "Slurry delivery issue": 0.6,
+        "Retaining ring wear": 0.5,
+        "Vibration or bearing issue": 0.5,
+        "Pressure or carrier control issue": 0.45,
+        "Unknown or process drift": 0.35,
+    }
+
+    if bool(row.get("alert_pad_wear", False)):
+        scores["Pad wear"] += 3.6
+    if float(row.get("pad_life_pct", 0)) >= 85:
+        scores["Pad wear"] += 1.5
+    if bool(row.get("alert_slurry_flow", False)):
+        scores["Slurry delivery issue"] += 3.4
+    if float(row.get("slurry_flow_rate", 999)) < 200:
+        scores["Slurry delivery issue"] += 1.1
+    if float(row.get("retaining_ring_life_pct", 0)) >= 85:
+        scores["Retaining ring wear"] += 2.8
+    if bool(row.get("alert_motor_vibration", False)):
+        scores["Vibration or bearing issue"] += 3.2
+    if float(row.get("vibration", 0)) >= 0.65:
+        scores["Vibration or bearing issue"] += 1.3
+    if bool(row.get("alert_pressure_drift", False)):
+        scores["Pressure or carrier control issue"] += 3.0
+    if bool(row.get("alert_alarm_burst", False)):
+        scores["Unknown or process drift"] += 1.2
+    if bool(row.get("alert_process_drift", False)):
+        scores["Unknown or process drift"] += 2.4
+        scores["Pad wear"] += 0.8
+        scores["Slurry delivery issue"] += 0.6
+
+    total = sum(scores.values())
+    probabilities = [
+        {"Possible Root Cause": cause, "Probability": round(score / total * 100, 1)}
+        for cause, score in scores.items()
+    ]
+    return pd.DataFrame(probabilities).sort_values("Probability", ascending=False)
+
+
+def likely_causes(probability_table: pd.DataFrame, limit: int = 5) -> list[str]:
+    return [
+        f"{row['Possible Root Cause']} ({row['Probability']:.1f}%)"
+        for _, row in probability_table.head(limit).iterrows()
+    ]
+
+
+def recommended_checks(probability_table: pd.DataFrame, row: pd.Series) -> list[str]:
+    checks: list[str] = []
+    for cause in probability_table.head(3)["Possible Root Cause"]:
+        for check in ROOT_CAUSE_CHECKS[cause]:
+            if check not in checks:
+                checks.append(check)
+
+    for action in format_action_list(row["recommended_action"]):
+        if action not in checks:
+            checks.append(action)
+    return checks[:8]
+
+
+def shift_handoff(tool_id: str, row: pd.Series, probability_table: pd.DataFrame) -> str:
+    urgency, impact = urgency_text(row)
+    top_causes = ", ".join(probability_table.head(3)["Possible Root Cause"].tolist())
+    active = active_alerts(row)
+    evidence = ", ".join(active) if active else "no active rule alerts on the latest reading"
+    return (
+        f"Shift Handoff - {tool_id}: Latest tool state is {row['rule_risk_level']} risk "
+        f"with {int(row['rule_risk_points'])} rule points. Evidence shows {evidence}. "
+        f"Most likely causes are {top_causes}. {urgency}. {impact}"
+    )
+
+
+def maintenance_ticket(tool_id: str, row: pd.Series, probability_table: pd.DataFrame) -> str:
+    urgency, impact = urgency_text(row)
+    top_cause = probability_table.iloc[0]
+    checks = recommended_checks(probability_table, row)
+    evidence = active_alerts(row)
+    evidence_text = "\n".join(f"- {item}" for item in evidence) or "- No active latest-row rule alerts"
+    checks_text = "\n".join(f"- {item}" for item in checks)
+
+    return f"""# Maintenance Ticket - {tool_id}
+
+## Priority
+{urgency}
+
+## Tool Snapshot
+- Timestamp: {row['timestamp']}
+- Maintenance state: {row['maintenance_state']}
+- Rule risk level: {row['rule_risk_level']}
+- Rule risk points: {int(row['rule_risk_points'])}
+- Vibration: {row['vibration']:.3f}
+- Slurry flow: {row['slurry_flow_rate']:.2f}
+- Wafer removal rate: {row['wafer_removal_rate']:.2f}
+- Process drift: {row['process_drift_nm']:.2f} nm
+- Pad life used: {row['pad_life_pct']:.1f}%
+- Retaining ring life used: {row['retaining_ring_life_pct']:.1f}%
+- Alarm count: {int(row['alarm_count'])}
+
+## Most Likely Root Cause
+{top_cause['Possible Root Cause']} ({top_cause['Probability']:.1f}% estimated probability)
+
+## Evidence
+{evidence_text}
+
+## Recommended Technician Checks
+{checks_text}
+
+## Business Impact If Ignored
+{impact}
+
+## Closeout Notes
+- Record technician action taken.
+- Compare next-run risk, vibration, slurry flow, removal rate, and process drift against this snapshot.
+- Escalate if abnormal trend continues after basic maintenance checks.
+"""
+
+
+def assistant_response(question: str, tool_id: str, row: pd.Series, probability_table: pd.DataFrame) -> str:
+    urgency, impact = urgency_text(row)
+    checks = recommended_checks(probability_table, row)[:5]
+    top_two = probability_table.head(2)["Possible Root Cause"].tolist()
+    prompt_context = f" The question mentions: {question.strip()}" if question.strip() else ""
+    return (
+        f"For {tool_id}, the most likely issue is {top_two[0].lower()} or "
+        f"{top_two[1].lower()}. First check {checks[0].lower()}, then {checks[1].lower()}. "
+        f"Current urgency: {urgency}. {impact}{prompt_context}"
+    )
+
+
+def maintenance_before_after(data: pd.DataFrame, tool_id: str) -> pd.DataFrame:
+    tool_data = data[data["tool_id"] == tool_id].sort_values("timestamp").reset_index(drop=True)
+    event_indices = tool_data.index[tool_data["maintenance_event"] == 1].tolist()
+    if not event_indices:
+        return pd.DataFrame()
+
+    event_index = event_indices[-1]
+    before_index = max(event_index - 1, 0)
+    after_index = min(event_index + 3, len(tool_data) - 1)
+    before = tool_data.loc[before_index]
+    after = tool_data.loc[after_index]
+    return pd.DataFrame(
+        [
+            {
+                "Phase": "Before maintenance",
+                "Timestamp": before["timestamp"],
+                "Risk": before["rule_risk_level"],
+                "Rule points": int(before["rule_risk_points"]),
+                "Vibration": before["vibration"],
+                "Slurry flow": before["slurry_flow_rate"],
+                "Removal rate": before["wafer_removal_rate"],
+                "Process drift": before["process_drift_nm"],
+                "Pad life used": before["pad_life_pct"],
+                "Ring life used": before["retaining_ring_life_pct"],
+            },
+            {
+                "Phase": "After maintenance",
+                "Timestamp": after["timestamp"],
+                "Risk": after["rule_risk_level"],
+                "Rule points": int(after["rule_risk_points"]),
+                "Vibration": after["vibration"],
+                "Slurry flow": after["slurry_flow_rate"],
+                "Removal rate": after["wafer_removal_rate"],
+                "Process drift": after["process_drift_nm"],
+                "Pad life used": after["pad_life_pct"],
+                "Ring life used": after["retaining_ring_life_pct"],
+            },
+        ]
+    )
+
+
+def estimate_pm_calendar(data: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    sorted_data = data.sort_values(["tool_id", "timestamp"]).copy()
+
+    for tool_id, tool_data in sorted_data.groupby("tool_id", sort=True):
+        latest = tool_data.tail(1).iloc[0]
+        recent = tool_data.tail(24)
+        pad_rate = recent["pad_hours"].diff().clip(lower=0).mean()
+        ring_rate = recent["retaining_ring_hours"].diff().clip(lower=0).mean()
+        pad_rate = float(pad_rate) if pd.notna(pad_rate) and pad_rate > 0 else 0.55
+        ring_rate = float(ring_rate) if pd.notna(ring_rate) and ring_rate > 0 else 0.45
+
+        pad_hours_remaining = max(0.0, 400.0 - float(latest["pad_hours"]))
+        ring_hours_remaining = max(0.0, 300.0 - float(latest["retaining_ring_hours"]))
+        pad_due_hours = pad_hours_remaining / pad_rate
+        ring_due_hours = ring_hours_remaining / ring_rate
+        next_due_hours = min(pad_due_hours, ring_due_hours)
+        next_item = "Pad replacement" if pad_due_hours <= ring_due_hours else "Retaining ring replacement"
+        next_due_time = latest["timestamp"] + pd.to_timedelta(next_due_hours, unit="h")
+
+        if str(latest["rule_risk_level"]) == "high" or next_due_hours <= 12:
+            priority = "Inspect before next production run"
+        elif str(latest["rule_risk_level"]) == "medium" or next_due_hours <= 48:
+            priority = "Schedule during this shift"
+        elif next_due_hours <= 120:
+            priority = "Plan in next PM window"
+        else:
+            priority = "Monitor"
+
+        rows.append(
+            {
+                "Tool": tool_id,
+                "Next PM Item": next_item,
+                "Estimated Due": next_due_time,
+                "Hours Until Due": round(next_due_hours, 1),
+                "Pad Life Used": round(float(latest["pad_life_pct"]), 1),
+                "Ring Life Used": round(float(latest["retaining_ring_life_pct"]), 1),
+                "Current Risk": latest["rule_risk_level"],
+                "Priority": priority,
+            }
+        )
+
+    return pd.DataFrame(rows).sort_values(["Hours Until Due", "Tool"])
+
+
+def action_log_dataframe() -> pd.DataFrame:
+    columns = [
+        "timestamp",
+        "tool_id",
+        "technician",
+        "action_taken",
+        "finding",
+        "risk_before",
+        "risk_after",
+        "next_step",
+    ]
+    return pd.DataFrame(st.session_state.get("technician_action_log", []), columns=columns)
+
+
 def tool_card(row: pd.Series) -> str:
     risk_level = str(row["rule_risk_level"])
     state = str(row["maintenance_state"])
@@ -568,6 +928,9 @@ predictions = load_csv(
 )
 importance = load_csv(FEATURE_IMPORTANCE, FEATURE_IMPORTANCE.stat().st_mtime)
 metrics_text = load_text(MODEL_METRICS)
+
+if "technician_action_log" not in st.session_state:
+    st.session_state.technician_action_log = []
 
 st.markdown(
     """
@@ -754,6 +1117,270 @@ action_view = filtered_summary[
     ]
 ].sort_values(["rule_risk_level", "tool_id"], ascending=[True, True])
 st.dataframe(action_view, width="stretch", hide_index=True)
+
+st.divider()
+
+section_label("Technician Decision System")
+technician_tool = st.selectbox(
+    "Technician mode tool",
+    options=tool_options,
+    index=tool_options.index(str(top_priority["tool_id"])) if str(top_priority["tool_id"]) in tool_options else 0,
+)
+technician_row = (
+    features[features["tool_id"] == technician_tool]
+    .sort_values("timestamp")
+    .tail(1)
+    .iloc[0]
+)
+cause_table = root_cause_probabilities(technician_row)
+urgency, business_impact = urgency_text(technician_row)
+
+(
+    troubleshooting_tab,
+    cause_tab,
+    maintenance_tab,
+    calendar_tab,
+    ticket_tab,
+    action_log_tab,
+    handoff_tab,
+    assistant_tab,
+    interview_tab,
+) = st.tabs(
+    [
+        "Troubleshooting Mode",
+        "Root Cause Probability",
+        "Before vs After PM",
+        "Maintenance Calendar",
+        "Maintenance Ticket",
+        "Technician Action Log",
+        "Shift Handoff",
+        "AI Maintenance Assistant",
+        "Interview Explanation",
+    ]
+)
+
+with troubleshooting_tab:
+    st.markdown(
+        f"<div class='cmp-action'><strong>Alert:</strong> {escape(technician_tool)} is "
+        f"{escape(str(technician_row['rule_risk_level']).upper())} risk with "
+        f"{int(technician_row['rule_risk_points'])} rule points.</div>",
+        unsafe_allow_html=True,
+    )
+    cause_col, check_col, urgency_col = st.columns([1, 1.15, 0.95])
+    with cause_col:
+        st.markdown(
+            decision_card("Possible causes", likely_causes(cause_table)),
+            unsafe_allow_html=True,
+        )
+    with check_col:
+        st.markdown(
+            decision_card("Recommended technician checks", recommended_checks(cause_table, technician_row)),
+            unsafe_allow_html=True,
+        )
+    with urgency_col:
+        st.markdown(
+            decision_card(
+                "Urgency and business impact",
+                [
+                    urgency,
+                    business_impact,
+                    f"Active evidence: {', '.join(active_alerts(technician_row)) if active_alerts(technician_row) else 'No active latest-row alert'}",
+                ],
+            ),
+            unsafe_allow_html=True,
+        )
+
+with cause_tab:
+    st.dataframe(cause_table, width="stretch", hide_index=True)
+    cause_chart = (
+        alt.Chart(cause_table)
+        .mark_bar()
+        .encode(
+            x=alt.X("Probability:Q", title="Estimated probability (%)"),
+            y=alt.Y("Possible Root Cause:N", title="Possible root cause", sort="-x"),
+            tooltip=[
+                alt.Tooltip("Possible Root Cause:N"),
+                alt.Tooltip("Probability:Q", format=".1f"),
+            ],
+        )
+        .properties(height=320)
+    )
+    st.altair_chart(style_chart(cause_chart), width="stretch")
+    st.caption("Probabilities are heuristic and based on the synthetic alert signals, sensor thresholds, and consumable life.")
+
+with maintenance_tab:
+    before_after = maintenance_before_after(features, technician_tool)
+    if before_after.empty:
+        st.info("No maintenance reset event is available for this tool.")
+    else:
+        st.dataframe(before_after, width="stretch", hide_index=True)
+        st.markdown(
+            "<div class='cmp-action'><strong>Maintenance-cycle readout:</strong> "
+            "This view shows the condition immediately before the latest simulated PM and the stabilized readings after reset behavior.</div>",
+            unsafe_allow_html=True,
+        )
+
+with calendar_tab:
+    pm_calendar = estimate_pm_calendar(features[features["tool_id"].isin(selected_tools)])
+    selected_calendar = pm_calendar[pm_calendar["Tool"] == technician_tool]
+    if not selected_calendar.empty:
+        calendar_row = selected_calendar.iloc[0]
+        st.markdown(
+            f"<div class='cmp-action'><strong>Next planned maintenance:</strong> "
+            f"{escape(str(calendar_row['Next PM Item']))} for {escape(technician_tool)} around "
+            f"{calendar_row['Estimated Due'].strftime('%b %d, %Y %I:%M %p')} "
+            f"({calendar_row['Hours Until Due']:.1f} hours). "
+            f"{escape(str(calendar_row['Priority']))}.</div>",
+            unsafe_allow_html=True,
+        )
+    st.dataframe(pm_calendar, width="stretch", hide_index=True)
+    calendar_chart = (
+        alt.Chart(pm_calendar)
+        .mark_bar()
+        .encode(
+            x=alt.X("Tool:N", title="Tool"),
+            y=alt.Y("Hours Until Due:Q", title="Estimated hours until PM"),
+            color=alt.Color("Current Risk:N", title="Current risk"),
+            tooltip=[
+                alt.Tooltip("Tool:N"),
+                alt.Tooltip("Next PM Item:N"),
+                alt.Tooltip("Estimated Due:T"),
+                alt.Tooltip("Hours Until Due:Q", format=".1f"),
+                alt.Tooltip("Priority:N"),
+            ],
+        )
+        .properties(height=300)
+    )
+    st.altair_chart(style_chart(calendar_chart), width="stretch")
+    st.caption("Calendar estimates use synthetic consumable-hour trends and current risk level, so treat them as planning guidance for the portfolio demo.")
+
+with ticket_tab:
+    ticket_text = maintenance_ticket(technician_tool, technician_row, cause_table)
+    st.markdown(ticket_text)
+    st.download_button(
+        "Download maintenance ticket",
+        data=ticket_text.encode("utf-8"),
+        file_name=f"{technician_tool.lower()}_maintenance_ticket.md",
+        mime="text/markdown",
+    )
+
+with action_log_tab:
+    st.markdown(
+        "<div class='cmp-action'><strong>Action log:</strong> Record what the technician checked, "
+        "what they found, and whether the risk improved after the action.</div>",
+        unsafe_allow_html=True,
+    )
+    with st.form("technician_action_form", clear_on_submit=True):
+        form_col_a, form_col_b = st.columns(2)
+        with form_col_a:
+            technician_name = st.text_input("Technician", value="Demo technician")
+            action_taken = st.selectbox(
+                "Action taken",
+                [
+                    "Inspected pad condition",
+                    "Checked retaining ring wear",
+                    "Verified slurry flow",
+                    "Reviewed recent alarms",
+                    "Checked vibration source",
+                    "Verified downforce pressure",
+                    "Replaced pad",
+                    "Escalated to process engineering",
+                ],
+            )
+            risk_after = st.selectbox(
+                "Risk after action",
+                ["normal", "low", "medium", "high"],
+                index=["normal", "low", "medium", "high"].index(str(technician_row["rule_risk_level"])),
+            )
+        with form_col_b:
+            finding = st.text_area(
+                "Finding",
+                value=f"Checked {cause_table.iloc[0]['Possible Root Cause'].lower()} indicators for {technician_tool}.",
+                height=100,
+            )
+            next_step = st.text_area(
+                "Next step",
+                value="Monitor next run and compare vibration, slurry flow, removal rate, and process drift against baseline.",
+                height=100,
+            )
+
+        submitted = st.form_submit_button("Add action log entry")
+        if submitted:
+            st.session_state.technician_action_log.append(
+                {
+                    "timestamp": latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                    "tool_id": technician_tool,
+                    "technician": technician_name,
+                    "action_taken": action_taken,
+                    "finding": finding,
+                    "risk_before": str(technician_row["rule_risk_level"]),
+                    "risk_after": risk_after,
+                    "next_step": next_step,
+                }
+            )
+            st.success("Action log entry added.")
+
+    action_log = action_log_dataframe()
+    if action_log.empty:
+        st.info("No technician actions recorded yet in this session.")
+    else:
+        st.dataframe(action_log.sort_values("timestamp", ascending=False), width="stretch", hide_index=True)
+        latest_entry = action_log.tail(1).iloc[0]
+        if latest_entry["risk_before"] != latest_entry["risk_after"]:
+            st.markdown(
+                f"<div class='cmp-handoff'>Latest closeout changed {escape(latest_entry['tool_id'])} "
+                f"from {escape(latest_entry['risk_before'])} risk to {escape(latest_entry['risk_after'])} risk.</div>",
+                unsafe_allow_html=True,
+            )
+        st.download_button(
+            "Download action log CSV",
+            data=csv_download(action_log),
+            file_name="technician_action_log.csv",
+            mime="text/csv",
+        )
+
+with handoff_tab:
+    handoff_text = shift_handoff(technician_tool, technician_row, cause_table)
+    st.markdown(f"<div class='cmp-handoff'>{escape(handoff_text)}</div>", unsafe_allow_html=True)
+    st.download_button(
+        "Download handoff text",
+        data=handoff_text.encode("utf-8"),
+        file_name=f"{technician_tool.lower()}_shift_handoff.txt",
+        mime="text/plain",
+    )
+
+with assistant_tab:
+    technician_question = st.text_area(
+        "Ask what is wrong with the tool",
+        value=(
+            f"{technician_tool} has vibration {technician_row['vibration']:.3f}, "
+            f"slurry flow {technician_row['slurry_flow_rate']:.2f}, and "
+            f"process drift {technician_row['process_drift_nm']:.2f} nm. What should I check?"
+        ),
+        height=110,
+    )
+    st.markdown(
+        f"<div class='cmp-handoff'>{escape(assistant_response(technician_question, technician_tool, technician_row, cause_table))}</div>",
+        unsafe_allow_html=True,
+    )
+    st.caption("This assistant is rule-based for portfolio transparency; it does not send data to an external AI API.")
+
+with interview_tab:
+    st.markdown(
+        """
+### How I Would Explain This Project In An Interview
+
+I built a CMP predictive maintenance system that simulates semiconductor tool sensor data, detects abnormal equipment trends, estimates maintenance risk, and converts those signals into technician-focused troubleshooting guidance.
+
+CMP tools matter because wafer polishing depends on stable mechanical motion, slurry delivery, downforce pressure, pad condition, retaining ring condition, and removal-rate control. Small drift in those signals can lead to defects, downtime, scrap risk, or yield loss.
+
+The dashboard monitors motor current, slurry flow, vibration, downforce pressure, consumable life, alarm count, removal rate, process drift, and maintenance reset events. Rule-based alerts make the logic explainable, while the model prediction view shows how machine learning can classify normal, warning, and maintenance-needed states.
+
+A technician would use this by checking the priority tool, reviewing the likely root causes, following the recommended checks, comparing before-vs-after maintenance behavior, and copying the shift handoff into the next-shift communication.
+
+Next I would connect the workflow to real historian or equipment log exports, validate thresholds with technicians and process engineers, and add false-alarm review so the system stays useful in production.
+        """
+    )
 
 st.divider()
 

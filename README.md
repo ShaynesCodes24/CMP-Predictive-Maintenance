@@ -70,6 +70,15 @@ Model summary:
 The Streamlit dashboard shows:
 
 - Current tool priority
+- Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact
+- Root-cause probability estimates for each selected CMP tool
+- Before-vs-after maintenance reset behavior
+- Maintenance calendar estimates for pad and retaining-ring PM planning
+- Mock maintenance ticket generation
+- Technician action logging with before/after risk closeout
+- Shift handoff text for technician communication
+- Rule-based AI Maintenance Assistant for asking what to check
+- Interview explanation page for presenting the project clearly
 - Risk level by tool
 - Recommended technician checks
 - Sensor trend charts
@@ -109,6 +118,7 @@ http://localhost:8502
 
 - `reports/cmp_predictive_maintenance_case_study.md`: job-ready case study
 - `reports/demo_script.md`: interview and dashboard presentation script
+- `reports/interview_explanation.md`: concise interview explanation page
 - `reports/social_launch_kit.md`: LinkedIn post, GitHub topics, and demo video script
 - `reports/maintenance_alert_report.md`: technician-focused alert report
 - `reports/model_metrics.md`: model performance and interpretation
@@ -271,6 +281,12 @@ CMP-Predictive-Maintenance/
 I would describe the project this way:
 
 > I built a CMP predictive maintenance project that simulates tool sensor data, identifies abnormal trends, and recommends maintenance checks before failures cause downtime. I started with rule-based alerts for conditions a technician would recognize, like high motor current with rising vibration or low slurry flow. Then I trained a simple model to classify tool states as normal, warning, or maintenance-needed. Finally, I built a dashboard that shows tool health, recent alerts, sensor trends, model predictions, and recommended technician actions.
+
+Upgraded version:
+
+> I built a CMP predictive maintenance system that simulates tool sensor data, detects abnormal trends, estimates maintenance risk, suggests probable root causes, and generates technician-focused troubleshooting reports and shift handoffs.
+
+The dashboard also includes a mock maintenance ticket generator and technician action log so the workflow shows what happened after the alert, not only that an alert occurred.
 
 ## Limitations
 
