@@ -802,6 +802,152 @@ def estimate_pm_calendar(data: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values(["Hours Until Due", "Tool"])
 
 
+def scenario_risk_assessment(
+    vibration: float,
+    slurry_flow: float,
+    pad_life: float,
+    ring_life: float,
+    removal_rate: float,
+    process_drift: float,
+    alarm_count: int,
+) -> dict[str, object]:
+    points = 0
+    reasons = []
+
+    if vibration >= 0.70:
+        points += 1
+        reasons.append("High vibration")
+    if slurry_flow <= 190:
+        points += 1
+        reasons.append("Low slurry flow")
+    if pad_life >= 90 and vibration >= 0.62:
+        points += 1
+        reasons.append("Pad life near limit with elevated vibration")
+    if ring_life >= 90:
+        points += 1
+        reasons.append("Retaining ring life near limit")
+    if removal_rate <= 96 or process_drift >= 10:
+        points += 1
+        reasons.append("Removal-rate or process-drift abnormality")
+    if alarm_count >= 2:
+        points += 1
+        reasons.append("Alarm burst")
+
+    if points >= 3:
+        level = "high"
+        urgency = "Inspect before next production run"
+    elif points == 2:
+        level = "medium"
+        urgency = "Review during this shift"
+    elif points == 1:
+        level = "low"
+        urgency = "Monitor next runs"
+    else:
+        level = "normal"
+        urgency = "Continue normal monitoring"
+
+    pseudo_row = pd.Series(
+        {
+            "alert_pad_wear": pad_life >= 90 and vibration >= 0.62,
+            "alert_slurry_flow": slurry_flow <= 190,
+            "alert_motor_vibration": vibration >= 0.70,
+            "alert_pressure_drift": False,
+            "alert_alarm_burst": alarm_count >= 2,
+            "alert_process_drift": removal_rate <= 96 or process_drift >= 10,
+            "pad_life_pct": pad_life,
+            "retaining_ring_life_pct": ring_life,
+            "slurry_flow_rate": slurry_flow,
+            "vibration": vibration,
+            "recommended_action": "Run scenario-based technician checks",
+        }
+    )
+    cause_table = root_cause_probabilities(pseudo_row)
+
+    return {
+        "points": points,
+        "level": level,
+        "urgency": urgency,
+        "reasons": reasons or ["No abnormal scenario drivers"],
+        "top_causes": cause_table.head(3),
+    }
+
+
+def estimate_business_impact(
+    risk_level: str,
+    lots_at_risk: int,
+    wafers_per_lot: int,
+    scrap_cost_per_wafer: float,
+    downtime_hours: float,
+    downtime_cost_per_hour: float,
+) -> dict[str, float]:
+    risk_multiplier = {
+        "normal": 0.02,
+        "low": 0.08,
+        "medium": 0.22,
+        "high": 0.45,
+    }.get(risk_level, 0.10)
+    wafers_at_risk = lots_at_risk * wafers_per_lot
+    expected_scrap_wafers = wafers_at_risk * risk_multiplier
+    expected_scrap_cost = expected_scrap_wafers * scrap_cost_per_wafer
+    expected_downtime_cost = downtime_hours * downtime_cost_per_hour * risk_multiplier
+    return {
+        "wafers_at_risk": float(wafers_at_risk),
+        "expected_scrap_wafers": expected_scrap_wafers,
+        "expected_scrap_cost": expected_scrap_cost,
+        "expected_downtime_cost": expected_downtime_cost,
+        "total_exposure": expected_scrap_cost + expected_downtime_cost,
+    }
+
+
+def incident_replay_data(data: pd.DataFrame, tool_id: str) -> pd.DataFrame:
+    tool_data = data[data["tool_id"] == tool_id].sort_values("timestamp").reset_index(drop=True)
+    incident_rows = tool_data[tool_data["rule_risk_level"].isin(["medium", "high"])]
+    if incident_rows.empty:
+        incident_rows = tool_data[tool_data["rule_risk_level"] != "normal"]
+    if incident_rows.empty:
+        return tool_data.tail(36).copy()
+
+    incident_index = int(incident_rows.index[-1])
+    start = max(0, incident_index - 18)
+    end = min(len(tool_data), incident_index + 18)
+    replay = tool_data.iloc[start:end].copy()
+    replay["incident_phase"] = "Early trend"
+    replay.loc[replay.index >= incident_index, "incident_phase"] = "Alert active"
+    replay.loc[replay["maintenance_event"] == 1, "incident_phase"] = "Maintenance reset"
+    replay.loc[replay.index > incident_index + 6, "incident_phase"] = "Recovery watch"
+    return replay
+
+
+def incident_replay_chart(data: pd.DataFrame) -> alt.Chart:
+    base = alt.Chart(data).encode(
+        x=alt.X("timestamp:T", title="Incident timeline"),
+        color=alt.Color(
+            "incident_phase:N",
+            title="Phase",
+            scale=alt.Scale(
+                domain=["Early trend", "Alert active", "Maintenance reset", "Recovery watch"],
+                range=["#39a7a5", "#e9c46a", "#4c78a8", "#2a9d8f"],
+            ),
+        ),
+        tooltip=[
+            alt.Tooltip("timestamp:T", title="Time"),
+            alt.Tooltip("rule_risk_level:N", title="Risk"),
+            alt.Tooltip("vibration:Q", format=".3f"),
+            alt.Tooltip("slurry_flow_rate:Q", format=".2f"),
+            alt.Tooltip("wafer_removal_rate:Q", format=".2f"),
+            alt.Tooltip("process_drift_nm:Q", format=".2f"),
+            alt.Tooltip("incident_phase:N", title="Phase"),
+        ],
+    )
+    vibration = base.mark_line(point=True).encode(
+        y=alt.Y("vibration:Q", title="Vibration")
+    )
+    drift = base.mark_line(point=True, strokeDash=[5, 3]).encode(
+        y=alt.Y("process_drift_nm:Q", title="Vibration / drift")
+    )
+    return style_chart((vibration + drift).properties(height=330))
+
+
 def action_log_dataframe() -> pd.DataFrame:
     columns = [
         "timestamp",
@@ -1117,6 +1263,142 @@ action_view = filtered_summary[
     ]
 ].sort_values(["rule_risk_level", "tool_id"], ascending=[True, True])
 st.dataframe(action_view, width="stretch", hide_index=True)
+
+st.divider()
+
+section_label("Fab Command Center")
+impact_tab, simulator_tab, replay_tab, executive_tab = st.tabs(
+    [
+        "Downtime And Scrap Impact",
+        "Scenario Simulator",
+        "Incident Replay",
+        "Executive Summary",
+    ]
+)
+
+with impact_tab:
+    impact_col_a, impact_col_b = st.columns([1, 1])
+    with impact_col_a:
+        impact_tool = st.selectbox("Impact tool", options=tool_options, index=0, key="impact_tool")
+        impact_row = summary[summary["tool_id"] == impact_tool].iloc[0]
+        lots_at_risk = st.slider("Lots at risk", min_value=1, max_value=40, value=6)
+        wafers_per_lot = st.slider("Wafers per lot", min_value=1, max_value=50, value=25)
+        scrap_cost = st.number_input("Scrap cost per wafer ($)", min_value=0, value=850, step=50)
+    with impact_col_b:
+        downtime_hours = st.slider("Potential downtime hours", min_value=0.0, max_value=48.0, value=8.0, step=0.5)
+        downtime_cost = st.number_input("Downtime cost per hour ($)", min_value=0, value=2500, step=250)
+        impact = estimate_business_impact(
+            str(impact_row["rule_risk_level"]),
+            lots_at_risk,
+            wafers_per_lot,
+            float(scrap_cost),
+            downtime_hours,
+            float(downtime_cost),
+        )
+        st.markdown(
+            decision_card(
+                "Estimated exposure if ignored",
+                [
+                    f"Wafers at risk: {impact['wafers_at_risk']:.0f}",
+                    f"Expected scrap wafers: {impact['expected_scrap_wafers']:.1f}",
+                    f"Expected scrap cost: ${impact['expected_scrap_cost']:,.0f}",
+                    f"Expected downtime cost: ${impact['expected_downtime_cost']:,.0f}",
+                    f"Total exposure: ${impact['total_exposure']:,.0f}",
+                ],
+            ),
+            unsafe_allow_html=True,
+        )
+
+with simulator_tab:
+    sim_col_a, sim_col_b = st.columns([1, 1])
+    with sim_col_a:
+        base_tool = st.selectbox("Scenario baseline tool", options=tool_options, index=0, key="scenario_tool")
+        base_row = summary[summary["tool_id"] == base_tool].iloc[0]
+        sim_vibration = st.slider("Vibration", 0.20, 1.20, float(base_row["vibration"]), 0.01)
+        sim_slurry = st.slider("Slurry flow", 150.0, 230.0, float(base_row["slurry_flow_rate"]), 0.5)
+        sim_pad = st.slider("Pad life used (%)", 0.0, 100.0, float(base_row["pad_life_pct"]), 0.5)
+        sim_ring = st.slider("Retaining ring life used (%)", 0.0, 100.0, float(base_row["retaining_ring_life_pct"]), 0.5)
+    with sim_col_b:
+        sim_removal = st.slider("Wafer removal rate", 88.0, 112.0, float(base_row["wafer_removal_rate"]), 0.1)
+        sim_drift = st.slider("Process drift (nm)", 0.0, 20.0, float(base_row["process_drift_nm"]), 0.1)
+        sim_alarms = st.slider("Alarm count", 0, 5, int(base_row["alarm_count"]))
+        scenario = scenario_risk_assessment(
+            sim_vibration,
+            sim_slurry,
+            sim_pad,
+            sim_ring,
+            sim_removal,
+            sim_drift,
+            sim_alarms,
+        )
+        top_causes = [
+            f"{row['Possible Root Cause']} ({row['Probability']:.1f}%)"
+            for _, row in scenario["top_causes"].iterrows()
+        ]
+        st.markdown(
+            decision_card(
+                f"Scenario result: {str(scenario['level']).upper()} risk",
+                [
+                    f"Rule points: {scenario['points']}",
+                    f"Urgency: {scenario['urgency']}",
+                    "Drivers: " + ", ".join(scenario["reasons"]),
+                    "Likely causes: " + ", ".join(top_causes),
+                ],
+            ),
+            unsafe_allow_html=True,
+        )
+
+with replay_tab:
+    replay_tool = st.selectbox("Replay tool", options=tool_options, index=0, key="replay_tool")
+    replay = incident_replay_data(features, replay_tool)
+    if replay.empty:
+        st.info("No data available for incident replay.")
+    else:
+        st.altair_chart(incident_replay_chart(replay), width="stretch")
+        replay_summary = replay[
+            [
+                "timestamp",
+                "tool_id",
+                "incident_phase",
+                "rule_risk_level",
+                "rule_risk_points",
+                "vibration",
+                "slurry_flow_rate",
+                "wafer_removal_rate",
+                "process_drift_nm",
+                "maintenance_event",
+                "recommended_action",
+            ]
+        ].sort_values("timestamp", ascending=False)
+        st.dataframe(replay_summary, width="stretch", hide_index=True)
+
+with executive_tab:
+    pm_calendar = estimate_pm_calendar(features)
+    open_priorities = summary[summary["rule_risk_level"] != "normal"].sort_values(
+        "rule_risk_points",
+        ascending=False,
+    )
+    if open_priorities.empty:
+        status_line = "All tools are currently normal on the latest synthetic snapshot."
+    else:
+        status_line = (
+            f"{len(open_priorities)} tool(s) need review. Top priority is "
+            f"{open_priorities.iloc[0]['tool_id']} with {int(open_priorities.iloc[0]['rule_risk_points'])} rule points."
+        )
+    next_pm = pm_calendar.iloc[0]
+    executive_text = (
+        f"Fleet summary: {status_line} Next PM planning item is {next_pm['Next PM Item']} "
+        f"for {next_pm['Tool']} around {next_pm['Estimated Due'].strftime('%b %d, %Y %I:%M %p')}. "
+        "Technician workflow includes troubleshooting, root-cause probability, maintenance ticketing, "
+        "action logging, cost exposure, and incident replay."
+    )
+    st.markdown(f"<div class='cmp-handoff'>{escape(executive_text)}</div>", unsafe_allow_html=True)
+    st.download_button(
+        "Download executive summary",
+        data=executive_text.encode("utf-8"),
+        file_name="cmp_executive_summary.txt",
+        mime="text/plain",
+    )
 
 st.divider()
 

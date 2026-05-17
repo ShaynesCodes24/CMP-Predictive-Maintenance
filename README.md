@@ -70,6 +70,7 @@ Model summary:
 The Streamlit dashboard shows:
 
 - Current tool priority
+- Fab Command Center with downtime, scrap, incident replay, scenario simulation, and executive summary views
 - Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact
 - Root-cause probability estimates for each selected CMP tool
 - Before-vs-after maintenance reset behavior
@@ -287,6 +288,10 @@ Upgraded version:
 > I built a CMP predictive maintenance system that simulates tool sensor data, detects abnormal trends, estimates maintenance risk, suggests probable root causes, and generates technician-focused troubleshooting reports and shift handoffs.
 
 The dashboard also includes a mock maintenance ticket generator and technician action log so the workflow shows what happened after the alert, not only that an alert occurred.
+
+Expanded version:
+
+> I built a CMP predictive maintenance command center with technician troubleshooting, root-cause analysis, PM planning, ticketing, cost impact simulation, incident replay, and interactive what-if diagnostics.
 
 ## Limitations
 
