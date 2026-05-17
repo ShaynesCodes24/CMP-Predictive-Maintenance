@@ -1,5 +1,6 @@
 from pathlib import Path
 from html import escape
+import sqlite3
 
 import altair as alt
 import pandas as pd
@@ -13,6 +14,7 @@ TOOL_SUMMARY = ROOT / "reports" / "tool_health_summary.csv"
 MODEL_PREDICTIONS = ROOT / "data" / "processed" / "cmp_model_predictions.csv"
 FEATURE_IMPORTANCE = ROOT / "reports" / "model_feature_importance.csv"
 MODEL_METRICS = ROOT / "reports" / "model_metrics.md"
+PRODUCT_DB = ROOT / "data" / "processed" / "cmp_product_ops.sqlite"
 
 RISK_COLORS = {
     "normal": "#2a9d8f",
@@ -469,6 +471,180 @@ def load_text(path: Path) -> str:
     if not path.exists():
         return "Model metrics report has not been generated yet."
     return path.read_text(encoding="utf-8")
+
+
+def db_connection() -> sqlite3.Connection:
+    PRODUCT_DB.parent.mkdir(parents=True, exist_ok=True)
+    return sqlite3.connect(PRODUCT_DB)
+
+
+def execute_db(query: str, params: tuple = ()) -> None:
+    with db_connection() as connection:
+        connection.execute(query, params)
+        connection.commit()
+
+
+def read_db(query: str, params: tuple = ()) -> pd.DataFrame:
+    with db_connection() as connection:
+        return pd.read_sql_query(query, connection, params=params)
+
+
+def audit_event(user: str, role: str, event_type: str, details: str) -> None:
+    execute_db(
+        """
+        INSERT INTO audit_log (timestamp, user_name, role, event_type, details)
+        VALUES (datetime('now'), ?, ?, ?, ?)
+        """,
+        (user, role, event_type, details),
+    )
+
+
+def init_product_db() -> None:
+    with db_connection() as connection:
+        connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS maintenance_tickets (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                created_at TEXT NOT NULL,
+                tool_id TEXT NOT NULL,
+                priority TEXT NOT NULL,
+                status TEXT NOT NULL,
+                assigned_to TEXT NOT NULL,
+                root_cause TEXT NOT NULL,
+                risk_level TEXT NOT NULL,
+                rule_points INTEGER NOT NULL,
+                due_at TEXT NOT NULL,
+                summary TEXT NOT NULL,
+                closeout_notes TEXT DEFAULT ''
+            );
+
+            CREATE TABLE IF NOT EXISTS technician_actions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                created_at TEXT NOT NULL,
+                ticket_id INTEGER,
+                tool_id TEXT NOT NULL,
+                technician TEXT NOT NULL,
+                action_taken TEXT NOT NULL,
+                finding TEXT NOT NULL,
+                risk_before TEXT NOT NULL,
+                risk_after TEXT NOT NULL,
+                next_step TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS alert_thresholds (
+                threshold_key TEXT PRIMARY KEY,
+                value REAL NOT NULL,
+                unit TEXT NOT NULL,
+                description TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                updated_by TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS audit_log (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT NOT NULL,
+                user_name TEXT NOT NULL,
+                role TEXT NOT NULL,
+                event_type TEXT NOT NULL,
+                details TEXT NOT NULL
+            );
+            """
+        )
+        defaults = [
+            ("vibration_high", 0.70, "g", "High vibration alert threshold"),
+            ("slurry_flow_low", 190.0, "ml/min", "Low slurry flow alert threshold"),
+            ("pad_life_high", 90.0, "%", "Pad life warning threshold"),
+            ("ring_life_high", 90.0, "%", "Retaining ring warning threshold"),
+            ("process_drift_high", 10.0, "nm", "Process drift alert threshold"),
+            ("removal_rate_low", 96.0, "rate", "Low wafer removal rate threshold"),
+            ("alarm_burst", 2.0, "count", "Alarm burst count threshold"),
+        ]
+        connection.executemany(
+            """
+            INSERT OR IGNORE INTO alert_thresholds
+                (threshold_key, value, unit, description, updated_at, updated_by)
+            VALUES (?, ?, ?, ?, datetime('now'), 'system')
+            """,
+            defaults,
+        )
+        connection.commit()
+
+
+def create_persistent_ticket(
+    tool_id: str,
+    row: pd.Series,
+    probability_table: pd.DataFrame,
+    assigned_to: str,
+    user: str,
+    role: str,
+) -> None:
+    urgency, _ = urgency_text(row)
+    top_cause = str(probability_table.iloc[0]["Possible Root Cause"])
+    due_hours = 4 if str(row["rule_risk_level"]) == "high" else 12 if str(row["rule_risk_level"]) == "medium" else 48
+    due_at = pd.Timestamp.now() + pd.to_timedelta(due_hours, unit="h")
+    execute_db(
+        """
+        INSERT INTO maintenance_tickets
+            (created_at, tool_id, priority, status, assigned_to, root_cause, risk_level,
+             rule_points, due_at, summary, closeout_notes)
+        VALUES (datetime('now'), ?, ?, 'New', ?, ?, ?, ?, ?, ?, '')
+        """,
+        (
+            tool_id,
+            urgency,
+            assigned_to,
+            top_cause,
+            str(row["rule_risk_level"]),
+            int(row["rule_risk_points"]),
+            due_at.strftime("%Y-%m-%d %H:%M:%S"),
+            shift_handoff(tool_id, row, probability_table),
+        ),
+    )
+    audit_event(user, role, "ticket_created", f"Created ticket for {tool_id}: {top_cause}")
+
+
+def add_persistent_action(
+    ticket_id: int | None,
+    tool_id: str,
+    technician: str,
+    action_taken: str,
+    finding: str,
+    risk_before: str,
+    risk_after: str,
+    next_step: str,
+    user: str,
+    role: str,
+) -> None:
+    execute_db(
+        """
+        INSERT INTO technician_actions
+            (created_at, ticket_id, tool_id, technician, action_taken, finding,
+             risk_before, risk_after, next_step)
+        VALUES (datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (ticket_id, tool_id, technician, action_taken, finding, risk_before, risk_after, next_step),
+    )
+    audit_event(user, role, "action_logged", f"{technician} logged {action_taken} for {tool_id}")
+
+
+def update_ticket_status(ticket_id: int, status: str, closeout_notes: str, user: str, role: str) -> None:
+    execute_db(
+        "UPDATE maintenance_tickets SET status = ?, closeout_notes = ? WHERE id = ?",
+        (status, closeout_notes, ticket_id),
+    )
+    audit_event(user, role, "ticket_status_changed", f"Ticket {ticket_id} moved to {status}")
+
+
+def update_threshold(threshold_key: str, value: float, user: str, role: str) -> None:
+    execute_db(
+        """
+        UPDATE alert_thresholds
+        SET value = ?, updated_at = datetime('now'), updated_by = ?
+        WHERE threshold_key = ?
+        """,
+        (value, user, threshold_key),
+    )
+    audit_event(user, role, "threshold_updated", f"{threshold_key} set to {value}")
 
 
 def risk_badge(risk_level: str) -> str:
@@ -1075,6 +1251,8 @@ predictions = load_csv(
 importance = load_csv(FEATURE_IMPORTANCE, FEATURE_IMPORTANCE.stat().st_mtime)
 metrics_text = load_text(MODEL_METRICS)
 
+init_product_db()
+
 if "technician_action_log" not in st.session_state:
     st.session_state.technician_action_log = []
 
@@ -1093,6 +1271,11 @@ st.markdown(
 )
 
 tool_options = sorted(features["tool_id"].unique())
+operator_name = st.sidebar.text_input("User", value="Demo User")
+operator_role = st.sidebar.selectbox(
+    "Role",
+    options=["Technician", "Process Engineer", "Maintenance Supervisor", "Admin"],
+)
 selected_tools = st.sidebar.multiselect(
     "Tools",
     options=tool_options,
@@ -1263,6 +1446,117 @@ action_view = filtered_summary[
     ]
 ].sort_values(["rule_risk_level", "tool_id"], ascending=[True, True])
 st.dataframe(action_view, width="stretch", hide_index=True)
+
+st.divider()
+
+section_label("Industrial Product Console")
+product_tab, ticket_board_tab, threshold_tab, audit_tab = st.tabs(
+    ["Product Overview", "Persistent Ticket Board", "Threshold Settings", "Audit Trail"]
+)
+
+with product_tab:
+    tickets = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+    actions = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
+    audit = read_db("SELECT * FROM audit_log ORDER BY id DESC LIMIT 100")
+    open_ticket_count = int((tickets["status"] != "Closed").sum()) if not tickets.empty else 0
+    card_grid(
+        [
+            kpi_card("Active user", operator_role, operator_name, "teal"),
+            kpi_card("Open tickets", str(open_ticket_count), "Persistent SQLite work orders", "warn" if open_ticket_count else "good"),
+            kpi_card("Action records", str(len(actions)), "Saved technician closeout history", "teal"),
+            kpi_card("Audit events", str(len(audit)), "Traceable product activity", "teal"),
+        ],
+        "cmp-kpi-grid",
+    )
+    st.markdown(
+        "<div class='cmp-action'><strong>Product posture:</strong> This layer adds persistence, role context, "
+        "ticket lifecycle tracking, configurable thresholds, and an audit trail on top of the analytics dashboard.</div>",
+        unsafe_allow_html=True,
+    )
+
+with ticket_board_tab:
+    create_col, update_col = st.columns([1, 1])
+    with create_col:
+        st.markdown("#### Create Work Order")
+        ticket_tool = st.selectbox("Ticket tool", options=tool_options, key="persistent_ticket_tool")
+        ticket_row = features[features["tool_id"] == ticket_tool].sort_values("timestamp").tail(1).iloc[0]
+        ticket_causes = root_cause_probabilities(ticket_row)
+        assigned_to = st.text_input("Assign to", value=operator_name)
+        if st.button("Create persistent ticket"):
+            create_persistent_ticket(
+                ticket_tool,
+                ticket_row,
+                ticket_causes,
+                assigned_to,
+                operator_name,
+                operator_role,
+            )
+            st.success(f"Created persistent ticket for {ticket_tool}.")
+
+    with update_col:
+        st.markdown("#### Update Ticket Status")
+        tickets_for_update = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+        if tickets_for_update.empty:
+            st.info("No persistent tickets have been created yet.")
+        else:
+            ticket_options = [
+                f"{int(row['id'])} - {row['tool_id']} - {row['status']}"
+                for _, row in tickets_for_update.iterrows()
+            ]
+            selected_ticket = st.selectbox("Ticket", ticket_options)
+            selected_ticket_id = int(selected_ticket.split(" - ")[0])
+            new_status = st.selectbox(
+                "Status",
+                ["New", "Assigned", "In Progress", "Waiting for parts", "Action Taken", "Verified", "Closed"],
+            )
+            closeout_notes = st.text_area("Closeout notes", value="Awaiting technician update.", height=90)
+            if st.button("Update persistent ticket"):
+                update_ticket_status(
+                    selected_ticket_id,
+                    new_status,
+                    closeout_notes,
+                    operator_name,
+                    operator_role,
+                )
+                st.success(f"Updated ticket {selected_ticket_id}.")
+
+    tickets = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+    if tickets.empty:
+        st.info("No persistent maintenance tickets yet.")
+    else:
+        st.dataframe(tickets, width="stretch", hide_index=True)
+        st.download_button(
+            "Download ticket board CSV",
+            data=csv_download(tickets),
+            file_name="cmp_ticket_board.csv",
+            mime="text/csv",
+        )
+
+with threshold_tab:
+    thresholds = read_db("SELECT * FROM alert_thresholds ORDER BY threshold_key")
+    st.dataframe(thresholds, width="stretch", hide_index=True)
+    with st.form("threshold_update_form"):
+        threshold_key = st.selectbox("Threshold", thresholds["threshold_key"].tolist())
+        current_value = float(thresholds.loc[thresholds["threshold_key"] == threshold_key, "value"].iloc[0])
+        new_value = st.number_input("New value", value=current_value, step=0.1)
+        submitted_threshold = st.form_submit_button("Save threshold")
+        if submitted_threshold:
+            update_threshold(threshold_key, float(new_value), operator_name, operator_role)
+            st.success(f"Updated {threshold_key}.")
+    st.caption("These settings are persisted for product realism. The synthetic pipeline still uses its generated alert columns unless thresholds are wired into a future real-time scoring service.")
+
+with audit_tab:
+    audit = read_db("SELECT * FROM audit_log ORDER BY id DESC LIMIT 250")
+    if audit.empty:
+        st.info("No audit events yet. Create or update a ticket to generate trace history.")
+    else:
+        st.dataframe(audit, width="stretch", hide_index=True)
+        st.download_button(
+            "Download audit trail CSV",
+            data=csv_download(audit),
+            file_name="cmp_audit_trail.csv",
+            mime="text/csv",
+        )
 
 st.divider()
 
@@ -1552,10 +1846,20 @@ with action_log_tab:
         "what they found, and whether the risk improved after the action.</div>",
         unsafe_allow_html=True,
     )
+    persistent_tickets = read_db("SELECT id, tool_id, status FROM maintenance_tickets ORDER BY id DESC")
     with st.form("technician_action_form", clear_on_submit=True):
         form_col_a, form_col_b = st.columns(2)
         with form_col_a:
-            technician_name = st.text_input("Technician", value="Demo technician")
+            technician_name = st.text_input("Technician", value=operator_name)
+            ticket_link_options = ["No ticket link"]
+            if not persistent_tickets.empty:
+                ticket_link_options.extend(
+                    [
+                        f"{int(row['id'])} - {row['tool_id']} - {row['status']}"
+                        for _, row in persistent_tickets.iterrows()
+                    ]
+                )
+            ticket_link = st.selectbox("Link to ticket", ticket_link_options)
             action_taken = st.selectbox(
                 "Action taken",
                 [
@@ -1588,6 +1892,19 @@ with action_log_tab:
 
         submitted = st.form_submit_button("Add action log entry")
         if submitted:
+            linked_ticket_id = None if ticket_link == "No ticket link" else int(ticket_link.split(" - ")[0])
+            add_persistent_action(
+                linked_ticket_id,
+                technician_tool,
+                technician_name,
+                action_taken,
+                finding,
+                str(technician_row["rule_risk_level"]),
+                risk_after,
+                next_step,
+                operator_name,
+                operator_role,
+            )
             st.session_state.technician_action_log.append(
                 {
                     "timestamp": latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
@@ -1600,18 +1917,18 @@ with action_log_tab:
                     "next_step": next_step,
                 }
             )
-            st.success("Action log entry added.")
+            st.success("Action log entry added to the persistent product database.")
 
-    action_log = action_log_dataframe()
+    action_log = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
     if action_log.empty:
-        st.info("No technician actions recorded yet in this session.")
+        st.info("No technician actions recorded yet.")
     else:
-        st.dataframe(action_log.sort_values("timestamp", ascending=False), width="stretch", hide_index=True)
-        latest_entry = action_log.tail(1).iloc[0]
+        st.dataframe(action_log, width="stretch", hide_index=True)
+        latest_entry = action_log.iloc[0]
         if latest_entry["risk_before"] != latest_entry["risk_after"]:
             st.markdown(
-                f"<div class='cmp-handoff'>Latest closeout changed {escape(latest_entry['tool_id'])} "
-                f"from {escape(latest_entry['risk_before'])} risk to {escape(latest_entry['risk_after'])} risk.</div>",
+                f"<div class='cmp-handoff'>Latest closeout changed {escape(str(latest_entry['tool_id']))} "
+                f"from {escape(str(latest_entry['risk_before']))} risk to {escape(str(latest_entry['risk_after']))} risk.</div>",
                 unsafe_allow_html=True,
             )
         st.download_button(

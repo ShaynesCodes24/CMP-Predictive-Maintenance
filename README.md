@@ -70,6 +70,7 @@ Model summary:
 The Streamlit dashboard shows:
 
 - Current tool priority
+- Industrial Product Console with role context, persistent tickets, configurable thresholds, and audit trail
 - Fab Command Center with downtime, scrap, incident replay, scenario simulation, and executive summary views
 - Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact
 - Root-cause probability estimates for each selected CMP tool
@@ -292,6 +293,10 @@ The dashboard also includes a mock maintenance ticket generator and technician a
 Expanded version:
 
 > I built a CMP predictive maintenance command center with technician troubleshooting, root-cause analysis, PM planning, ticketing, cost impact simulation, incident replay, and interactive what-if diagnostics.
+
+Industrial product version:
+
+> I built an industrial-style CMP equipment health platform with persistent maintenance tickets, technician action history, configurable alert thresholds, audit logging, predictive maintenance scoring, PM planning, root-cause guidance, cost impact reporting, and shift handoff support.
 
 ## Limitations
 
