@@ -1124,6 +1124,134 @@ def incident_replay_chart(data: pd.DataFrame) -> alt.Chart:
     return style_chart((vibration + drift).properties(height=330))
 
 
+def live_feed_simulation(data: pd.DataFrame, tool_id: str, rows: int = 18) -> pd.DataFrame:
+    tool_data = data[data["tool_id"] == tool_id].sort_values("timestamp").tail(rows).copy()
+    if tool_data.empty:
+        return pd.DataFrame()
+
+    latest = tool_data.tail(1).iloc[0]
+    projected_rows = []
+    for step in range(1, 7):
+        drift_factor = step / 6
+        vibration = float(latest["vibration"]) + 0.018 * step
+        slurry_flow = float(latest["slurry_flow_rate"]) - 1.4 * step
+        removal_rate = float(latest["wafer_removal_rate"]) - 0.18 * step
+        process_drift = float(latest["process_drift_nm"]) + 0.35 * step
+        assessment = scenario_risk_assessment(
+            vibration,
+            slurry_flow,
+            float(latest["pad_life_pct"]) + drift_factor,
+            float(latest["retaining_ring_life_pct"]) + drift_factor,
+            removal_rate,
+            process_drift,
+            int(latest["alarm_count"]),
+        )
+        projected_rows.append(
+            {
+                **latest.to_dict(),
+                "timestamp": latest["timestamp"] + pd.to_timedelta(step, unit="h"),
+                "vibration": vibration,
+                "slurry_flow_rate": slurry_flow,
+                "wafer_removal_rate": removal_rate,
+                "process_drift_nm": process_drift,
+                "rule_risk_level": assessment["level"],
+                "rule_risk_points": assessment["points"],
+                "feed_type": "Projected live feed",
+            }
+        )
+
+    tool_data["feed_type"] = "Historical feed"
+    return pd.concat([tool_data, pd.DataFrame(projected_rows)], ignore_index=True)
+
+
+def live_feed_chart(data: pd.DataFrame) -> alt.Chart:
+    base = alt.Chart(data).encode(
+        x=alt.X("timestamp:T", title="Feed time"),
+        color=alt.Color("feed_type:N", title="Feed"),
+        tooltip=[
+            alt.Tooltip("timestamp:T", title="Time"),
+            alt.Tooltip("feed_type:N", title="Feed"),
+            alt.Tooltip("rule_risk_level:N", title="Risk"),
+            alt.Tooltip("vibration:Q", format=".3f"),
+            alt.Tooltip("slurry_flow_rate:Q", format=".2f"),
+            alt.Tooltip("process_drift_nm:Q", format=".2f"),
+        ],
+    )
+    return style_chart(
+        base.mark_line(point=True).encode(
+            y=alt.Y("vibration:Q", title="Projected vibration")
+        ).properties(height=300)
+    )
+
+
+def model_quality_summary(prediction_data: pd.DataFrame) -> pd.DataFrame:
+    reviewed = prediction_data.copy()
+    reviewed["correct_prediction"] = (
+        reviewed["maintenance_state"] == reviewed["predicted_maintenance_state"]
+    )
+    reviewed["confidence_band"] = pd.cut(
+        reviewed["model_confidence"],
+        bins=[0, 0.7, 0.9, 1.0],
+        labels=["Low confidence", "Medium confidence", "High confidence"],
+        include_lowest=True,
+    )
+    return (
+        reviewed.groupby("confidence_band", observed=True)
+        .agg(
+            rows=("tool_id", "size"),
+            accuracy=("correct_prediction", "mean"),
+            avg_maintenance_probability=("prob_maintenance_needed", "mean"),
+        )
+        .reset_index()
+    )
+
+
+def professional_report(
+    summary_data: pd.DataFrame,
+    ticket_data: pd.DataFrame,
+    action_data: pd.DataFrame,
+    pm_calendar: pd.DataFrame,
+) -> str:
+    priority = summary_data.sort_values(
+        ["rule_risk_points", "process_drift_nm"],
+        ascending=[False, False],
+    ).iloc[0]
+    open_tickets = 0 if ticket_data.empty else int((ticket_data["status"] != "Closed").sum())
+    latest_pm = pm_calendar.iloc[0]
+    latest_actions = "No technician actions recorded."
+    if not action_data.empty:
+        latest_action = action_data.iloc[0]
+        latest_actions = (
+            f"Latest action: {latest_action['technician']} performed "
+            f"{latest_action['action_taken']} on {latest_action['tool_id']}."
+        )
+
+    return f"""# CMP Equipment Health Operations Report
+
+## Fleet Status
+- Tools monitored: {summary_data['tool_id'].nunique()}
+- Highest priority tool: {priority['tool_id']}
+- Current risk: {priority['rule_risk_level']}
+- Rule points: {int(priority['rule_risk_points'])}
+- Open maintenance tickets: {open_tickets}
+
+## Next PM
+- Tool: {latest_pm['Tool']}
+- Item: {latest_pm['Next PM Item']}
+- Estimated due: {latest_pm['Estimated Due'].strftime('%Y-%m-%d %H:%M')}
+- Priority: {latest_pm['Priority']}
+
+## Technician Activity
+{latest_actions}
+
+## Recommended Supervisor Review
+- Review open tickets and confirm assignment.
+- Check any high-risk tool before the next production run.
+- Validate recurring root causes against action history.
+- Export audit trail for shift review if thresholds or ticket status changed.
+"""
+
+
 def action_log_dataframe() -> pd.DataFrame:
     columns = [
         "timestamp",
@@ -1561,12 +1689,15 @@ with audit_tab:
 st.divider()
 
 section_label("Fab Command Center")
-impact_tab, simulator_tab, replay_tab, executive_tab = st.tabs(
+impact_tab, live_tab, simulator_tab, replay_tab, quality_tab, executive_tab, report_tab = st.tabs(
     [
         "Downtime And Scrap Impact",
+        "Live Feed Simulator",
         "Scenario Simulator",
         "Incident Replay",
+        "Model Quality Monitor",
         "Executive Summary",
+        "Operations Report",
     ]
 )
 
@@ -1601,6 +1732,37 @@ with impact_tab:
                 ],
             ),
             unsafe_allow_html=True,
+        )
+
+with live_tab:
+    live_tool = st.selectbox("Live feed tool", options=tool_options, index=0, key="live_feed_tool")
+    live_feed = live_feed_simulation(features, live_tool)
+    if live_feed.empty:
+        st.info("No live feed simulation rows available.")
+    else:
+        latest_projection = live_feed.tail(1).iloc[0]
+        st.markdown(
+            f"<div class='cmp-action'><strong>Simulated live feed:</strong> {escape(live_tool)} projects "
+            f"{escape(str(latest_projection['rule_risk_level']).upper())} risk in the next 6 hours "
+            f"with {int(latest_projection['rule_risk_points'])} rule points if the current drift continues.</div>",
+            unsafe_allow_html=True,
+        )
+        st.altair_chart(live_feed_chart(live_feed), width="stretch")
+        st.dataframe(
+            live_feed[
+                [
+                    "timestamp",
+                    "feed_type",
+                    "rule_risk_level",
+                    "rule_risk_points",
+                    "vibration",
+                    "slurry_flow_rate",
+                    "wafer_removal_rate",
+                    "process_drift_nm",
+                ]
+            ].sort_values("timestamp", ascending=False),
+            width="stretch",
+            hide_index=True,
         )
 
 with simulator_tab:
@@ -1666,6 +1828,40 @@ with replay_tab:
         ].sort_values("timestamp", ascending=False)
         st.dataframe(replay_summary, width="stretch", hide_index=True)
 
+with quality_tab:
+    quality = model_quality_summary(predictions)
+    overall_accuracy = (
+        predictions["maintenance_state"] == predictions["predicted_maintenance_state"]
+    ).mean()
+    low_confidence_rows = int((predictions["model_confidence"] < 0.90).sum())
+    card_grid(
+        [
+            kpi_card("Model accuracy", f"{overall_accuracy:.1%}", "Prediction agreement on generated test rows", "good"),
+            kpi_card("Low-confidence rows", str(low_confidence_rows), "Rows below 90% confidence", "warn" if low_confidence_rows else "good"),
+            kpi_card("Avg maint. probability", f"{predictions['prob_maintenance_needed'].mean():.1%}", "Mean maintenance-needed probability", "teal"),
+            kpi_card("Review queue", str(int((predictions["review_priority"] != "normal_monitoring").sum())), "Model rows needing review", "warn"),
+        ],
+        "cmp-kpi-grid",
+    )
+    st.dataframe(quality, width="stretch", hide_index=True)
+    quality_chart = (
+        alt.Chart(quality)
+        .mark_bar()
+        .encode(
+            x=alt.X("confidence_band:N", title="Confidence band"),
+            y=alt.Y("accuracy:Q", title="Accuracy"),
+            tooltip=[
+                alt.Tooltip("confidence_band:N"),
+                alt.Tooltip("rows:Q"),
+                alt.Tooltip("accuracy:Q", format=".1%"),
+                alt.Tooltip("avg_maintenance_probability:Q", format=".1%"),
+            ],
+        )
+        .properties(height=300)
+    )
+    st.altair_chart(style_chart(quality_chart), width="stretch")
+    st.caption("In a production deployment this page would monitor drift, false positives, confirmed root causes, and retraining triggers.")
+
 with executive_tab:
     pm_calendar = estimate_pm_calendar(features)
     open_priorities = summary[summary["rule_risk_level"] != "normal"].sort_values(
@@ -1692,6 +1888,19 @@ with executive_tab:
         data=executive_text.encode("utf-8"),
         file_name="cmp_executive_summary.txt",
         mime="text/plain",
+    )
+
+with report_tab:
+    tickets = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
+    actions = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
+    pm_calendar = estimate_pm_calendar(features)
+    report_text = professional_report(summary, tickets, actions, pm_calendar)
+    st.markdown(report_text)
+    st.download_button(
+        "Download operations report",
+        data=report_text.encode("utf-8"),
+        file_name="cmp_operations_report.md",
+        mime="text/markdown",
     )
 
 st.divider()

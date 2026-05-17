@@ -71,7 +71,7 @@ The Streamlit dashboard shows:
 
 - Current tool priority
 - Industrial Product Console with role context, persistent tickets, configurable thresholds, and audit trail
-- Fab Command Center with downtime, scrap, incident replay, scenario simulation, and executive summary views
+- Fab Command Center with live-feed simulation, downtime, scrap, incident replay, scenario simulation, model quality, reports, and executive summary views
 - Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact
 - Root-cause probability estimates for each selected CMP tool
 - Before-vs-after maintenance reset behavior
@@ -297,6 +297,10 @@ Expanded version:
 Industrial product version:
 
 > I built an industrial-style CMP equipment health platform with persistent maintenance tickets, technician action history, configurable alert thresholds, audit logging, predictive maintenance scoring, PM planning, root-cause guidance, cost impact reporting, and shift handoff support.
+
+Latest product upgrade:
+
+> The platform now includes a simulated live sensor feed, model quality monitor, and downloadable operations report so supervisors can review risk, maintenance planning, model confidence, and technician activity from one product console.
 
 ## Limitations
 
