@@ -72,6 +72,8 @@ The Streamlit dashboard shows:
 - Current tool priority
 - Industrial Product Console with role context, persistent tickets, configurable thresholds, and audit trail
 - Streamlined product navigation with executive, industrial ops, fab simulation, technician workflow, and model analytics workspaces
+- System status and data freshness bar with runtime clock, source timestamp, feed mode, and integration state
+- Deployment readiness workspace with data contract, integration points, threshold configuration, and validation checklist
 - Ticket detail drilldowns, role-based permissions, threshold-driven scoring, and CSV ingestion
 - Fab Command Center with live-feed simulation, downtime, scrap, incident replay, scenario simulation, model quality, reports, and executive summary views
 - Technician Troubleshooting Mode with likely causes, checks, urgency, and business impact

@@ -1,6 +1,7 @@
 from pathlib import Path
 from html import escape
 import sqlite3
+from datetime import datetime
 
 import altair as alt
 import pandas as pd
@@ -563,10 +564,44 @@ st.markdown(
         box-shadow: var(--cmp-shadow-soft);
     }
 
+    .cmp-status-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.65rem;
+        margin: 0.25rem 0 1rem;
+    }
+
+    .cmp-status-pill {
+        background: rgba(255,255,255,0.88);
+        border: 1px solid var(--cmp-border);
+        border-radius: 10px;
+        padding: 0.7rem 0.8rem;
+        box-shadow: var(--cmp-shadow-soft);
+    }
+
+    .cmp-status-label {
+        color: var(--cmp-muted);
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+    }
+
+    .cmp-status-value {
+        color: var(--cmp-text);
+        font-size: 0.9rem;
+        font-weight: 850;
+        margin-top: 0.16rem;
+    }
+
+    .cmp-status-value.good { color: var(--cmp-good); }
+    .cmp-status-value.warn { color: var(--cmp-warn); }
+    .cmp-status-value.danger { color: var(--cmp-danger); }
+
     @media (max-width: 1100px) {
         .cmp-command-grid,
         .cmp-kpi-grid,
-        .cmp-workspace-grid {
+        .cmp-workspace-grid,
+        .cmp-status-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
@@ -574,7 +609,8 @@ st.markdown(
     @media (max-width: 760px) {
         .cmp-command-grid,
         .cmp-kpi-grid,
-        .cmp-workspace-grid {
+        .cmp-workspace-grid,
+        .cmp-status-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -949,6 +985,78 @@ def workspace_cards() -> str:
         for title, body in cards
     )
     return f"<div class='cmp-workspace-grid'>{rendered}</div>"
+
+
+def status_pill(label: str, value: str, state: str = "") -> str:
+    state_class = f" {state}" if state else ""
+    return (
+        "<div class='cmp-status-pill'>"
+        f"<div class='cmp-status-label'>{escape(label)}</div>"
+        f"<div class='cmp-status-value{state_class}'>{escape(value)}</div>"
+        "</div>"
+    )
+
+
+def status_grid(items: list[tuple[str, str, str]]) -> str:
+    rendered = "".join(status_pill(label, value, state) for label, value, state in items)
+    return f"<div class='cmp-status-grid'>{rendered}</div>"
+
+
+def freshness_status(latest_data_timestamp: pd.Timestamp, runtime_timestamp: datetime) -> tuple[str, str]:
+    age = runtime_timestamp - latest_data_timestamp.to_pydatetime()
+    age_hours = age.total_seconds() / 3600
+    if age_hours <= 2:
+        return "Current", "good"
+    if age_hours <= 24:
+        return f"{age_hours:.1f}h old", "warn"
+    return "Demo snapshot", "warn"
+
+
+def deployment_readiness_report(
+    thresholds: dict[str, float],
+    latest_data_timestamp: pd.Timestamp,
+    runtime_timestamp: datetime,
+) -> str:
+    threshold_lines = "\n".join(
+        f"- {key}: {value}" for key, value in sorted(thresholds.items())
+    )
+    return f"""# PlanarIQ Deployment Readiness
+
+## Runtime Status
+- Application runtime: {runtime_timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+- Latest source data timestamp: {latest_data_timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+- Current data mode: Synthetic CMP demo data
+- Sensor feed state: Simulated, ready for historian or CSV integration
+- Product database: SQLite demo database connected
+
+## Required Production Integrations
+- Equipment historian, SECS/GEM, EDA, MES export, or scheduled CSV ingestion
+- Enterprise authentication and role mapping
+- Production database with backup and retention policy
+- Change-controlled alert threshold governance
+- Model validation against real maintenance and process history
+
+## Expected Data Contract
+- timestamp
+- tool_id
+- vibration
+- slurry_flow_rate
+- pad_life_pct
+- retaining_ring_life_pct
+- wafer_removal_rate
+- process_drift_nm
+- alarm_count
+
+## Active Threshold Configuration
+{threshold_lines}
+
+## Production Validation Checklist
+- Confirm thresholds with equipment, process, and maintenance engineers
+- Measure false positives and missed detections by tool type
+- Tie tickets to verified technician closeout and root cause
+- Audit user actions, threshold changes, and ticket status changes
+- Validate model drift and retraining triggers before operational use
+"""
 
 
 def active_alerts(row: pd.Series) -> list[str]:
@@ -1659,6 +1767,7 @@ product_area = st.radio(
         "Fab simulations",
         "Technician workflow",
         "Model analytics",
+        "Deployment readiness",
         "Full command center",
     ],
     horizontal=True,
@@ -1749,6 +1858,30 @@ fleet_accent = (
     else "good"
 )
 threshold_values = load_threshold_values()
+runtime_timestamp = datetime.now()
+freshness_label, freshness_state = freshness_status(latest_timestamp, runtime_timestamp)
+data_mode = st.sidebar.selectbox(
+    "Data mode",
+    [
+        "Synthetic CMP demo data",
+        "Simulated live feed",
+        "Uploaded CSV scoring",
+        "Historian connector placeholder",
+    ],
+)
+
+st.markdown(
+    status_grid(
+        [
+            ("Runtime clock", runtime_timestamp.strftime("%b %d, %Y %I:%M %p"), "good"),
+            ("Source timestamp", latest_timestamp.strftime("%b %d, %Y %I:%M %p"), freshness_state),
+            ("Data freshness", freshness_label, freshness_state),
+            ("Feed mode", data_mode, "warn" if "demo" in data_mode.lower() or "placeholder" in data_mode.lower() else "good"),
+            ("System status", "Integration ready", "good"),
+        ]
+    ),
+    unsafe_allow_html=True,
+)
 
 if product_area == "Executive overview":
     section_label("Executive Overview")
@@ -1782,6 +1915,31 @@ if product_area == "Executive overview":
         "Download operations report",
         data=executive_report.encode("utf-8"),
         file_name="cmp_operations_report.md",
+        mime="text/markdown",
+    )
+    st.stop()
+
+if product_area == "Deployment readiness":
+    section_label("Deployment Readiness")
+    readiness_text = deployment_readiness_report(
+        threshold_values,
+        latest_timestamp,
+        runtime_timestamp,
+    )
+    card_grid(
+        [
+            kpi_card("Data source", data_mode, "Current configured runtime mode", "warn" if "demo" in data_mode.lower() else "teal"),
+            kpi_card("Product DB", "Connected", "SQLite demo persistence active", "good"),
+            kpi_card("Alert engine", "Active", "Threshold-driven simulator and upload scoring", "good"),
+            kpi_card("Production state", "Integration ready", "Needs fab data validation", "warn"),
+        ],
+        "cmp-kpi-grid",
+    )
+    st.markdown(readiness_text)
+    st.download_button(
+        "Download deployment readiness report",
+        data=readiness_text.encode("utf-8"),
+        file_name="planariq_deployment_readiness.md",
         mime="text/markdown",
     )
     st.stop()
@@ -1882,47 +2040,6 @@ action_view = filtered_summary[
     ]
 ].sort_values(["rule_risk_level", "tool_id"], ascending=[True, True])
 st.dataframe(action_view, width="stretch", hide_index=True)
-
-if product_area == "Executive overview":
-    section_label("Executive Review")
-    pm_calendar_overview = estimate_pm_calendar(features)
-    tickets_overview = read_db("SELECT * FROM maintenance_tickets ORDER BY id DESC")
-    actions_overview = read_db("SELECT * FROM technician_actions ORDER BY id DESC")
-    open_ticket_count = (
-        int((tickets_overview["status"] != "Closed").sum())
-        if not tickets_overview.empty
-        else 0
-    )
-    next_pm = pm_calendar_overview.iloc[0]
-    st.markdown(workspace_cards(), unsafe_allow_html=True)
-    card_grid(
-        [
-            kpi_card("Open work orders", str(open_ticket_count), "Persistent maintenance tickets", "warn" if open_ticket_count else "good"),
-            kpi_card("Next PM tool", str(next_pm["Tool"]), str(next_pm["Next PM Item"]), "teal"),
-            kpi_card("Hours to PM", f"{float(next_pm['Hours Until Due']):.1f}", str(next_pm["Priority"]), "warn"),
-            kpi_card("Action history", str(len(actions_overview)), "Technician records saved", "teal"),
-        ],
-        "cmp-kpi-grid",
-    )
-    executive_report = professional_report(
-        summary,
-        tickets_overview,
-        actions_overview,
-        pm_calendar_overview,
-    )
-    st.markdown(executive_report)
-    st.download_button(
-        "Download operations report",
-        data=executive_report.encode("utf-8"),
-        file_name="cmp_operations_report.md",
-        mime="text/markdown",
-    )
-    st.markdown(
-        "<div class='cmp-action'><strong>Navigation:</strong> Choose Industrial ops, Fab simulations, "
-        "Technician workflow, or Model analytics in the sidebar to open the specialist workspaces.</div>",
-        unsafe_allow_html=True,
-    )
-    st.stop()
 
 if product_area == "Model analytics":
     section_label("Model Analytics")
